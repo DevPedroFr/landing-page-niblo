@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home — Niblo Cloud</title>
+<title>Sobre — Niblo Cloud</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +14,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="solucoes.html">Soluções</a></li>
-    <li><a href="sobre.html">Sobre</a></li>
+    <li><a href="sobre.html" class="nav-active">Sobre</a></li>
     <li><a href="parceiros.html">Parceiros</a></li>
     <li><a href="blog.html">Blog</a></li>
     <li><a href="contato.html" class="nav-cta">Contato</a></li>
@@ -28,93 +28,68 @@
     <span></span><span></span><span></span>
   </div>
 </nav>
-<section id="home">
-
-  <svg class="hero-svg-decor" viewBox="0 0 1400 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-    <g stroke="rgba(255,255,255,0.18)" stroke-width="1.2" fill="none">
-      <polyline points="420,80 480,80 480,140 560,140"/>
-      <polyline points="560,140 620,140 620,200 700,200"/>
-      <polyline points="700,200 760,200 760,120 840,120"/>
-      <polyline points="840,120 900,120 900,80 980,80"/>
-      <polyline points="980,80 1040,80 1040,160 1120,160"/>
-      <polyline points="1120,160 1180,160 1180,240 1280,240"/>
-      <polyline points="420,300 500,300 500,380 600,380"/>
-      <polyline points="600,380 680,380 680,320 760,320"/>
-      <polyline points="760,320 820,320 820,420 940,420"/>
-      <polyline points="940,420 1020,420 1020,360 1100,360"/>
-      <polyline points="1100,360 1160,360 1160,440 1300,440"/>
-    </g>
-    <g fill="rgba(255,255,255,0.3)">
-      <circle cx="480" cy="80" r="3"/><circle cx="480" cy="140" r="3"/>
-      <circle cx="560" cy="140" r="3"/><circle cx="700" cy="200" r="3"/>
-      <circle cx="760" cy="120" r="3"/><circle cx="840" cy="120" r="3"/>
-      <circle cx="900" cy="80" r="3"/><circle cx="980" cy="80" r="3"/>
-      <circle cx="1040" cy="160" r="3"/><circle cx="1120" cy="160" r="3"/>
-      <circle cx="1180" cy="240" r="3"/>
-      <circle cx="500" cy="300" r="3"/><circle cx="500" cy="380" r="3"/>
-      <circle cx="680" cy="380" r="3"/><circle cx="680" cy="320" r="3"/>
-      <circle cx="820" cy="320" r="3"/><circle cx="820" cy="420" r="3"/>
-      <circle cx="1020" cy="360" r="3"/><circle cx="1100" cy="360" r="3"/>
-      <circle cx="1160" cy="440" r="3"/>
-    </g>
-    <g fill="rgba(255,255,255,0.1)">
-      <path d="M700 55 a20 20 0 0 1 40 0 a13 13 0 0 1 -6 24 H706 a13 13 0 0 1 -6-24z"/>
-      <path d="M900 335 a15 15 0 0 1 30 0 a10 10 0 0 1 -4 18 H904 a10 10 0 0 1 -4-18z"/>
-      <path d="M1060 85 a18 18 0 0 1 36 0 a12 12 0 0 1 -5 22 H1065 a12 12 0 0 1 -5-22z"/>
-      <path d="M1185 295 a13 13 0 0 1 26 0 a9 9 0 0 1 -4 16 H1189 a9 9 0 0 1 -4-16z"/>
-      <path d="M785 395 a11 11 0 0 1 22 0 a7 7 0 0 1 -3 13 H788 a7 7 0 0 1 -3-13z"/>
-      <path d="M1300 145 a17 17 0 0 1 34 0 a11 11 0 0 1 -5 21 H1305 a11 11 0 0 1 -5-21z"/>
-      <path d="M640 435 a12 12 0 0 1 24 0 a8 8 0 0 1 -4 15 H644 a8 8 0 0 1 -4-15z"/>
-    </g>
-  </svg>
-  <div class="hero-visual">
-    <div class="hero-circle-wrap">
-      <div class="hero-ring hero-ring-1"></div>
-      <div class="hero-ring hero-ring-2"></div>
-      <div class="hero-ring hero-ring-3"></div>
-      <div class="hero-circle-inner">
-        <img src="images/logo.png" alt="Niblo Cloud" class="hero-logo-img">
+<section id="sobre" style="padding:140px 6% 80px;background:white;">
+  <div style="text-align:center;margin-bottom:60px;" class="reveal">
+    <span class="section-tag">Sobre nós</span>
+    <h2 class="section-title">Missão, Visão e Valores</h2>
+    <p style="color:var(--muted);max-width:500px;margin:0 auto;line-height:1.7;font-weight:300;">
+      Passe o mouse sobre os cards para conhecer o que nos move.
+    </p>
+  </div>
+  <div class="mvv-grid">
+    <div class="mvv-card reveal">
+      <div class="mvv-card-inner">
+        <div class="mvv-front"><span class="mvv-title-layer">Missão</span></div>
+        <div class="mvv-back"><p>[ Texto da missão — a ser fornecido pelo cliente ]</p></div>
+      </div>
+    </div>
+    <div class="mvv-card reveal">
+      <div class="mvv-card-inner">
+        <div class="mvv-front"><span class="mvv-title-layer">Visão</span></div>
+        <div class="mvv-back"><p>[ Texto da visão — a ser fornecido pelo cliente ]</p></div>
+      </div>
+    </div>
+    <div class="mvv-card reveal">
+      <div class="mvv-card-inner">
+        <div class="mvv-front"><span class="mvv-title-layer">Valores</span></div>
+        <div class="mvv-back"><p>[ Texto dos valores — a ser fornecido pelo cliente ]</p></div>
       </div>
     </div>
   </div>
-  <div class="hero-content">
-    <h1 class="hero-title">
-      A sua <span class="gradient-text-orange">nuvem</span> personalizada<br>e customizada
-    </h1>
-    <p class="hero-desc">Segurança e conectividade em cada camada.</p>
-    <div class="hero-actions">
-      <a href="contato.html" class="btn-primary-hero">Migrar para Niblo →</a>
-      <a href="solucoes.html" class="btn-secondary-hero">Ver soluções</a>
+</section>
+
+<section style="background:var(--surface);padding:80px 6%;border-top:1px solid var(--border);">
+  <div class="quem-somos-layout">
+    <div class="quem-somos-text reveal">
+      <span class="section-tag">Quem somos</span>
+      <h2 class="section-title">Uma cloud que é parceira do seu negócio</h2>
+      <p class="section-desc">
+        [ Texto institucional "Quem Somos" — a ser fornecido pelo cliente. ]
+      </p>
+    </div>
+    <div class="quem-somos-img reveal">
+      <div class="img-placeholder" style="height:340px;border-radius:20px;">
+        <span class="ph-icon">🏢</span>
+        <span class="ph-label">[ Foto do time / escritório / operação — enviar arquivo ]</span>
+      </div>
     </div>
   </div>
 </section>
-<div id="stats">
-  <p class="stats-title">Números que demonstram nossa capacidade</p>
-  <div class="stats-grid">
-    <div class="stat-item reveal"><span class="stat-number" data-target="200">0</span><span class="stat-label">Clientes atendidos</span></div>
-    <div class="stat-item reveal"><span class="stat-number" data-target="23">0</span><span class="stat-label">Anos de serviço no mercado</span></div>
-    <div class="stat-item reveal"><span class="stat-number" data-target="7000">0</span><span class="stat-label">Servidores ativos</span></div>
-    <div class="stat-item reveal"><span class="stat-number">1,7 PB</span><span class="stat-label">De armazenamento</span></div>
-    <div class="stat-item reveal"><span class="stat-number">7 Gbps</span><span class="stat-label">De capacidade de rede</span></div>
-  </div>
-</div>
-<section style="background:white;padding:80px 6%;">
-  <div style="text-align:center;margin-bottom:48px;" class="reveal">
-    <span class="section-tag">Últimas notícias</span>
-    <h2 class="section-title">Esteja por dentro do mundo cloud</h2>
-  </div>
-  <div class="blog-grid">
-    <div class="blog-card reveal">
-      <div class="blog-img"><span class="ph-icon">🖼️</span><span class="ph-label">[ Imagem do artigo 1 ]</span></div>
-      <div class="blog-footer"><span>Clique e saiba mais</span><a href="blog.html">→</a></div>
+
+<section style="background:white;padding:80px 6%;border-top:1px solid var(--border);">
+  <div class="onde-layout">
+    <div class="reveal">
+      <span class="section-tag">Cobertura</span>
+      <h2 class="section-title">Onde atendemos</h2>
+      <p style="color:var(--muted);font-size:1rem;line-height:1.8;font-weight:300;">
+        [ Texto descritivo sobre regiões/estados/países atendidos — a ser fornecido pelo cliente. ]
+      </p>
     </div>
-    <div class="blog-card reveal">
-      <div class="blog-img"><span class="ph-icon">🖼️</span><span class="ph-label">[ Imagem do artigo 2 ]</span></div>
-      <div class="blog-footer"><span>Clique e saiba mais</span><a href="blog.html">→</a></div>
-    </div>
-    <div class="blog-card reveal">
-      <div class="blog-img"><span class="ph-icon">🖼️</span><span class="ph-label">[ Imagem do artigo 3 ]</span></div>
-      <div class="blog-footer"><span>Clique e saiba mais</span><a href="blog.html">→</a></div>
+    <div class="reveal">
+      <div class="map-placeholder">
+        <span class="ph-icon">🗺️</span>
+        <span class="ph-label">[ Mapa de cobertura — enviar arquivo ]</span>
+      </div>
     </div>
   </div>
 </section>

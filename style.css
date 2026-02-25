@@ -946,3 +946,9 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
   .hero-circle-inner { width: 98px; height: 98px; }
   .hero-logo-img { width: 65px; }
 }
+
+/* ── Nav active state ── */
+.nav-links a.nav-active {
+  color: var(--blue);
+  font-weight: 600;
+}
