@@ -76,20 +76,36 @@ nav {
   font-weight: 600 !important;
 }
 
-.nav-social { display: flex; gap: 10px; }
+.nav-social { 
+  display: flex; 
+  gap: 10px; 
+}
+
 .nav-social a {
-  width: 32px; height: 32px;
+  width: 32px; 
+  height: 32px;
   background: var(--surface2);
   border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--muted);
-  font-size: 0.75rem;
-  font-weight: 700;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
   text-decoration: none;
   transition: all 0.2s;
-  font-family: 'Syne', sans-serif;
+  overflow: hidden;
 }
-.nav-social a:hover { background: var(--surface); color: var(--text); }
+
+.nav-social a:hover { 
+  background: var(--surface); 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.nav-social a img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
 
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
 .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
