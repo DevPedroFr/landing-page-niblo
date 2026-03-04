@@ -29,64 +29,78 @@
   </div>
 </nav>
 <section id="home">
-
   <svg class="hero-svg-decor" viewBox="0 0 1400 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-    <g stroke="rgba(255,255,255,0.18)" stroke-width="1.2" fill="none">
-      <polyline points="420,80 480,80 480,140 560,140"/>
-      <polyline points="560,140 620,140 620,200 700,200"/>
-      <polyline points="700,200 760,200 760,120 840,120"/>
-      <polyline points="840,120 900,120 900,80 980,80"/>
-      <polyline points="980,80 1040,80 1040,160 1120,160"/>
-      <polyline points="1120,160 1180,160 1180,240 1280,240"/>
-      <polyline points="420,300 500,300 500,380 600,380"/>
-      <polyline points="600,380 680,380 680,320 760,320"/>
-      <polyline points="760,320 820,320 820,420 940,420"/>
-      <polyline points="940,420 1020,420 1020,360 1100,360"/>
-      <polyline points="1100,360 1160,360 1160,440 1300,440"/>
+    <g class="circuit-lines" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none">
+      <polyline class="circuit-line" points="420,80 480,80 480,140 560,140"/>
+      <polyline class="circuit-line" points="560,140 620,140 620,200 700,200" style="animation-delay: 0.3s"/>
+      <polyline class="circuit-line" points="700,200 760,200 760,120 840,120" style="animation-delay: 0.6s"/>
+      <polyline class="circuit-line" points="840,120 900,120 900,80 980,80" style="animation-delay: 0.9s"/>
+      <polyline class="circuit-line" points="980,80 1040,80 1040,160 1120,160" style="animation-delay: 1.2s"/>
+      <polyline class="circuit-line" points="1120,160 1180,160 1180,240 1280,240" style="animation-delay: 1.5s"/>
+      <polyline class="circuit-line" points="420,300 500,300 500,380 600,380" style="animation-delay: 1.8s"/>
+      <polyline class="circuit-line" points="600,380 680,380 680,320 760,320" style="animation-delay: 2.1s"/>
+      <polyline class="circuit-line" points="760,320 820,320 820,420 940,420" style="animation-delay: 2.4s"/>
+      <polyline class="circuit-line" points="940,420 1020,420 1020,360 1100,360" style="animation-delay: 2.7s"/>
+      <polyline class="circuit-line" points="1100,360 1160,360 1160,440 1300,440" style="animation-delay: 3s"/>
     </g>
-    <g fill="rgba(255,255,255,0.3)">
-      <circle cx="480" cy="80" r="3"/><circle cx="480" cy="140" r="3"/>
-      <circle cx="560" cy="140" r="3"/><circle cx="700" cy="200" r="3"/>
-      <circle cx="760" cy="120" r="3"/><circle cx="840" cy="120" r="3"/>
-      <circle cx="900" cy="80" r="3"/><circle cx="980" cy="80" r="3"/>
-      <circle cx="1040" cy="160" r="3"/><circle cx="1120" cy="160" r="3"/>
-      <circle cx="1180" cy="240" r="3"/>
-      <circle cx="500" cy="300" r="3"/><circle cx="500" cy="380" r="3"/>
-      <circle cx="680" cy="380" r="3"/><circle cx="680" cy="320" r="3"/>
-      <circle cx="820" cy="320" r="3"/><circle cx="820" cy="420" r="3"/>
-      <circle cx="1020" cy="360" r="3"/><circle cx="1100" cy="360" r="3"/>
-      <circle cx="1160" cy="440" r="3"/>
+    <g class="circuit-dots" fill="rgba(255,255,255,0.6)">
+      <circle class="circuit-dot" cx="480" cy="80" r="3" style="animation-delay: 0.1s"/>
+      <circle class="circuit-dot" cx="480" cy="140" r="3" style="animation-delay: 0.15s"/>
+      <circle class="circuit-dot" cx="560" cy="140" r="3" style="animation-delay: 0.2s"/>
+      <circle class="circuit-dot" cx="700" cy="200" r="3" style="animation-delay: 0.5s"/>
+      <circle class="circuit-dot" cx="760" cy="120" r="3" style="animation-delay: 0.7s"/>
+      <circle class="circuit-dot" cx="840" cy="120" r="3" style="animation-delay: 0.8s"/>
+      <circle class="circuit-dot" cx="900" cy="80" r="3" style="animation-delay: 1.0s"/>
+      <circle class="circuit-dot" cx="980" cy="80" r="3" style="animation-delay: 1.1s"/>
+      <circle class="circuit-dot" cx="1040" cy="160" r="3" style="animation-delay: 1.3s"/>
+      <circle class="circuit-dot" cx="1120" cy="160" r="3" style="animation-delay: 1.4s"/>
+      <circle class="circuit-dot" cx="1180" cy="240" r="3" style="animation-delay: 1.6s"/>
+      <circle class="circuit-dot" cx="500" cy="300" r="3" style="animation-delay: 1.9s"/>
+      <circle class="circuit-dot" cx="500" cy="380" r="3" style="animation-delay: 2.0s"/>
+      <circle class="circuit-dot" cx="680" cy="380" r="3" style="animation-delay: 2.2s"/>
+      <circle class="circuit-dot" cx="680" cy="320" r="3" style="animation-delay: 2.25s"/>
+      <circle class="circuit-dot" cx="820" cy="320" r="3" style="animation-delay: 2.5s"/>
+      <circle class="circuit-dot" cx="820" cy="420" r="3" style="animation-delay: 2.6s"/>
+      <circle class="circuit-dot" cx="1020" cy="360" r="3" style="animation-delay: 2.8s"/>
+      <circle class="circuit-dot" cx="1100" cy="360" r="3" style="animation-delay: 2.9s"/>
+      <circle class="circuit-dot" cx="1160" cy="440" r="3" style="animation-delay: 3.1s"/>
     </g>
-    <g fill="rgba(255,255,255,0.1)">
-      <path d="M700 55 a20 20 0 0 1 40 0 a13 13 0 0 1 -6 24 H706 a13 13 0 0 1 -6-24z"/>
-      <path d="M900 335 a15 15 0 0 1 30 0 a10 10 0 0 1 -4 18 H904 a10 10 0 0 1 -4-18z"/>
-      <path d="M1060 85 a18 18 0 0 1 36 0 a12 12 0 0 1 -5 22 H1065 a12 12 0 0 1 -5-22z"/>
-      <path d="M1185 295 a13 13 0 0 1 26 0 a9 9 0 0 1 -4 16 H1189 a9 9 0 0 1 -4-16z"/>
-      <path d="M785 395 a11 11 0 0 1 22 0 a7 7 0 0 1 -3 13 H788 a7 7 0 0 1 -3-13z"/>
-      <path d="M1300 145 a17 17 0 0 1 34 0 a11 11 0 0 1 -5 21 H1305 a11 11 0 0 1 -5-21z"/>
-      <path d="M640 435 a12 12 0 0 1 24 0 a8 8 0 0 1 -4 15 H644 a8 8 0 0 1 -4-15z"/>
+    <g class="puzzle-pieces" fill="rgba(26,108,245,0.2)">
+      <!-- Puzzle piece 1 -->
+      <path d="M700 55 h30 v8 a4 4 0 0 0 8 0 v-8 h12 v25 h-8 a4 4 0 0 0 0 8 h8 v12 h-50 v-12 h8 a4 4 0 0 0 0-8 h-8 z"/>
+      <!-- Puzzle piece 2 -->
+      <path d="M900 335 h25 v6 a3 3 0 0 0 6 0 v-6 h9 v20 h-6 a3 3 0 0 0 0 6 h6 v9 h-40 v-9 h6 a3 3 0 0 0 0-6 h-6 z"/>
+      <!-- Puzzle piece 3 -->
+      <path d="M1060 85 h28 v7 a4 4 0 0 0 8 0 v-7 h11 v23 h-7 a4 4 0 0 0 0 8 h7 v11 h-47 v-11 h7 a4 4 0 0 0 0-8 h-7 z"/>
+      <!-- Puzzle piece 4 -->
+      <path d="M1185 295 h22 v6 a3 3 0 0 0 6 0 v-6 h9 v18 h-6 a3 3 0 0 0 0 6 h6 v9 h-37 v-9 h6 a3 3 0 0 0 0-6 h-6 z"/>
+      <!-- Puzzle piece 5 -->
+      <path d="M785 395 h20 v5 a3 3 0 0 0 6 0 v-5 h8 v16 h-5 a3 3 0 0 0 0 6 h5 v8 h-34 v-8 h5 a3 3 0 0 0 0-6 h-5 z"/>
+      <!-- Puzzle piece 6 -->
+      <path d="M1300 145 h27 v7 a4 4 0 0 0 8 0 v-7 h11 v22 h-7 a4 4 0 0 0 0 8 h7 v11 h-46 v-11 h7 a4 4 0 0 0 0-8 h-7 z"/>
+      <!-- Puzzle piece 7 -->
+      <path d="M640 435 h21 v6 a3 3 0 0 0 6 0 v-6 h9 v17 h-6 a3 3 0 0 0 0 6 h6 v9 h-36 v-9 h6 a3 3 0 0 0 0-6 h-6 z"/>
     </g>
   </svg>
-  <div class="hero-visual">
-    <div class="hero-circle-wrap">
-      <div class="hero-ring hero-ring-1"></div>
-      <div class="hero-ring hero-ring-2"></div>
-      <div class="hero-ring hero-ring-3"></div>
-      <div class="hero-circle-inner">
-        <img src="images/logo.png" alt="Niblo Cloud" class="hero-logo-img">
-      </div>
-    </div>
-  </div>
+  
   <div class="hero-content">
     <h1 class="hero-title">
-      A sua <span class="gradient-text-orange">nuvem</span> personalizada<br>e customizada
+      Não é sobre estar nas nuvens<br>
+      é sobre ter a sua cloud <span class="highlight-dark">sob medida.</span><br>
+      <span class="highlight-dark">Flexibilidade</span> <span class="highlight-orange">real</span> para negócios que<br>
+      nasceram para ser <span class="highlight-dark">disruptivos.</span>
     </h1>
-    <p class="hero-desc">Segurança e conectividade em cada camada.</p>
+    <p class="hero-desc">Onde o engessado quebra, nossa Cloud dobra.</p>
     <div class="hero-actions">
       <a href="contato.html" class="btn-primary-hero">Migrar para Niblo →</a>
       <a href="solucoes.html" class="btn-secondary-hero">Ver soluções</a>
     </div>
   </div>
+  
+  <div class="hero-image-wrapper">
+    <img src="images/mao.png" alt="Niblo Cloud" class="hero-hand-image">
+  </div>
+
 </section>
 <div id="stats">
   <p class="stats-title">Números que demonstram nossa capacidade</p>
@@ -101,14 +115,9 @@
 <section id="parceiros-preview" style="padding:80px 6%;background:var(--surface);">
   <div class="parceiros-layout">
     <div class="puzzle-visual reveal">
-      <svg class="puzzle-icon" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M60 40H120C124.4 40 128 43.6 128 48V72C128 72 140 72 140 84C140 96 128 96 128 96V140C128 144.4 124.4 148 120 148H96C96 148 96 136 84 136C72 136 72 148 72 148H48C43.6 148 40 144.4 40 140V116C40 116 52 116 52 104C52 92 40 92 40 92V48C40 43.6 43.6 40 48 40H60Z" stroke="url(#grad_p)" stroke-width="8" fill="none"/>
-        <defs>
-          <linearGradient id="grad_p" x1="40" y1="40" x2="148" y2="148">
-            <stop stop-color="#F5631A"/><stop offset="1" stop-color="#00C2FF"/>
-          </linearGradient>
-        </defs>
-      </svg>
+      <video class="puzzle-video" autoplay loop muted playsinline>
+        <source src="images/inicial.mp4" type="video/mp4">
+      </video>
     </div>
     <div class="reveal">
       <span class="section-tag">Parceiros</span>
@@ -133,15 +142,19 @@
   </div>
   <div class="blog-grid">
     <div class="blog-card reveal">
-      <div class="blog-img"><span class="ph-icon">🖼️</span><span class="ph-label">[ Imagem do artigo 1 ]</span></div>
+      <div class="blog-img" style="background-image:url('images/blog1.png');background-size:cover;background-position:center;"></div>
       <div class="blog-footer"><span>Clique e saiba mais</span><a href="blog.html">→</a></div>
     </div>
     <div class="blog-card reveal">
-      <div class="blog-img"><span class="ph-icon">🖼️</span><span class="ph-label">[ Imagem do artigo 2 ]</span></div>
+      <div class="blog-img" style="background-image:url('images/blog2.png');background-size:cover;background-position:center;"></div>
       <div class="blog-footer"><span>Clique e saiba mais</span><a href="blog.html">→</a></div>
     </div>
     <div class="blog-card reveal">
-      <div class="blog-img"><span class="ph-icon">🖼️</span><span class="ph-label">[ Imagem do artigo 3 ]</span></div>
+      <div class="blog-img" style="background-image:url('images/blog3.png');background-size:cover;background-position:center;"></div>
+      <div class="blog-footer"><span>Clique e saiba mais</span><a href="blog.html">→</a></div>
+    </div>
+    <div class="blog-card reveal">
+      <div class="blog-img" style="background-image:url('images/blog4.png');background-size:cover;background-position:center;"></div>
       <div class="blog-footer"><span>Clique e saiba mais</span><a href="blog.html">→</a></div>
     </div>
   </div>

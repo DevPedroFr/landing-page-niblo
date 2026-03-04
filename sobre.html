@@ -28,6 +28,7 @@
     <span></span><span></span><span></span>
   </div>
 </nav>
+
 <section id="sobre" style="padding:140px 6% 80px;background:white;">
   <div style="text-align:center;margin-bottom:60px;" class="reveal">
     <span class="section-tag">Sobre nós</span>
@@ -40,19 +41,29 @@
     <div class="mvv-card reveal">
       <div class="mvv-card-inner">
         <div class="mvv-front"><span class="mvv-title-layer">Missão</span></div>
-        <div class="mvv-back"><p>[ Texto da missão — a ser fornecido pelo cliente ]</p></div>
+        <div class="mvv-back"><p>Prover a liberdade digital através de uma Cloud flexível, personalizada e segura, que se adapta à estratégia de cada operação.</p></div>
       </div>
     </div>
     <div class="mvv-card reveal">
       <div class="mvv-card-inner">
         <div class="mvv-front"><span class="mvv-title-layer">Visão</span></div>
-        <div class="mvv-back"><p>[ Texto da visão — a ser fornecido pelo cliente ]</p></div>
+        <div class="mvv-back"><p>Ser reconhecida como a Cloud que rompe o padrão do mercado, tornando-se referência em soluções sob medida e disruptivas, onde cada empresa da nossa rede encontra flexibilidade real para evoluir com autonomia, previsibilidade e alta performance.</p></div>
       </div>
     </div>
     <div class="mvv-card reveal">
       <div class="mvv-card-inner">
         <div class="mvv-front"><span class="mvv-title-layer">Valores</span></div>
-        <div class="mvv-back"><p>[ Texto dos valores — a ser fornecido pelo cliente ]</p></div>
+        <div class="mvv-back">
+          <ul style="list-style:none;padding:0;font-size:0.85rem;line-height:1.5;color:white;">
+            <li style="margin-bottom:10px;">• <strong>Conexão estratégica</strong> — Relações sólidas baseadas em confiança e excelência</li>
+            <li style="margin-bottom:10px;">• <strong>Flexibilidade verdadeira</strong> — Tecnologia que se ajusta ao negócio</li>
+            <li style="margin-bottom:10px;">• <strong>Personalização</strong> — Soluções sob medida para cada contexto</li>
+            <li style="margin-bottom:10px;">• <strong>Inovação com impacto</strong> — Tecnologia como vantagem competitiva</li>
+            <li style="margin-bottom:10px;">• <strong>Proximidade ativa</strong> — Presença estratégica nos resultados</li>
+            <li style="margin-bottom:10px;">• <strong>Excelência operacional</strong> — Estabilidade e alta performance</li>
+            <li>• <strong>Evolução permanente</strong> — Antecipação de demandas</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -78,10 +89,9 @@ Hoje, com 24 anos de história, seguimos comprometidos com o mesmo propósito qu
       </p>
     </div>
     <div class="quem-somos-img reveal">
-      <div class="img-placeholder" style="height:340px;border-radius:20px;">
-        <span class="ph-icon">🏢</span>
-        <span class="ph-label">[ Foto do time / escritório / operação — enviar arquivo ]</span>
-      </div>
+      <video class="puzzle-video" autoplay loop muted playsinline>
+        <source src="images/quebra_cabeca.mp4" type="video/mp4">
+      </video>
     </div>
   </div>
 </section>
@@ -96,13 +106,11 @@ Hoje, com 24 anos de história, seguimos comprometidos com o mesmo propósito qu
       </p>
     </div>
     <div class="reveal">
-      <div class="map-placeholder">
-        <span class="ph-icon">🗺️</span>
-        <span class="ph-label">[ Mapa de cobertura — enviar arquivo ]</span>
-      </div>
+      <img src="images/mapa.png" alt="Mapa de Cobertura Niblo Cloud" style="width:100%;height:auto;border-radius:20px;">
     </div>
   </div>
 </section>
+
 <footer>
   <a href="index.html" class="logo">
     <img src="images/logo1.png" alt="Niblo Cloud" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:0.85;margin:-10px 0;">
@@ -116,51 +124,39 @@ Hoje, com 24 anos de história, seguimos comprometidos com o mesmo propósito qu
     <a href="contato.html">Contato</a>
   </div>
 </footer>
+
 <div class="whatsapp-float">
   <div class="whatsapp-popup" id="wpPopup">
     <h4>💬 Fale com a Niblo</h4>
     <a href="https://wa.me/551155940238" target="_blank" class="whatsapp-option">
       <div class="wo-icon">🛠️</div>
-      <div class="wo-text">
-        <strong>Suporte Técnico</strong>
-        <span>Abertura de chamados</span>
-      </div>
+      <div class="wo-text"><strong>Suporte Técnico</strong><span>Abertura de chamados</span></div>
     </a>
     <a href="https://wa.me/5511966105338" target="_blank" class="whatsapp-option">
       <div class="wo-icon">💼</div>
-      <div class="wo-text">
-        <strong>Time Comercial</strong>
-        <span>Planos e propostas</span>
-      </div>
+      <div class="wo-text"><strong>Time Comercial</strong><span>Planos e propostas</span></div>
     </a>
   </div>
   <div class="whatsapp-btn" onclick="toggleWA()">
     <img src="images/whatsapp.png" alt="WhatsApp">
   </div>
 </div>
+
 <div class="exit-popup-overlay" id="exitPopup">
   <div class="exit-popup">
     <button class="exit-popup-close" onclick="closeExit()">✕</button>
-    <img src="images/logos.png" alt="Niblo Cloud"
-         style="width:80px;height:auto;margin:0 auto 16px;display:block;">
+    <img src="images/logos.png" alt="Niblo Cloud" style="width:80px;height:auto;margin:0 auto 16px;display:block;">
     <h2>Antes de ir, que tal<br>
-      <span style="background:var(--grad);-webkit-background-clip:text;
-                   -webkit-text-fill-color:transparent;background-clip:text;">
-        economizar de verdade?
-      </span>
+      <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">economizar de verdade?</span>
     </h2>
     <p>Fale com nosso time e descubra quanto você pode economizar migrando para a Niblo Cloud.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
       <a href="contato.html" class="btn-primary" onclick="closeExit()">Falar com especialista</a>
-      <button onclick="closeExit()"
-              style="border:1px solid rgba(0,0,0,0.12);cursor:pointer;background:transparent;
-                     color:var(--muted);padding:16px 24px;border-radius:50px;
-                     font-family:'DM Sans',sans-serif;font-size:0.9rem;">
-        Agora não
-      </button>
+      <button onclick="closeExit()" style="border:1px solid rgba(0,0,0,0.12);cursor:pointer;background:transparent;color:var(--muted);padding:16px 24px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.9rem;">Agora não</button>
     </div>
   </div>
 </div>
+
 <script>
   // ── Scroll reveal ──
   const revealEls = document.querySelectorAll('.reveal');
@@ -205,10 +201,8 @@ Hoje, com 24 anos de história, seguimos comprometidos com o mesmo propósito qu
     document.getElementById('wpPopup').classList.toggle('open');
   }
 
-  // ── Exit intent: troca de aba, 1 a cada 3 vezes ──
-  // Usa sessionStorage para persistir a contagem entre páginas
+  // ── Exit intent ──
   let exitShown = false;
-
   function maybeShowExit() {
     if (exitShown) return;
     let count = parseInt(sessionStorage.getItem('tabSwitchCount') || '0') + 1;
@@ -218,15 +212,11 @@ Hoje, com 24 anos de história, seguimos comprometidos com o mesmo propósito qu
       document.getElementById('exitPopup').classList.add('show');
     }
   }
-
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') {
-      maybeShowExit();
-    }
+    if (document.visibilityState === 'hidden') maybeShowExit();
   });
-
   function closeExit() {
-    exitShown = false; // permite disparar novamente nas próximas 3 trocas
+    exitShown = false;
     document.getElementById('exitPopup').classList.remove('show');
   }
 
@@ -236,10 +226,7 @@ Hoje, com 24 anos de história, seguimos comprometidos com o mesmo propósito qu
     if (links.style.display === 'flex') {
       links.style.display = 'none';
     } else {
-      links.style.cssText =
-        'display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;' +
-        'background:rgba(255,255,255,0.97);padding:24px;gap:20px;' +
-        'border-bottom:1px solid rgba(0,0,0,0.08);z-index:99;';
+      links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:rgba(255,255,255,0.97);padding:24px;gap:20px;border-bottom:1px solid rgba(0,0,0,0.08);z-index:99;';
     }
   }
 
