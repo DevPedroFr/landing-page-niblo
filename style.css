@@ -1,3 +1,32 @@
+/* ── FILSON PRO FONT ── */
+/* 
+Para usar a fonte Filson Pro, adicione os arquivos de fonte e descomente:
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('fonts/FilsonPro-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('fonts/FilsonPro-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('fonts/FilsonPro-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('fonts/FilsonPro-Heavy.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+*/
+
 :root {
   --orange: #F5631A;
   --blue: #1A6CF5;
@@ -17,10 +46,12 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Filson Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: var(--darker);
   color: var(--text);
   overflow-x: hidden;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 /* ── NAV ── */
@@ -124,9 +155,10 @@ nav::after {
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 500;
   transition: color 0.2s;
+  letter-spacing: 0.01em;
 }
 .nav-links a:hover { color: var(--text); }
 
@@ -136,6 +168,27 @@ nav::after {
   padding: 10px 24px !important;
   border-radius: 50px !important;
   font-weight: 600 !important;
+}
+
+.nav-cloud-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--grad);
+  color: white;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  border-radius: 50px;
+  margin: 0 20px;
+  box-shadow: 0 4px 15px rgba(245, 99, 26, 0.3);
+}
+
+.nav-cloud-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 99, 26, 0.4);
 }
 
 .nav-social {
@@ -179,7 +232,7 @@ nav::after {
   align-items: center;
   justify-content: space-between;
   position: relative;
-  padding: 120px 6% 80px;
+  padding: 120px 3% 80px;
   overflow: hidden;
   gap: 60px;
   background: linear-gradient(180deg, #ff8c00 0%, #ff9933 45%, #ffa726 80%, #ffb84d 100%);
@@ -272,7 +325,7 @@ nav::after {
   position: relative;
   z-index: 3;
   flex: 1;
-  max-width: 65%;
+  max-width: 60%;
   animation: fadeUp 1s ease 0.3s both;
 }
 
@@ -317,8 +370,8 @@ nav::after {
 
 .hero-image-wrapper {
   position: relative;
-  z-index: 3;
-  flex: 0 0 40%;
+  z-index: 5;
+  flex: 0 0 36%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -412,15 +465,15 @@ nav::after {
 }
 
 .hero-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2.2rem, 4.5vw, 4rem);
-  font-weight: 800;
-  line-height: 0.95;
+  font-family: 'Filson Pro', sans-serif;
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.15;
   margin-bottom: 30px;
   color: white;
   font-style: italic;
   text-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .gradient-text-orange {
@@ -436,11 +489,14 @@ nav::after {
 
 .highlight-dark {
   background: rgba(0,35,75,0.85);
-  padding: 4px 14px;
-  border-radius: 6px;
+  padding: 10px 22px;
+  border-radius: 8px;
   color: white;
   font-style: italic;
   display: inline-block;
+  line-height: 1.15;
+  margin: 2px 8px;
+  vertical-align: baseline;
 }
 
 .highlight-orange {
@@ -449,10 +505,17 @@ nav::after {
   text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
+.highlight-white {
+  color: white;
+  font-style: italic;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-weight: 700;
+}
+
 .hero-desc {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   color: rgba(255,255,255,0.95);
-  line-height: 1.7;
+  line-height: 1.6;
   margin-bottom: 40px;
   font-weight: 400;
   font-style: italic;
@@ -478,8 +541,9 @@ nav::after {
   align-items: center;
   gap: 8px;
   transition: transform 0.2s, box-shadow 0.2s;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
   box-shadow: 0 4px 16px rgba(26,108,245,0.3);
+  letter-spacing: 0.01em;
 }
 .btn-primary-hero:hover {
   transform: translateY(-2px);
@@ -500,8 +564,9 @@ nav::after {
   align-items: center;
   gap: 8px;
   transition: all 0.2s;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  letter-spacing: 0.01em;
 }
 .btn-secondary-hero:hover {
   background: rgba(255,255,255,0.95);
@@ -526,7 +591,7 @@ nav::after {
   align-items: center;
   gap: 8px;
   transition: transform 0.2s, box-shadow 0.2s;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
 }
 .btn-primary:hover {
   transform: translateY(-2px);
@@ -546,7 +611,7 @@ nav::after {
   align-items: center;
   gap: 8px;
   transition: all 0.2s;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
 }
 .btn-secondary:hover {
   border-color: rgba(0,0,0,0.3);
@@ -607,15 +672,15 @@ nav::after {
 .stat-item:hover { background: var(--surface2); }
 
 .stat-number {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
   font-size: clamp(2rem, 3.5vw, 3.2rem);
-  font-weight: 800;
+  font-weight: 700;
   background: var(--grad2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: block;
-  line-height: 1;
+  line-height: 1.15;
   margin-bottom: 10px;
 }
 
@@ -640,10 +705,10 @@ section { padding: 100px 6%; }
 }
 
 .section-title {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 800;
-  line-height: 1.15;
+  font-weight: 700;
+  line-height: 1.25;
   margin-bottom: 24px;
   color: var(--text);
 }
@@ -695,7 +760,7 @@ section { padding: 100px 6%; }
 }
 
 .feature-text h4 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 6px;
@@ -807,9 +872,9 @@ section { padding: 100px 6%; }
 }
 
 .mvv-front .mvv-title-layer {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
   font-size: 1.6rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text);
 }
 
@@ -900,7 +965,7 @@ section { padding: 100px 6%; }
 .blog-search input {
   background: none; border: none; outline: none;
   color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
   font-size: 0.95rem;
   width: 100%;
 }
@@ -939,7 +1004,7 @@ section { padding: 100px 6%; }
   display: flex; align-items: center; justify-content: space-between;
   border-top: 1px solid var(--border);
 }
-.blog-footer span { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text); }
+.blog-footer span { font-family: 'Filson Pro', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text); }
 .blog-footer a { color: var(--blue); font-size: 1.2rem; text-decoration: none; transition: transform 0.2s; }
 .blog-footer a:hover { transform: translateX(4px); }
 
@@ -965,7 +1030,7 @@ section { padding: 100px 6%; }
   border-radius: 12px;
   padding: 14px 18px;
   color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s;
@@ -985,7 +1050,7 @@ section { padding: 100px 6%; }
   border-radius: 50px;
   font-size: 0.95rem;
   font-weight: 600;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
   cursor: pointer;
   transition: all 0.2s;
   align-self: flex-start;
@@ -1044,7 +1109,7 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
 .whatsapp-popup.open { opacity: 1; pointer-events: all; transform: translateY(0); }
 
 .whatsapp-popup h4 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Filson Pro', sans-serif;
   font-size: 0.95rem;
   margin-bottom: 16px;
   color: var(--text);
@@ -1109,9 +1174,9 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
 .exit-popup-close:hover { color: var(--text); }
 
 .exit-popup h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.6rem; font-weight: 800;
-  margin-bottom: 12px; line-height: 1.2;
+  font-family: 'Filson Pro', sans-serif;
+  font-size: 1.6rem; font-weight: 700;
+  margin-bottom: 12px; line-height: 1.3;
   color: var(--text);
 }
 .exit-popup p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 32px; }
@@ -1130,19 +1195,28 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* ── RESPONSIVE ── */
+@media (max-width: 1600px) {
+  .hero-content {
+    max-width: 58%;
+  }
+  .hero-hand-image {
+    max-width: 650px;
+  }
+}
+
 @media (max-width: 1400px) {
   #home { 
     gap: 50px; 
-    padding: 120px 5% 80px;
+    padding: 120px 3% 80px;
   }
   .hero-content {
-    max-width: 55%;
+    max-width: 56%;
   }
   .hero-image-wrapper {
     flex: 0 0 40%;
   }
   .hero-hand-image {
-    max-width: 650px;
+    max-width: 600px; 
   }
   .hero-visual {
     flex: 0 0 28%;
@@ -1158,13 +1232,13 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
 @media (max-width: 1200px) {
   #home { 
     gap: 40px; 
-    padding: 120px 5% 70px;
+    padding: 120px 3% 70px;
   }
   .hero-content {
-    max-width: 52%;
+    max-width: 54%;
   }
   .hero-image-wrapper {
-    flex: 0 0 42%;
+    flex: 0 0 45%;
   }
   .hero-hand-image {
     max-width: 550px;
@@ -1173,7 +1247,7 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
     flex: 0 0 32%;
   }
   .hero-title {
-    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
   }
 }
 
