@@ -30,7 +30,16 @@
 </nav>
 <section id="home">
   <svg class="hero-svg-decor" viewBox="0 0 1400 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-    <g class="circuit-lines" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none">
+    <defs>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <g class="circuit-lines" stroke="rgba(245,99,26,0.4)" stroke-width="2" fill="none" filter="url(#glow)">
       <polyline class="circuit-line" points="420,80 480,80 480,140 560,140"/>
       <polyline class="circuit-line" points="560,140 620,140 620,200 700,200" style="animation-delay: 0.3s"/>
       <polyline class="circuit-line" points="700,200 760,200 760,120 840,120" style="animation-delay: 0.6s"/>
@@ -43,7 +52,7 @@
       <polyline class="circuit-line" points="940,420 1020,420 1020,360 1100,360" style="animation-delay: 2.7s"/>
       <polyline class="circuit-line" points="1100,360 1160,360 1160,440 1300,440" style="animation-delay: 3s"/>
     </g>
-    <g class="circuit-dots" fill="rgba(255,255,255,0.6)">
+    <g class="circuit-dots" fill="rgba(245,99,26,0.7)">
       <circle class="circuit-dot" cx="480" cy="80" r="3" style="animation-delay: 0.1s"/>
       <circle class="circuit-dot" cx="480" cy="140" r="3" style="animation-delay: 0.15s"/>
       <circle class="circuit-dot" cx="560" cy="140" r="3" style="animation-delay: 0.2s"/>
@@ -65,7 +74,7 @@
       <circle class="circuit-dot" cx="1100" cy="360" r="3" style="animation-delay: 2.9s"/>
       <circle class="circuit-dot" cx="1160" cy="440" r="3" style="animation-delay: 3.1s"/>
     </g>
-    <g class="puzzle-pieces" fill="rgba(26,108,245,0.2)">
+    <g class="puzzle-pieces" fill="rgba(245,99,26,0.08)">
       <!-- Puzzle piece 1 -->
       <path d="M700 55 h30 v8 a4 4 0 0 0 8 0 v-8 h12 v25 h-8 a4 4 0 0 0 0 8 h8 v12 h-50 v-12 h8 a4 4 0 0 0 0-8 h-8 z"/>
       <!-- Puzzle piece 2 -->
@@ -81,12 +90,19 @@
       <!-- Puzzle piece 7 -->
       <path d="M640 435 h21 v6 a3 3 0 0 0 6 0 v-6 h9 v17 h-6 a3 3 0 0 0 0 6 h6 v9 h-36 v-9 h6 a3 3 0 0 0 0-6 h-6 z"/>
     </g>
+    <!-- Elementos decorativos geométricos -->
+    <g class="geometric-decor" opacity="0.05">
+      <circle cx="200" cy="100" r="120" fill="none" stroke="rgba(245,99,26,0.3)" stroke-width="1"/>
+      <circle cx="200" cy="100" r="80" fill="none" stroke="rgba(255,157,92,0.3)" stroke-width="1"/>
+      <circle cx="1200" cy="400" r="150" fill="none" stroke="rgba(245,99,26,0.3)" stroke-width="1"/>
+      <circle cx="1200" cy="400" r="100" fill="none" stroke="rgba(255,157,92,0.3)" stroke-width="1"/>
+    </g>
   </svg>
   
   <div class="hero-content">
     <h1 class="hero-title">
       Não é sobre estar nas nuvens é sobre ter a sua cloud <span class="highlight-dark">sob medida.</span><br>
-      Flexibilidade <span class="highlight-white">real</span> para negócios que nasceram para ser <span class="highlight-dark">disruptivos.</span>
+      Flexibilidade real para negócios que nasceram para ser <span class="highlight-dark">disruptivos.</span>
     </h1>
     <p class="hero-desc">Onde o engessado quebra, nossa Cloud dobra.</p>
     <div class="hero-actions">
