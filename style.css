@@ -163,32 +163,18 @@ nav::after {
 .nav-links a:hover { color: var(--text); }
 
 .nav-cta {
-  background: #0F3759;
-  background-size: 300% 300%;
+  background: #0D47A1;
   color: white !important;
   padding: 10px 24px !important;
   border-radius: 50px !important;
   font-weight: 600 !important;
-  animation: navCtaGradient 3s ease infinite;
   box-shadow: 0 4px 15px rgba(13, 71, 161, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s !important;
 }
 
 .nav-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(13, 71, 161, 0.5);
-}
-
-@keyframes navCtaGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  box-shadow: 0 6px 20px rgba(13, 71, 161, 0.4);
 }
 
 .nav-cloud-btn {
@@ -218,8 +204,8 @@ nav::after {
 }
 
 .nav-social a {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   background: var(--surface2);
   border-radius: 8px;
   display: flex;
@@ -237,8 +223,8 @@ nav::after {
 }
 
 .nav-social a img {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   display: block;
 }
@@ -427,7 +413,18 @@ nav::after {
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 15px 40px rgba(245,99,26,0.2));
-  animation: floatImage 3s ease-in-out infinite;
+  animation: growIn 1s ease-out forwards, floatImage 3s ease-in-out 1s infinite;
+}
+
+@keyframes growIn {
+  0% {
+    transform: scale(0.1) translateY(0px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+  }
 }
 
 @keyframes floatImage {
@@ -1058,16 +1055,18 @@ section { padding: 100px 6%; }
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid var(--border);
-  transition: all 0.3s;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
   display: block;
   text-decoration: none;
   color: inherit;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transform: translateY(0);
 }
 .blog-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(26,108,245,0.2);
-  box-shadow: 0 24px 60px rgba(0,0,0,0.1);
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(26,108,245,0.3);
+  box-shadow: 0 16px 45px rgba(26,108,245,0.18), 0 8px 25px rgba(0,0,0,0.12);
 }
 
 .blog-img {
@@ -1397,33 +1396,40 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
 /* ── BLOG POST PAGE ── */
 .back-button {
   max-width: 1200px;
-  margin: 100px auto 0 auto;
+  margin: 40px auto 0 auto;
   padding: 0 64px;
 }
 
 .back-button a {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  color: #0F3759;
+  gap: 10px;
+  background: #0D47A1;
+  color: white;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;
-  transition: all 0.3s ease;
-  padding: 8px 12px;
-  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: 12px 24px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(13, 71, 161, 0.25);
 }
 
 .back-button a:hover {
-  color: #4297D3;
-  background: rgba(66, 151, 211, 0.08);
-  transform: translateX(-4px);
+  background: #0B3D8A;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(13, 71, 161, 0.35);
 }
 
 .back-button a::before {
   content: '←';
   font-size: 1.2rem;
   font-weight: 700;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.back-button a:hover::before {
+  transform: translateX(-3px);
 }
 
 .blog-post-container {
