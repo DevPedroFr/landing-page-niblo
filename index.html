@@ -110,7 +110,82 @@
   </div>
   
   <div class="hero-image-wrapper">
-    <img src="images/mao.png" alt="Niblo Cloud" class="hero-hand-image">
+    <div class="hero-cloud-puzzle" aria-hidden="true">
+      <svg class="cloud-puzzle-svg" viewBox="0 110 580 290" xmlns="http://www.w3.org/2000/svg" overflow="visible" focusable="false">
+        <defs>
+          <linearGradient id="cloudFill" x1="0" y1="200" x2="632" y2="200" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#FF7B3D"/>
+            <stop offset="30%"  stop-color="#FF9D5C"/>
+            <stop offset="60%"  stop-color="#6DD5FF"/>
+            <stop offset="100%" stop-color="#3A8EFF"/>
+          </linearGradient>
+
+          <!-- Fill shape (exact cloud outline) -->
+          <path id="cFill" fill="url(#cloudFill)"
+            d="M 40 245 C 40 220 58 200 82 195 C 85 180 92 165 105 152 C 120 138 140 130 162 130
+               C 180 130 195 138 208 150 C 218 142 232 138 248 138 C 278 138 304 158 312 185
+               C 330 178 350 175 370 178 C 405 183 435 205 450 235
+               C 468 232 488 232 506 238 C 528 246 546 262 556 282
+               C 562 295 565 310 565 325 C 565 350 550 370 528 378
+               C 520 381 510 382 500 382 L 65 382 C 45 382 28 370 20 352
+               C 15 340 13 328 15 315 C 18 302 25 290 35 282 C 37 270 38 258 40 245 Z"/>
+
+          <!-- Clip paths (identical geometry to border paths) -->
+          <clipPath id="piece1">
+            <path d="M 40 245 C 40 220 58 200 82 195 C 85 180 92 165 105 152 C 120 138 140 130 162 130
+              C 180 130 195 138 208 150 L 225 150 L 225 185 L 210 185 L 210 220 L 225 220
+              L 225 270 L 140 270 L 140 285 L 100 285 L 100 270 L 40 270 C 38 265 38 255 40 245 Z"/>
+          </clipPath>
+          <clipPath id="piece2">
+            <path d="M 225 150 C 218 142 232 138 248 138 C 278 138 304 158 312 185
+              C 330 178 350 175 370 178 L 405 178 L 405 195 L 420 195 L 420 230 L 405 230
+              L 405 270 L 320 270 L 320 255 L 280 255 L 280 270
+              L 225 270 L 225 220 L 210 220 L 210 185 L 225 185 Z"/>
+          </clipPath>
+          <clipPath id="piece3">
+            <path d="M 405 178 C 405 183 435 205 450 235 C 468 232 488 232 506 238
+              C 528 246 546 262 556 282 L 405 282 L 405 230 L 420 230 L 420 195 L 405 195 Z"/>
+          </clipPath>
+          <clipPath id="piece4">
+            <path d="M 40 270 L 100 270 L 100 285 L 140 285 L 140 270 L 225 270
+              L 225 295 L 242 295 L 242 330 L 225 330 L 225 382
+              L 65 382 C 45 382 28 370 20 352 C 15 340 13 328 15 315 C 18 302 25 290 35 282 Z"/>
+          </clipPath>
+          <clipPath id="piece5">
+            <path d="M 225 270 L 280 270 L 280 255 L 320 255 L 320 270 L 405 270
+              L 405 292 L 390 292 L 390 328 L 405 328 L 405 382
+              L 225 382 L 225 330 L 242 330 L 242 295 L 225 295 Z"/>
+          </clipPath>
+          <clipPath id="piece6">
+            <path d="M 405 270 L 465 270 L 465 285 L 500 285 L 500 270 L 556 282
+              C 562 295 565 310 565 325 C 565 350 550 370 528 378 C 520 381 510 382 500 382
+              L 405 382 L 405 328 L 390 328 L 390 292 L 405 292 Z"/>
+          </clipPath>
+        </defs>
+
+        <g class="cloud-pieces">
+          <!-- Each piece: outer <g> gets CSS transform+shadow; inner fill <g> gets both piece clip AND master cloud clip -->
+          <g class="cloud-piece" style="--tx:-80px;--ty:-40px;--tr:-28deg">
+            <use href="#cFill" clip-path="url(#piece1)"/>
+          </g>
+          <g class="cloud-piece" style="--tx:-10px;--ty:-60px;--tr:22deg">
+            <use href="#cFill" clip-path="url(#piece2)"/>
+          </g>
+          <g class="cloud-piece" style="--tx:80px;--ty:-35px;--tr:-25deg">
+            <use href="#cFill" clip-path="url(#piece3)"/>
+          </g>
+          <g class="cloud-piece" style="--tx:-85px;--ty:50px;--tr:26deg">
+            <use href="#cFill" clip-path="url(#piece4)"/>
+          </g>
+          <g class="cloud-piece" style="--tx:10px;--ty:55px;--tr:-20deg">
+            <use href="#cFill" clip-path="url(#piece5)"/>
+          </g>
+          <g class="cloud-piece" style="--tx:90px;--ty:45px;--tr:27deg">
+            <use href="#cFill" clip-path="url(#piece6)"/>
+          </g>
+        </g>
+      </svg>
+    </div>
   </div>
 
 </section>
@@ -230,6 +305,18 @@
   </div>
 </div>
 <script>
+  // ── Cloud puzzle auto-animation ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const puzzle = document.querySelector('.hero-cloud-puzzle');
+    if (puzzle) {
+      // A small delay before starting ensures other elements have loaded
+      // and the animation is smooth.
+      setTimeout(() => {
+        puzzle.classList.add('assembled');
+      }, 800);
+    }
+  });
+
   // ── Scroll reveal ──
   const revealEls = document.querySelectorAll('.reveal');
   const revealObs = new IntersectionObserver((entries) => {
