@@ -72,7 +72,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
   </div>
 </section>
 
-<!-- ── MULTI-CLOUD ── -->
+<!-- ── MULTI-CLOUD 3D ── -->
 <section class="multicloud-section">
   <div class="multicloud-header reveal">
     <span class="section-tag">Multi-Cloud</span>
@@ -80,74 +80,94 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     <p class="multicloud-subtitle">Integração de dados, escalabilidade e segurança no seu ambiente</p>
   </div>
 
-  <div class="multicloud-wrap">
+  <div class="mc3d-scene reveal">
 
-    <!-- NIBLO no topo -->
-    <div class="mc-niblo reveal">
-      <div class="mc-niblo-card">
+    <!-- SVG linhas de conexão (por trás de tudo) -->
+    <svg class="mc3d-svg" viewBox="0 0 800 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1A6CF5" stop-opacity="0.6"/>
+          <stop offset="50%" stop-color="#f27921" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#1A6CF5" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="lg2" x1="100%" y1="0%" x2="0%" y2="0%">
+          <stop offset="0%" stop-color="#1A6CF5" stop-opacity="0.6"/>
+          <stop offset="50%" stop-color="#f27921" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#1A6CF5" stop-opacity="0.6"/>
+        </linearGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <!-- 5 linhas em pentágono: centro (400,280) → cada nó -->
+      <!-- Topo (Azure) -->
+      <line class="mc3d-conn" x1="400" y1="280" x2="400" y2="28" stroke="url(#lg1)" stroke-width="1.5" filter="url(#glow)"/>
+      <!-- Top-right (AWS) -->
+      <line class="mc3d-conn mc3d-conn--d1" x1="400" y1="280" x2="656" y2="157" stroke="url(#lg1)" stroke-width="1.5" filter="url(#glow)"/>
+      <!-- Bottom-right (Google) -->
+      <line class="mc3d-conn mc3d-conn--d2" x1="400" y1="280" x2="576" y2="431" stroke="url(#lg2)" stroke-width="1.5" filter="url(#glow)"/>
+      <!-- Bottom-left (IBM) -->
+      <line class="mc3d-conn mc3d-conn--d3" x1="400" y1="280" x2="224" y2="431" stroke="url(#lg2)" stroke-width="1.5" filter="url(#glow)"/>
+      <!-- Top-left (Oracle) -->
+      <line class="mc3d-conn mc3d-conn--d4" x1="400" y1="280" x2="144" y2="157" stroke="url(#lg1)" stroke-width="1.5" filter="url(#glow)"/>
+    </svg>
+
+    <!-- Nó central: Niblo Cloud -->
+    <div class="mc3d-center">
+      <div class="mc3d-center-ring mc3d-center-ring--1"></div>
+      <div class="mc3d-center-ring mc3d-center-ring--2"></div>
+      <div class="mc3d-center-glow"></div>
+      <div class="mc3d-center-card">
         <img src="images/niblo.png" alt="Niblo Cloud">
-        
       </div>
-      <div class="mc-vline"></div>
     </div>
 
-    <!-- Diagrama principal -->
-    <div class="multicloud-diagram reveal">
-
-      <!-- Esquerda -->
-      <div class="mc-side mc-side--left">
-        <div class="mc-node">
-          <img src="images/azure.png" alt="Azure">
-          
-        </div>
-        <div class="mc-node">
-          <img src="images/aws.png" alt="AWS">
-          
-        </div>
+    <!-- Nó 1 — Azure (topo) -->
+    <div class="mc3d-node mc3d-n1">
+      <div class="mc3d-node-body">
+        <img src="images/azure.png" alt="Azure" class="mc3d-partner">
+        <img src="images/pilar.png" alt="" class="mc3d-db">
       </div>
-
-      <!-- Linhas esquerda → hub -->
-      <div class="mc-lines mc-lines--left">
-        <div class="mc-line"></div>
-        <div class="mc-line"></div>
-      </div>
-
-      <!-- Hub central -->
-      <div class="mc-hub">
-        <div class="mc-hub-ring"></div>
-        <div class="mc-hub-inner">
-          <span>CONEXÃO</span>
-          <span>MULTI-CLOUD</span>
-        </div>
-      </div>
-
-      <!-- Linhas hub → direita -->
-      <div class="mc-lines mc-lines--right">
-        <div class="mc-line"></div>
-        <div class="mc-line"></div>
-      </div>
-
-      <!-- Direita -->
-      <div class="mc-side mc-side--right">
-        <div class="mc-node">
-          <img src="images/oracle.png" alt="Oracle">
-          
-        </div>
-        <div class="mc-node">
-          <img src="images/ibm.png" alt="IBM Cloud">
-          
-        </div>
-      </div>
-
+      <div class="mc3d-pulse"></div>
+      <div class="mc3d-pulse mc3d-pulse--2"></div>
     </div>
 
-    <!-- Google Cloud abaixo do hub -->
-    <div class="mc-bottom-section reveal">
-      <div class="mc-vline mc-vline--down"></div>
-      <div class="mc-node mc-node--bottom">
-        <img src="images/google.png" alt="Google Cloud">
-        
+    <!-- Nó 2 — AWS (top-right) -->
+    <div class="mc3d-node mc3d-n2">
+      <div class="mc3d-node-body">
+        <img src="images/aws.png" alt="AWS" class="mc3d-partner">
+        <img src="images/pilar.png" alt="" class="mc3d-db">
       </div>
+      <div class="mc3d-pulse"></div>
+      <div class="mc3d-pulse mc3d-pulse--2"></div>
+    </div>
+
+    <!-- Nó 3 — Google Cloud (bottom-right) -->
+    <div class="mc3d-node mc3d-n3">
+      <div class="mc3d-node-body">
+        <img src="images/google.png" alt="Google Cloud" class="mc3d-partner">
+        <img src="images/pilar.png" alt="" class="mc3d-db">
+      </div>
+      <div class="mc3d-pulse"></div>
+      <div class="mc3d-pulse mc3d-pulse--2"></div>
+    </div>
+
+    <!-- Nó 4 — IBM Cloud (bottom-left) -->
+    <div class="mc3d-node mc3d-n4">
+      <div class="mc3d-node-body">
+        <img src="images/ibm.png" alt="IBM Cloud" class="mc3d-partner">
+        <img src="images/pilar.png" alt="" class="mc3d-db">
+      </div>
+      <div class="mc3d-pulse"></div>
+      <div class="mc3d-pulse mc3d-pulse--2"></div>
+    </div>
+
+    <!-- Nó 5 — Oracle (top-left) -->
+    <div class="mc3d-node mc3d-n5">
+      <div class="mc3d-node-body">
+        <img src="images/oracle.png" alt="Oracle" class="mc3d-partner">
+        <img src="images/pilar.png" alt="" class="mc3d-db">
+      </div>
+      <div class="mc3d-pulse"></div>
+      <div class="mc3d-pulse mc3d-pulse--2"></div>
     </div>
 
   </div>

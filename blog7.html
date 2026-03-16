@@ -13,7 +13,7 @@
 </div>
 
 <div class="blog-post-container">
-  <div class="blog-post-title">Nuvem privada é só para grandes empresas? O mito que está travando sua receita</div>
+  <div class="blog-post-title" data-text="Nuvem privada é só para grandes empresas? O mito que está travando sua receita"></div>
   <div class="blog-post-meta">Publicado em 22/03/2026 • Autor: Niblo Cloud</div>
   <div class="blog-post-content">
     <p>Existe uma percepção amplamente difundida de que nuvem privada é exclusividade de grandes corporações com orçamentos robustos e equipes técnicas especializadas. Essa crença limita oportunidades comerciais reais e impede que revendas e software houses apresentem soluções adequadas para clientes de médio porte que, na prática, são candidatos ideais para cloud privada. A associação entre "privada" e "cara" foi construída em um contexto tecnológico diferente, mas hoje não se sustenta.</p>
@@ -85,6 +85,35 @@
 </div>
 
 <script>
+  // ── Blog Entry Animations & Typewriter Effect ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.querySelector('.blog-post-title');
+    const fullText = titleElement.getAttribute('data-text');
+    let charIndex = 0;
+    
+    // Clear the title
+    titleElement.textContent = '';
+    titleElement.classList.add('typing');
+    
+    // Typewriter effect
+    function typeWriter() {
+      if (charIndex < fullText.length) {
+        titleElement.textContent += fullText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, 30); // Speed of typing (30ms per character)
+      } else {
+        titleElement.classList.remove('typing');
+        titleElement.classList.add('typing-complete');
+      }
+    }
+    
+    // Start animations
+    setTimeout(() => {
+      document.body.classList.add('blog-loaded');
+      setTimeout(typeWriter, 400); // Delay before typing starts
+    }, 100);
+  });
+
   function toggleWA() {
     document.getElementById('wpPopup').classList.toggle('open');
   }

@@ -13,7 +13,7 @@
 </div>
 
 <div class="blog-post-container">
-  <div class="blog-post-title">Cloud no portfólio: "ter para oferecer" ou "ter para habilitar o canal"?</div>
+  <div class="blog-post-title" data-text="Cloud no portfólio: &quot;ter para oferecer&quot; ou &quot;ter para habilitar o canal&quot;?"></div>
   <div class="blog-post-meta">Publicado em 09/03/2026 • Autor: Niblo Cloud</div>
   <div class="blog-post-content">
     <p>Adicionar cloud ao portfólio parece um movimento inevitável para você distribuidor de tecnologia. O mercado demanda, parceiros perguntam e a infraestrutura como serviço se tornou parte do discurso comercial de praticamente todo ecossistema de TI. No entanto, existe uma diferença estratégica profunda entre <strong>ter cloud para oferecer</strong> e <strong>usar cloud para habilitar o canal</strong>.</p>
@@ -86,6 +86,35 @@
 </div>
 
 <script>
+  // ── Blog Entry Animations & Typewriter Effect ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.querySelector('.blog-post-title');
+    const fullText = titleElement.getAttribute('data-text');
+    let charIndex = 0;
+    
+    // Clear the title
+    titleElement.textContent = '';
+    titleElement.classList.add('typing');
+    
+    // Typewriter effect
+    function typeWriter() {
+      if (charIndex < fullText.length) {
+        titleElement.textContent += fullText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, 30); // Speed of typing (30ms per character)
+      } else {
+        titleElement.classList.remove('typing');
+        titleElement.classList.add('typing-complete');
+      }
+    }
+    
+    // Start animations
+    setTimeout(() => {
+      document.body.classList.add('blog-loaded');
+      setTimeout(typeWriter, 400); // Delay before typing starts
+    }, 100);
+  });
+
   function toggleWA() {
     document.getElementById('wpPopup').classList.toggle('open');
   }

@@ -13,8 +13,10 @@
 </div>
 
 <div class="blog-post-container">
-  <div class="blog-post-title">Proposta que fecha: como posicionar nuvem privada em 5 bullets (sem falar "infraestrutura")</div>
+  <div class="blog-post-title" data-text="Proposta que fecha: como posicionar nuvem privada em 5 bullets (sem falar &quot;infraestrutura&quot;)"></div>
   <div class="blog-post-meta">Publicado em 09/03/2026 • Autor: Niblo Cloud</div>
+  
+  
   <div class="blog-post-content">
     <p>Existe um padrão comum em propostas de cloud que não avançam: elas explicam tecnologia, mas não comunicam resultado. Quando uma revenda apresenta CPU, RAM, storage e especificações técnicas como elemento central, a conversa rapidamente se transforma em comparação direta. O cliente passa a avaliar preço por recurso, similaridade entre fornecedores e eventuais descontos — um cenário onde diferenciação é limitada.</p>
     <p>Por outro lado, propostas que destacam impacto operacional, previsibilidade e experiência do cliente tendem a ser percebidas como solução, não como commodity. Essa mudança de narrativa é especialmente relevante ao posicionar nuvem privada.</p>
@@ -97,6 +99,35 @@
 </div>
 
 <script>
+  // ── Blog Entry Animations & Typewriter Effect ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.querySelector('.blog-post-title');
+    const fullText = titleElement.getAttribute('data-text');
+    let charIndex = 0;
+    
+    // Clear the title
+    titleElement.textContent = '';
+    titleElement.classList.add('typing');
+    
+    // Typewriter effect
+    function typeWriter() {
+      if (charIndex < fullText.length) {
+        titleElement.textContent += fullText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, 30); // Speed of typing (30ms per character)
+      } else {
+        titleElement.classList.remove('typing');
+        titleElement.classList.add('typing-complete');
+      }
+    }
+    
+    // Start animations
+    setTimeout(() => {
+      document.body.classList.add('blog-loaded');
+      setTimeout(typeWriter, 400); // Delay before typing starts
+    }, 100);
+  });
+
   function toggleWA() {
     document.getElementById('wpPopup').classList.toggle('open');
   }

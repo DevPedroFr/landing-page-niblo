@@ -241,7 +241,7 @@ nav::after {
   position: relative;
   padding: 120px 3% 80px;
   overflow: hidden;
-  gap: 60px;
+  gap: 36px;
   background: linear-gradient(135deg, #ffffff 0%, #fff8f5 50%, #ffffff 100%);
 }
 
@@ -400,7 +400,7 @@ nav::after {
 .hero-image-wrapper {
   position: relative;
   z-index: 5;
-  flex: 0 0 36%;
+  flex: 0 0 39%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -416,57 +416,208 @@ nav::after {
   animation: growIn 1s ease-out forwards, floatImage 3s ease-in-out 1s infinite;
 }
 
-/* ── HERO: Cloud puzzle (peças desmontadas -> montam no hover) ── */
-.hero-cloud-puzzle {
+/* ── HERO: Stack Visual (HTML version) ── */
+.hero-stack-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  max-width: 700px;
-  display: block;
-  position: relative;
-  animation: growIn 1s ease-out forwards, floatCloud 4s ease-in-out 1s infinite;
+  max-width: 660px;
+  /* sem float global — só a nuvem flutua */
+}
+
+/* ── Zona clicável da nuvem ── */
+.cloud-click-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.hero-cloud-puzzle::before {
-  content: '';
-  position: absolute;
-  inset: -40px;
-  z-index: 1;
-}
-
-.cloud-puzzle-svg {
-  width: 100%;
+/* ── Imagem da nuvem ── */
+.hero-cloud-img {
+  /* Estado inicial: preenche o espaço à direita do hero */
+  width: 620px;
+  max-width: 100%;
   height: auto;
   display: block;
-  overflow: visible;
+  filter: drop-shadow(0 20px 40px rgba(245,99,26,0.3));
+  animation: floatImage 4s ease-in-out infinite;
+  transition: width 0.75s cubic-bezier(0.4,0,0.2,1),
+              filter 0.4s;
+  will-change: transform;
 }
 
-@keyframes floatCloud {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
+/* Pulso laranja no hover da nuvem (antes de clicar) */
+.cloud-click-zone:hover .hero-cloud-img {
+  filter: drop-shadow(0 16px 40px rgba(245,99,26,0.55));
 }
 
-.cloud-puzzle-svg .cloud-piece {
-  transform-origin: center;
-  transform: translate(var(--tx, 0px), var(--ty, 0px)) rotate(var(--tr, 0deg));
-  transition: transform 1800ms cubic-bezier(0.34, 1.1, 0.64, 1);
-  filter: drop-shadow(0 8px 20px rgba(245,99,26,0.25)) drop-shadow(0 2px 6px rgba(0,0,0,0.1));
+/* ── Hint text ── */
+.cloud-hint {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.55;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+  user-select: none;
+}
+.cloud-hint strong {
+  color: #F5631A;
+  font-weight: 700;
 }
 
-/* Estado montado (hover ou classe assembled) - forma a nuvem */
-.hero-image-wrapper:hover .cloud-puzzle-svg .cloud-piece,
-.hero-cloud-puzzle:hover .cloud-puzzle-svg .cloud-piece,
-.hero-cloud-puzzle.assembled .cloud-puzzle-svg .cloud-piece {
-  transform: translate(0px, 0px) rotate(0deg);
-  filter: drop-shadow(0 15px 35px rgba(245,99,26,0.3)) drop-shadow(0 5px 15px rgba(0,0,0,0.15));
+/* Seta animada abaixo do hint */
+.cloud-hint::after {
+  content: '↑';
+  display: block;
+  margin-top: 6px;
+  font-size: 1rem;
+  color: #F5631A;
+  opacity: 0.7;
+  animation: hintBounce 1.4s ease-in-out infinite;
 }
 
-/* no path opacity rule needed – strokes stay dark blue */
+@keyframes hintBounce {
+  0%, 100% { transform: translateY(0);   opacity: 0.6; }
+  50%       { transform: translateY(-5px); opacity: 1; }
+}
+
+/* ── Conector ── */
+.stack-connector {
+  width: 2px;
+  height: 24px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #F5631A 0px, #F5631A 5px,
+    transparent 5px, transparent 9px
+  );
+  flex-shrink: 0;
+  /* escondido até reveal — fora do fluxo */
+  display: none;
+  opacity: 0;
+  transition: opacity 0.45s 0.3s ease;
+}
+
+/* ── Stack de camadas ── */
+.stack-layers {
+  display: none; /* fora do fluxo até reveal */
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Estado inicial de cada camada: invisível e deslocada para a direita */
+.stack-layer {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 14px;
+  border-left: 4px solid #F5631A;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  transition:
+    opacity   0.5s ease,
+    transform 0.5s cubic-bezier(0.2,0.8,0.3,1),
+    box-shadow 0.25s,
+    border-color 0.25s;
+  opacity: 0;
+  transform: translateX(40px);
+  pointer-events: none;
+}
+
+/* Camada visível (adicionada via JS) */
+.stack-layer.layer-visible {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.stack-layer.layer-visible:hover {
+  box-shadow: 0 8px 28px rgba(245,99,26,0.14);
+  transform: translateX(4px);
+}
+
+.stack-layer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  gap: 12px;
+}
+
+.stack-layer-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+  font-family: 'Filson Pro', sans-serif;
+}
+
+.stack-layer-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.stack-badge {
+  background: rgba(245,99,26,0.1);
+  color: #F5631A;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-family: 'Filson Pro', sans-serif;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(245,99,26,0.2);
+  flex-shrink: 0;
+}
+
+/* ── Estado REVEALED (classe adicionada no clique) ── */
+
+/* Nuvem retorna ao tamanho do topo do stack */
+.hero-stack-visual.revealed .hero-cloud-img {
+  width: 280px;
+  filter: drop-shadow(0 10px 22px rgba(245,99,26,0.2));
+}
+
+/* Hint desaparece */
+.hero-stack-visual.revealed .cloud-hint {
+  opacity: 0;
+  transform: translateY(-8px);
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Conector aparece */
+.hero-stack-visual.revealed .stack-connector {
+  display: block;
+  opacity: 0.75;
+}
+
+/* Layers entram no fluxo */
+.hero-stack-visual.revealed .stack-layers {
+  display: flex;
+}
+
+/* ── HERO: Cloud Image (legacy img fallback) ── */
+.hero-cloud-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  display: block;
+  animation: floatImage 4s ease-in-out infinite;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-cloud-puzzle { animation: none; }
-  .cloud-puzzle-svg .cloud-piece {
-    transition: none;
-    transform: translate(0px, 0px) rotate(0deg);
+  .hero-cloud-image { 
+    animation: none; 
   }
 }
 
@@ -835,10 +986,10 @@ section { padding: 100px 6%; }
   display: block;
 }
 
-/* ── MULTI-CLOUD ── */
+/* ── MULTI-CLOUD 3D ── */
 .multicloud-section {
-  background: var(--surface);
-  padding: 80px 2%;
+  background: linear-gradient(160deg, #eef2fc 0%, #f4f6fb 55%, #eaf0fa 100%);
+  padding: 80px 4% 100px;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   overflow: hidden;
@@ -857,206 +1008,213 @@ section { padding: 100px 6%; }
   margin-top: 12px;
 }
 
-/* Niblo top node */
-.mc-niblo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 0;
-}
-
-.mc-niblo-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  background: white;
-  border: 3px solid var(--orange);
-  border-radius: 24px;
-  padding: 28px 52px;
-  box-shadow: 0 12px 48px rgba(245,99,26,0.22);
-  transition: all 0.3s;
+/* ── 3D SCENE ── */
+.mc3d-scene {
   position: relative;
-  z-index: 2;
-}
-.mc-niblo-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 60px rgba(245,99,26,0.32);
-}
-.mc-niblo-card img {
-  height: 72px;
-  width: auto;
-  object-fit: contain;
-}
-.mc-niblo-card span {
-  font-family: 'Filson Pro', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--orange);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-/* Vertical line from Niblo down to hub */
-.mc-vline {
-  width: 2px;
-  height: 60px;
-  background: linear-gradient(180deg, var(--orange), var(--blue));
-  animation: flowPulse 2.5s ease-in-out infinite;
-  box-shadow: 0 0 8px rgba(245,99,26,0.4);
-}
-
-.multicloud-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.multicloud-diagram {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  position: relative;
-  min-height: 320px;
+  max-width: 1100px;
+  aspect-ratio: 820 / 560;
+  margin: 0 auto;
 }
 
-/* ── Node columns ── */
-.mc-side {
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-  z-index: 2;
-  flex: 1;
-}
-.mc-side--left { align-items: flex-end; }
-.mc-side--right { align-items: flex-start; }
-
-.mc-node {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 28px 40px;
-  min-width: 190px;
-  transition: all 0.3s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-  cursor: default;
-}
-.mc-node:hover {
-  border-color: rgba(245,99,26,0.4);
-  transform: scale(1.05);
-  box-shadow: 0 10px 36px rgba(245,99,26,0.14);
-}
-.mc-node img {
-  height: 56px;
-  width: auto;
-  object-fit: contain;
-}
-.mc-node span {
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 0.3px;
-  text-align: center;
-}
-
-/* Bottom node (Google Cloud) */
-.mc-bottom-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.mc-vline--down {
-  width: 2px;
-  height: 70px;
-  background: linear-gradient(180deg, var(--orange), var(--blue));
-  animation: flowPulse 2.5s ease-in-out infinite;
-  box-shadow: 0 0 8px rgba(245,99,26,0.35);
-}
-.mc-node--bottom {
-  margin-top: 0;
-}
-
-/* ── Connector lines ── */
-.mc-lines {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  flex: 1;
-  align-self: stretch;
-}
-
-.mc-lines--left { gap: 36px; }
-.mc-lines--right { gap: 36px; }
-
-.mc-line {
-  height: 2px;
-  background: linear-gradient(90deg, rgba(26,108,245,0.15), var(--orange), rgba(26,108,245,0.15));
-  border-radius: 2px;
-  animation: flowPulse 2.5s ease-in-out infinite;
-  box-shadow: 0 0 6px rgba(245,99,26,0.3);
-}
-.mc-line:nth-child(2) { animation-delay: 0.6s; }
-.mc-line:nth-child(3) { animation-delay: 1.2s; }
-
-@keyframes flowPulse {
-  0%, 100% { opacity: 0.45; box-shadow: 0 0 4px rgba(245,99,26,0.2); }
-  50%       { opacity: 1;    box-shadow: 0 0 14px rgba(245,99,26,0.6); }
-}
-
-/* ── Central hub ── */
-.mc-hub {
-  position: relative;
-  flex-shrink: 0;
-  width: 240px;
-  height: 240px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3;
-}
-
-.mc-hub-ring {
+/* SVG connection lines */
+.mc3d-svg {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
-  border: 2px solid rgba(245,99,26,0.3);
-  box-shadow: 0 0 30px rgba(245,99,26,0.1), inset 0 0 30px rgba(245,99,26,0.03);
-  animation: hubPulse 3s ease-in-out infinite;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 
-@keyframes hubPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(245,99,26,0.25); border-color: rgba(245,99,26,0.4); }
-  50%       { box-shadow: 0 0 55px rgba(245,99,26,0.5); border-color: rgba(245,99,26,0.8); }
+.mc3d-conn {
+  stroke-dasharray: 520;
+  stroke-dashoffset: 0;
+  animation: connFlow 3s linear infinite;
+}
+.mc3d-conn--d1 { animation-delay: 0.6s; }
+.mc3d-conn--d2 { animation-delay: 1.2s; }
+.mc3d-conn--d3 { animation-delay: 1.8s; }
+.mc3d-conn--d4 { animation-delay: 2.4s; }
+
+@keyframes connFlow {
+  0%   { stroke-opacity: 0.3; stroke-dashoffset: 0; }
+  50%  { stroke-opacity: 1; }
+  100% { stroke-opacity: 0.3; stroke-dashoffset: -520; }
 }
 
-.mc-hub-inner {
-  background: linear-gradient(135deg, var(--orange), #e04a08);
-  border: 2px solid rgba(255,255,255,0.2);
+/* ── CENTRAL NODE ── */
+.mc3d-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mc3d-center-ring {
+  position: absolute;
   border-radius: 50%;
-  width: 216px;
-  height: 216px;
+  border: 1.5px solid rgba(242,121,33,0.35);
+  animation: centerRingPulse 3s ease-in-out infinite;
+}
+.mc3d-center-ring--1 { width: 200px; height: 200px; animation-delay: 0s; }
+.mc3d-center-ring--2 { width: 270px; height: 270px; animation-delay: 0.8s; opacity: 0.5; }
+
+@keyframes centerRingPulse {
+  0%, 100% { transform: scale(1); opacity: 0.35; }
+  50%  { transform: scale(1.08); opacity: 0.8; }
+}
+
+.mc3d-center-glow {
+  position: absolute;
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242,121,33,0.18) 0%, transparent 70%);
+  animation: centerGlow 2.5s ease-in-out infinite;
+}
+@keyframes centerGlow {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+.mc3d-center-card {
+  position: relative;
+  z-index: 2;
+  background: white;
+  border-radius: 32px;
+  border: 2.5px solid rgba(242,121,33,0.6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 26px 44px;
+  box-shadow: 0 12px 48px rgba(242,121,33,0.28), 0 0 0 8px rgba(242,121,33,0.07);
+  animation: centerFloat 4s ease-in-out infinite;
+}
+@keyframes centerFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+.mc3d-center-card img {
+  height: auto;
+  max-height: 110px;
+  max-width: 240px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── PARTNER NODES (absolute pentagon positions) ── */
+.mc3d-node {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
-  box-shadow: 0 8px 48px rgba(245,99,26,0.4);
+  z-index: 5;
+  transform: translate(-50%, -50%);
 }
-.mc-hub-inner span {
-  font-family: 'Filson Pro', sans-serif;
-  font-size: 0.92rem;
-  font-weight: 800;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  color: white;
-  text-align: center;
-  line-height: 1.4;
+
+/* Pentagon — 5 nodes at 72° intervals, wider spread */
+/* top         */ .mc3d-n1 { top:  5%;  left: 50%;   }
+/* top-right   */ .mc3d-n2 { top: 28%;  left: 82%; }
+/* bottom-right*/ .mc3d-n3 { top: 77%;  left: 72%; }
+/* bottom-left */ .mc3d-n4 { top: 77%;  left: 28%;   }
+/* top-left    */ .mc3d-n5 { top: 28%;  left: 18%; }
+
+/* Body wrapper — float animation + hover scale, logo e pilar juntos */
+.mc3d-node-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: dbFloat 3.6s ease-in-out infinite;
+  transition: scale 0.4s cubic-bezier(0.34,1.56,0.64,1),
+              translate 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  will-change: scale, translate;
+}
+.mc3d-node:hover .mc3d-node-body {
+  scale: 1.18;
+  translate: 0 -6px;
+}
+
+/* Partner logo */
+.mc3d-partner {
+  height: 42px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.12));
+  position: relative;
+  z-index: 2;
+}
+
+/* ── DATABASE IMAGE ── */
+.mc3d-db {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter:
+    drop-shadow(0 10px 20px rgba(180,70,0,0.45))
+    drop-shadow(0 3px 6px rgba(0,0,0,0.18));
+}
+
+@keyframes dbFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── PULSE RINGS ── */
+.mc3d-pulse {
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(242,121,33,0.5);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulseSpin 3s ease-out infinite;
+  pointer-events: none;
+}
+.mc3d-pulse--2 {
+  width: 136px;
+  height: 136px;
+  border-color: rgba(26,108,245,0.3);
+  animation-delay: 0.7s;
+}
+@keyframes pulseSpin {
+  0%   { transform: translate(-50%,-50%) scale(0.85); opacity: 0.9; }
+  80%  { transform: translate(-50%,-50%) scale(1.6);  opacity: 0; }
+  100% { transform: translate(-50%,-50%) scale(1.6);  opacity: 0; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .mc3d-scene {
+    aspect-ratio: unset;
+    height: 520px;
+  }
+  .mc3d-center-card { border-radius: 22px; padding: 16px 26px; }
+  .mc3d-center-card img { max-height: 70px; max-width: 150px; }
+  .mc3d-center-ring--1 { width: 130px; height: 130px; }
+  .mc3d-center-ring--2 { width: 180px; height: 180px; }
+  .mc3d-db { width: 80px; }
+  .mc3d-partner { height: 30px; }
+  .mc3d-pulse  { width: 68px; height: 68px; }
+  .mc3d-pulse--2 { width: 96px; height: 96px; }
+}
+
+@media (max-width: 480px) {
+  .mc3d-n1 { top: 6%;  left: 50%; }
+  .mc3d-n2 { top: 20%; left: 84%; }
+  .mc3d-n3 { top: 70%; left: 84%; }
+  .mc3d-n4 { top: 90%; left: 50%; }
+  .mc3d-n5 { top: 20%; left: 16%; }
 }
 
 .features-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
@@ -1918,5 +2076,97 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
   .blog-post-content h3 {
     font-size: 1.15rem;
     margin-top: 16px;
+  }
+}
+
+/* ── BLOG ANIMATIONS ── */
+
+/* Initial state - hidden and positioned */
+.blog-post-container {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.back-button {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+/* Loaded state - visible with animations */
+.blog-loaded .blog-post-container {
+  animation: blogFadeInUp 0.8s ease-out forwards;
+}
+
+.blog-loaded .back-button {
+  animation: blogSlideInLeft 0.6s ease-out 0.2s forwards;
+}
+
+.blog-loaded .blog-post-meta {
+  animation: blogFadeIn 0.6s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+.blog-loaded .blog-post-content {
+  animation: blogFadeIn 0.8s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+.blog-loaded .blog-post-footer {
+  animation: blogFadeIn 0.6s ease-out 0.9s forwards;
+  opacity: 0;
+}
+
+/* Typewriter effect for title */
+.blog-post-title {
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-post-title.typing {
+  border-right: 3px solid #F5631A;
+  animation: blinkCursor 0.8s step-end infinite;
+}
+
+.blog-post-title.typing-complete {
+  border-right: none;
+}
+
+@keyframes blogFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blogSlideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes blogFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blinkCursor {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #F5631A;
   }
 }
