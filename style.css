@@ -1,3 +1,10 @@
+@media (max-width: 1400px) and (min-width: 1000px) {
+  .hero-image-wrapper img {
+    max-width: 700px;
+    min-width: 380px;
+    width: 90vw;
+  }
+}
 /* Garante que 'cloud sob medida.' fique sempre junto na hero-title */
 .hero-title .highlight-dark {
   white-space: nowrap;
