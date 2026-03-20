@@ -19,8 +19,13 @@
   }
 }
 /* Animação de flutuação para a imagem da hero-image na página inicial */
+/* Hero image maior e animada */
 .hero-image-wrapper img {
   animation: heroFloat 4s ease-in-out infinite;
+  max-width: 900px;
+  min-width: 380px;
+  width: 100%;
+  height: auto;
 }
 
 @keyframes heroFloat {
