@@ -1,3 +1,23 @@
+/* Garante que 'cloud sob medida.' fique sempre junto na hero-title */
+.hero-title .highlight-dark {
+  white-space: nowrap;
+}
+
+/* Garante que a linha "Flexibilidade real para negócios que nasceram para ser disruptivos." nunca quebre entre "para ser" e "disruptivos." */
+.hero-title {
+  hyphens: manual;
+}
+
+/* Força a quebra de linha após 'sob medida.' e impede quebra entre 'para ser disruptivos.' */
+.hero-title br {
+  display: none;
+}
+
+@media (min-width: 1px) {
+  .hero-title br {
+    display: initial;
+  }
+}
 /* Animação de flutuação para a imagem da hero-image na página inicial */
 .hero-image-wrapper img {
   animation: heroFloat 4s ease-in-out infinite;
