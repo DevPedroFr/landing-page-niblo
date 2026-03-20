@@ -1,3 +1,13 @@
+/* Animação de flutuação para a imagem da hero-image na página inicial */
+.hero-image-wrapper img {
+  animation: heroFloat 4s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+  100% { transform: translateY(0); }
+}
 /* ── FILSON PRO FONT ── */
 /* 
 Para usar a fonte Filson Pro, adicione os arquivos de fonte e descomente:
