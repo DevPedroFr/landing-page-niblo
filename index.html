@@ -27,15 +27,13 @@
     <span></span><span></span><span></span>
   </div>
 </nav>
+
 <section id="home">
   <svg class="hero-svg-decor" viewBox="0 0 1400 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
     <defs>
       <filter id="glow">
         <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-        <feMerge>
-          <feMergeNode in="coloredBlur"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
+        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
       </filter>
     </defs>
     <g class="circuit-lines" stroke="rgba(245,99,26,0.4)" stroke-width="2" fill="none" filter="url(#glow)">
@@ -73,31 +71,8 @@
       <circle class="circuit-dot" cx="1100" cy="360" r="3" style="animation-delay: 2.9s"/>
       <circle class="circuit-dot" cx="1160" cy="440" r="3" style="animation-delay: 3.1s"/>
     </g>
-    <g class="puzzle-pieces" fill="rgba(245,99,26,0.08)">
-      <!-- Puzzle piece 1 -->
-      <path d="M700 55 h30 v8 a4 4 0 0 0 8 0 v-8 h12 v25 h-8 a4 4 0 0 0 0 8 h8 v12 h-50 v-12 h8 a4 4 0 0 0 0-8 h-8 z"/>
-      <!-- Puzzle piece 2 -->
-      <path d="M900 335 h25 v6 a3 3 0 0 0 6 0 v-6 h9 v20 h-6 a3 3 0 0 0 0 6 h6 v9 h-40 v-9 h6 a3 3 0 0 0 0-6 h-6 z"/>
-      <!-- Puzzle piece 3 -->
-      <path d="M1060 85 h28 v7 a4 4 0 0 0 8 0 v-7 h11 v23 h-7 a4 4 0 0 0 0 8 h7 v11 h-47 v-11 h7 a4 4 0 0 0 0-8 h-7 z"/>
-      <!-- Puzzle piece 4 -->
-      <path d="M1185 295 h22 v6 a3 3 0 0 0 6 0 v-6 h9 v18 h-6 a3 3 0 0 0 0 6 h6 v9 h-37 v-9 h6 a3 3 0 0 0 0-6 h-6 z"/>
-      <!-- Puzzle piece 5 -->
-      <path d="M785 395 h20 v5 a3 3 0 0 0 6 0 v-5 h8 v16 h-5 a3 3 0 0 0 0 6 h5 v8 h-34 v-8 h5 a3 3 0 0 0 0-6 h-5 z"/>
-      <!-- Puzzle piece 6 -->
-      <path d="M1300 145 h27 v7 a4 4 0 0 0 8 0 v-7 h11 v22 h-7 a4 4 0 0 0 0 8 h7 v11 h-46 v-11 h7 a4 4 0 0 0 0-8 h-7 z"/>
-      <!-- Puzzle piece 7 -->
-      <path d="M640 435 h21 v6 a3 3 0 0 0 6 0 v-6 h9 v17 h-6 a3 3 0 0 0 0 6 h6 v9 h-36 v-9 h6 a3 3 0 0 0 0-6 h-6 z"/>
-    </g>
-    <!-- Elementos decorativos geométricos -->
-    <g class="geometric-decor" opacity="0.05">
-      <circle cx="200" cy="100" r="120" fill="none" stroke="rgba(245,99,26,0.3)" stroke-width="1"/>
-      <circle cx="200" cy="100" r="80" fill="none" stroke="rgba(255,157,92,0.3)" stroke-width="1"/>
-      <circle cx="1200" cy="400" r="150" fill="none" stroke="rgba(245,99,26,0.3)" stroke-width="1"/>
-      <circle cx="1200" cy="400" r="100" fill="none" stroke="rgba(255,157,92,0.3)" stroke-width="1"/>
-    </g>
   </svg>
-  
+
   <div class="hero-content">
     <h1 class="hero-title">
       Não é sobre estar nas nuvens é sobre ter a sua cloud <span class="highlight-dark">sob medida.</span><br>
@@ -108,64 +83,181 @@
       <a href="solucoes.html" class="btn-secondary-hero">Ver soluções</a>
     </div>
   </div>
-  
+
+  <!-- ══════════════════════════════════════════
+       DATACENTER HERO — lado direito
+  ══════════════════════════════════════════ -->
   <div class="hero-image-wrapper">
-    <div class="hero-stack-visual" id="heroStackVisual">
-
-      <!-- ── Estado inicial: nuvem grande + hint ── -->
-      <div class="cloud-click-zone" id="cloudClickZone" onclick="revealStack()">
-        <img src="images/nuvem.png" alt="Niblo Cloud" class="hero-cloud-img" id="heroCloudImg">
-        <p class="cloud-hint" id="cloudHint">
-          Clique na nuvem para descobrir como<br>
-          <strong>tudo se encaixa</strong>
-        </p>
-      </div>
-
-      <!-- ── Stack (aparece após clique) ── -->
-      <div class="stack-connector" id="stackConnector"></div>
-      <div class="stack-layers" id="stackLayers">
-        <div class="stack-layer" data-index="0">
-          <div class="stack-layer-content">
-            <div>
-              <p class="stack-layer-title">Escalabilidade Inteligente</p>
-              <p class="stack-layer-sub">IaaS · PaaS · Object Storage</p>
-            </div>
-            <span class="stack-badge">Niblo IaaS</span>
-          </div>
-        </div>
-        <div class="stack-layer" data-index="1">
-          <div class="stack-layer-content">
-            <div>
-              <p class="stack-layer-title">Blindagem e Resiliência</p>
-              <p class="stack-layer-sub">Firewall · Backup · Disaster Recovery</p>
-            </div>
-            <span class="stack-badge">Niblo Sec</span>
-          </div>
-        </div>
-        <div class="stack-layer" data-index="2">
-          <div class="stack-layer-content">
-            <div>
-              <p class="stack-layer-title">Conectividade de Alta Performance</p>
-              <p class="stack-layer-sub">7 Gbps · BGP · Baixa Latência</p>
-            </div>
-            <span class="stack-badge">Niblo Net</span>
-          </div>
-        </div>
-        <div class="stack-layer" data-index="3">
-          <div class="stack-layer-content">
-            <div>
-              <p class="stack-layer-title">Infraestrutura Geoestratégica</p>
-              <p class="stack-layer-sub">São Paulo · Fortaleza · EUA (em breve)</p>
-            </div>
-            <span class="stack-badge">1,7 PB</span>
-          </div>
-        </div>
-      </div>
-
+  <div class="ndc-wrap">
+ 
+    <div class="ndc-scanlines"></div>
+ 
+    <div class="ndc-binary">
+      <span>01</span><span>10</span><span>11</span><span>00</span>
+      <span>01</span><span>11</span><span>00</span><span>10</span>
+      <span>01</span><span>10</span><span>11</span><span>00</span>
     </div>
+ 
+    <div class="ndc-rack">
+ 
+      <div class="ndc-rack-header">
+        <div class="ndc-rack-id">
+          <span class="ndc-label">NIBLO</span>
+          <span class="ndc-label-sub">DATACENTER · BR-SP-01</span>
+        </div>
+        <div class="ndc-header-leds">
+          <span class="ndc-hled ndc-hled--on"></span>
+          <span class="ndc-hled ndc-hled--pulse"></span>
+          <span class="ndc-hled ndc-hled--slow"></span>
+        </div>
+      </div>
+ 
+      <!-- SLOT 01 -->
+      <div class="ndc-slot ndc-slot--1">
+        <div class="ndc-slot-rail"></div>
+        <div class="ndc-slot-body">
+          <div class="ndc-slot-top">
+            <span class="ndc-slot-num">01</span>
+            <span class="ndc-slot-tag">IaaS</span>
+          </div>
+          <div class="ndc-slot-title">Escalabilidade Inteligente</div>
+          <div class="ndc-slot-sub">IaaS · PaaS · Object Storage</div>
+          <div class="ndc-slot-bar">
+            <div class="ndc-slot-bar-track">
+              <div class="ndc-slot-bar-fill ndc-slot-bar--82"></div>
+            </div>
+            <span class="ndc-slot-bar-pct">82%</span>
+          </div>
+        </div>
+        <div class="ndc-slot-leds">
+          <span class="ndc-led ndc-led--g ndc-led--a1"></span>
+          <span class="ndc-led ndc-led--b ndc-led--a2"></span>
+          <span class="ndc-led ndc-led--g ndc-led--a3"></span>
+        </div>
+      </div>
+ 
+      <!-- SLOT 02 -->
+      <div class="ndc-slot ndc-slot--2">
+        <div class="ndc-slot-rail ndc-slot-rail--b"></div>
+        <div class="ndc-slot-body">
+          <div class="ndc-slot-top">
+            <span class="ndc-slot-num">02</span>
+            <span class="ndc-slot-tag ndc-slot-tag--b">SEC</span>
+          </div>
+          <div class="ndc-slot-title">Blindagem e Resiliência</div>
+          <div class="ndc-slot-sub">Firewall · Backup · Disaster Recovery</div>
+          <div class="ndc-slot-bar">
+            <div class="ndc-slot-bar-track">
+              <div class="ndc-slot-bar-fill ndc-slot-bar--90 ndc-slot-bar--blue"></div>
+            </div>
+            <span class="ndc-slot-bar-pct">90%</span>
+          </div>
+        </div>
+        <div class="ndc-slot-leds">
+          <span class="ndc-led ndc-led--b ndc-led--b1"></span>
+          <span class="ndc-led ndc-led--b ndc-led--b2"></span>
+          <span class="ndc-led ndc-led--y ndc-led--b3"></span>
+        </div>
+      </div>
+ 
+      <!-- SLOT 03 -->
+      <div class="ndc-slot ndc-slot--3">
+        <div class="ndc-slot-rail ndc-slot-rail--c"></div>
+        <div class="ndc-slot-body">
+          <div class="ndc-slot-top">
+            <span class="ndc-slot-num">03</span>
+            <span class="ndc-slot-tag ndc-slot-tag--c">NET</span>
+          </div>
+          <div class="ndc-slot-title">Conectividade Alta Performance</div>
+          <div class="ndc-slot-sub">7 Gbps · BGP · Baixa Latência</div>
+          <div class="ndc-slot-bar">
+            <div class="ndc-slot-bar-track">
+              <div class="ndc-slot-bar-fill ndc-slot-bar--95 ndc-slot-bar--cyan"></div>
+            </div>
+            <span class="ndc-slot-bar-pct">95%</span>
+          </div>
+        </div>
+        <div class="ndc-slot-leds">
+          <span class="ndc-led ndc-led--c ndc-led--c1"></span>
+          <span class="ndc-led ndc-led--c ndc-led--c2"></span>
+          <span class="ndc-led ndc-led--g ndc-led--c3"></span>
+        </div>
+      </div>
+ 
+      <!-- SLOT 04 -->
+      <div class="ndc-slot ndc-slot--4">
+        <div class="ndc-slot-rail"></div>
+        <div class="ndc-slot-body">
+          <div class="ndc-slot-top">
+            <span class="ndc-slot-num">04</span>
+            <span class="ndc-slot-tag">GEO</span>
+          </div>
+          <div class="ndc-slot-title">Infraestrutura Geoestratégica</div>
+          <div class="ndc-slot-sub">São Paulo · Fortaleza · EUA em breve</div>
+          <div class="ndc-slot-bar">
+            <div class="ndc-slot-bar-track">
+              <div class="ndc-slot-bar-fill ndc-slot-bar--70"></div>
+            </div>
+            <span class="ndc-slot-bar-pct">70%</span>
+          </div>
+        </div>
+        <div class="ndc-slot-leds">
+          <span class="ndc-led ndc-led--o ndc-led--d1"></span>
+          <span class="ndc-led ndc-led--g ndc-led--d2"></span>
+          <span class="ndc-led ndc-led--o ndc-led--d3"></span>
+        </div>
+      </div>
+ 
+      <!-- STATUS -->
+      <div class="ndc-status">
+        <div class="ndc-status-dots">
+          <span class="ndc-sdot ndc-sdot--g"></span>
+          <span class="ndc-sdot ndc-sdot--g s2"></span>
+          <span class="ndc-sdot ndc-sdot--b s3"></span>
+          <span class="ndc-sdot ndc-sdot--o s4"></span>
+          <span class="ndc-sdot ndc-sdot--g s5"></span>
+          <span class="ndc-sdot ndc-sdot--b s6"></span>
+          <span class="ndc-sdot ndc-sdot--g s7"></span>
+          <span class="ndc-sdot ndc-sdot--o s8"></span>
+        </div>
+        <span class="ndc-status-txt">ALL SYSTEMS NOMINAL</span>
+        <div class="ndc-uptime">
+          <span class="ndc-uptime-dot"></span>
+          <span>99.98% uptime</span>
+        </div>
+      </div>
+ 
+    </div><!-- /ndc-rack -->
+ 
+    <div class="ndc-metrics">
+      <div class="ndc-metric">
+        <span class="ndc-metric-val">1.7<small>PB</small></span>
+        <span class="ndc-metric-label">Storage</span>
+      </div>
+      <div class="ndc-metric-divider"></div>
+      <div class="ndc-metric">
+        <span class="ndc-metric-val">7<small>Gbps</small></span>
+        <span class="ndc-metric-label">Network</span>
+      </div>
+      <div class="ndc-metric-divider"></div>
+      <div class="ndc-metric">
+        <span class="ndc-metric-val">7k<small>+</small></span>
+        <span class="ndc-metric-label">Servers</span>
+      </div>
+      <div class="ndc-metric-divider"></div>
+      <div class="ndc-metric">
+        <span class="ndc-metric-val">23<small>yr</small></span>
+        <span class="ndc-metric-label">Market</span>
+      </div>
+    </div>
+ 
   </div>
+</div>
+  </div>
+  <!-- ══ fim datacenter ══ -->
 
 </section>
+
 <div id="stats">
   <p class="stats-title">Números que demonstram nossa capacidade</p>
   <div class="stats-grid">
@@ -176,6 +268,7 @@
     <div class="stat-item reveal"><span class="stat-number">7 Gbps</span><span class="stat-label">De capacidade de rede</span></div>
   </div>
 </div>
+
 <section id="parceiros-preview" style="padding:80px 6%;background:var(--surface);">
   <div class="parceiros-layout">
     <div class="puzzle-visual reveal">
@@ -199,6 +292,7 @@
     </div>
   </div>
 </section>
+
 <section style="background:white;padding:80px 6%;">
   <div style="text-align:center;margin-bottom:48px;" class="reveal">
     <span class="section-tag">Últimas notícias</span>
@@ -223,9 +317,10 @@
     </a>
   </div>
 </section>
+
 <footer>
   <a href="index.html" class="logo">
-    <img src="images/logo1.png" alt="Niblo Cloud" style="height:44px;width:auto;filter:brightness(0) invert(1);opacity:0.85;margin:-10px 0;">
+    <img src="images/logo1.png" alt="Niblo Cloud" style="height:80px;width:auto;filter:brightness(0) invert(1);opacity:0.85;margin:0;">
   </a>
   <p>© 2025 Niblo Cloud. Todos os direitos reservados.</p>
   <div class="footer-links">
@@ -236,53 +331,40 @@
     <a href="contato.html">Contato</a>
   </div>
 </footer>
+
 <div class="whatsapp-float">
   <div class="whatsapp-popup" id="wpPopup">
     <h4>💬 Fale com a Niblo</h4>
     <a href="https://wa.me/551155940238" target="_blank" class="whatsapp-option">
       <div class="wo-icon">🛠️</div>
-      <div class="wo-text">
-        <strong>Suporte Técnico</strong>
-        <span>Abertura de chamados</span>
-      </div>
+      <div class="wo-text"><strong>Suporte Técnico</strong><span>Abertura de chamados</span></div>
     </a>
     <a href="https://wa.me/5511937315210" target="_blank" class="whatsapp-option">
       <div class="wo-icon">💼</div>
-      <div class="wo-text">
-        <strong>Time Comercial</strong>
-        <span>Planos e propostas</span>
-      </div>
+      <div class="wo-text"><strong>Time Comercial</strong><span>Planos e propostas</span></div>
     </a>
   </div>
   <div class="whatsapp-btn" onclick="toggleWA()">
     <img src="images/whatsapp.png" alt="WhatsApp">
   </div>
 </div>
+
 <div class="exit-popup-overlay" id="exitPopup">
   <div class="exit-popup">
     <button class="exit-popup-close" onclick="closeExit()">✕</button>
-    <img src="images/logos.png" alt="Niblo Cloud"
-         style="width:80px;height:auto;margin:0 auto 16px;display:block;">
+    <img src="images/logos.png" alt="Niblo Cloud" style="width:80px;height:auto;margin:0 auto 16px;display:block;">
     <h2>Antes de ir, que tal<br>
-      <span style="background:var(--grad);-webkit-background-clip:text;
-                   -webkit-text-fill-color:transparent;background-clip:text;">
-        economizar de verdade?
-      </span>
+      <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">economizar de verdade?</span>
     </h2>
     <p>Fale com nosso time e descubra quanto você pode economizar migrando para a Niblo Cloud.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
       <a href="contato.html" class="btn-primary" onclick="closeExit()">Falar com especialista</a>
-      <button onclick="closeExit()"
-              style="border:1px solid rgba(0,0,0,0.12);cursor:pointer;background:transparent;
-                     color:var(--muted);padding:16px 24px;border-radius:50px;
-                     font-family:'DM Sans',sans-serif;font-size:0.9rem;">
-        Agora não
-      </button>
+      <button onclick="closeExit()" style="border:1px solid rgba(0,0,0,0.12);cursor:pointer;background:transparent;color:var(--muted);padding:16px 24px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.9rem;">Agora não</button>
     </div>
   </div>
 </div>
+
 <script>
-  // ── Scroll reveal ──
   const revealEls = document.querySelectorAll('.reveal');
   const revealObs = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
@@ -294,7 +376,6 @@
   }, { threshold: 0.1 });
   revealEls.forEach(el => revealObs.observe(el));
 
-  // ── Counter animation ──
   function animateCounter(el) {
     const target = parseInt(el.dataset.target);
     if (!target) return;
@@ -320,71 +401,27 @@
     statObs.observe(statsEl);
   }
 
-  // ── WhatsApp toggle ──
-  function toggleWA() {
-    document.getElementById('wpPopup').classList.toggle('open');
-  }
+  function toggleWA() { document.getElementById('wpPopup').classList.toggle('open'); }
 
-  // ── Exit intent: troca de aba, 1 a cada 3 vezes ──
-  // Usa sessionStorage para persistir a contagem entre páginas
   let exitShown = false;
   function maybeShowExit() {
     if (exitShown) return;
     let count = parseInt(sessionStorage.getItem('tabSwitchCount') || '0') + 1;
     sessionStorage.setItem('tabSwitchCount', count);
-    if (count % 3 === 0) {
-      exitShown = true;
-      document.getElementById('exitPopup').classList.add('show');
-    }
+    if (count % 3 === 0) { exitShown = true; document.getElementById('exitPopup').classList.add('show'); }
   }
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') maybeShowExit(); });
+  function closeExit() { exitShown = false; document.getElementById('exitPopup').classList.remove('show'); }
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') {
-      maybeShowExit();
-    }
-  });
-
-  function closeExit() {
-    exitShown = false; // permite disparar novamente nas próximas 3 trocas
-    document.getElementById('exitPopup').classList.remove('show');
-  }
-
-  // ── Mobile menu ──
   function toggleMenu() {
     const links = document.querySelector('.nav-links');
     if (links.style.display === 'flex') {
       links.style.display = 'none';
     } else {
-      links.style.cssText =
-        'display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;' +
-        'background:rgba(255,255,255,0.97);padding:24px;gap:20px;' +
-        'border-bottom:1px solid rgba(0,0,0,0.08);z-index:150;';
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(255,255,255,0.97);padding:24px;gap:20px;border-bottom:1px solid rgba(0,0,0,0.08);z-index:150;';
     }
   }
 
-  // ── Cloud Stack Reveal ──
-  function revealStack() {
-    const visual  = document.getElementById('heroStackVisual');
-    const hint    = document.getElementById('cloudHint');
-    const zone    = document.getElementById('cloudClickZone');
-    if (visual.classList.contains('revealed')) return;
-
-    // Marca como revelado (CSS cuida da nuvem + connector)
-    visual.classList.add('revealed');
-
-    // Remove cursor pointer da nuvem
-    zone.style.cursor = 'default';
-
-    // Aparece cada camada com delay sequencial
-    const layers = document.querySelectorAll('.stack-layer');
-    layers.forEach((layer, i) => {
-      setTimeout(() => {
-        layer.classList.add('layer-visible');
-      }, 550 + i * 230);
-    });
-  }
-
-  // ── Navbar scroll ──
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
     if (window.scrollY > 50) {
