@@ -39,12 +39,18 @@
       <img src="images/parceiros.png" alt="Parceiros" style="width:100%;height:auto;margin-top:32px;border-radius:12px;">
     </div>
     <div class="contact-form reveal">
-      <div class="form-group"><label>Nome completo</label><input type="text" placeholder="Seu nome"></div>
       <div class="form-group"><label>Empresa</label><input type="text" placeholder="Nome da empresa"></div>
       <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
       <div class="form-group"><label>Telefone</label><input type="tel" placeholder="(00) 00000-0000"></div>
       <div class="form-group"><label>Mensagem</label><textarea placeholder="Conta um pouco sobre seu negócio..."></textarea></div>
       <button class="form-submit">Quero ser parceiro →</button>
+      <!-- Segurança: Adicionado validação HTML5 e atributos de segurança -->
+      <div class="form-group"><label>Nome completo</label><input type="text" placeholder="Seu nome" name="nome" required minlength="2" maxlength="60"></div>
+      <div class="form-group"><label>Empresa</label><input type="text" placeholder="Nome da empresa" name="empresa" required minlength="2" maxlength="100"></div>
+      <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com" name="email" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" maxlength="100"></div>
+      <div class="form-group"><label>Telefone</label><input type="tel" placeholder="(00) 00000-0000" name="telefone" required pattern="\(\d{2}\) \d{5}-\d{4}" maxlength="15"></div>
+      <div class="form-group"><label>Mensagem</label><textarea placeholder="Conta um pouco sobre seu negócio..." name="mensagem" required minlength="10" maxlength="1000"></textarea></div>
+      <button class="form-submit" type="submit">Quero ser parceiro →</button>
     </div>
   </div>
 </section>

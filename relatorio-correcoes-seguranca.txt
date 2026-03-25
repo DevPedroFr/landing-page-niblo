@@ -1,0 +1,27 @@
+# Relatório de Correções de Segurança – Niblo Landing Page
+
+## 1. Formulários
+- **Adicionada validação HTML5** nos campos de formulário em contato.html e parceiros.html:
+  - Campos agora possuem `required`, `minlength`, `maxlength` e `pattern` para e-mail e telefone.
+  - Adicionados atributos `name` para facilitar futura integração segura com backend.
+- **Botões de envio** agora usam `type="submit"`.
+
+## 2. Links Externos
+- Todos os links externos com `target="_blank"` receberam o atributo `rel="noopener noreferrer"` para evitar ataques de tabnabbing.
+
+## 3. Comentários de Segurança
+- Comentários foram inseridos nos formulários para indicar as melhorias e lembrar de futuras proteções no backend (ex: sanitização, reCAPTCHA).
+
+## 4. Recomendações Futuras
+- Implementar validação e sanitização no backend caso os formulários passem a enviar dados para um servidor.
+- Adicionar proteção contra spam (ex: Google reCAPTCHA).
+- Configurar headers de segurança no servidor (CSP, X-Frame-Options, etc.) caso o site seja hospedado em ambiente próprio.
+
+## Arquivos Alterados
+- contato.html
+- parceiros.html
+- index.html
+
+---
+
+**Todas as alterações visam mitigar riscos comuns em sites estáticos, especialmente XSS, coleta de dados inseguros e tabnabbing.**

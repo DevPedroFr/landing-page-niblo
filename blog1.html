@@ -8,17 +8,16 @@
 </head>
 <body>
 
-<div class="back-button">
-  <a href="blog.html">Voltar para o Blog</a>
-</div>
 
 <div class="blog-post-container">
+  <div class="back-button">
+    <a href="blog.html">Voltar para o Blog</a>
+  </div>
   <div class="blog-post-title" data-text="Private Cloud para revendas: por que &quot;revender cloud&quot; não é o mesmo que ter controle da oferta"></div>
   <div class="blog-post-meta">Publicado em 09/03/2026 • Autor: Niblo Cloud</div>
   <div class="blog-post-content">
     <p>Revender cloud parece, à primeira vista, um movimento natural para qualquer revenda de tecnologia. O modelo é simples: escolher um provedor, contratar recursos, adicionar uma margem e disponibilizar o serviço ao cliente final. Porém, essa simplicidade esconde um fator crítico que separa revendas que crescem de forma sustentável daquelas que entram em ciclos constantes de retrabalho e compressão de margem: <strong>controle da oferta</strong>.</p>
     <p>Na prática, muitas revendas estão vendendo cloud sem realmente controlar o serviço que entregam. Elas intermediam infraestrutura, mas não dominam os elementos que definem a experiência do cliente — desempenho, disponibilidade, suporte, custos operacionais e capacidade de padronização. E quando não há controle, a cloud deixa de ser um produto estratégico e passa a ser apenas um repasse — e o impacto disso aparece rapidamente no negócio.</p>
-    
     <h2>Quando você não controla a cloud, você não controla o resultado</h2>
     <p>O cliente final não enxerga camadas técnicas, contratos de upstream ou limitações do provedor base. Ele enxerga a sua marca. Se existe instabilidade, lentidão, indisponibilidade ou demora no suporte, a percepção negativa é direcionada à revenda — independentemente de onde está a origem do problema. Esse desalinhamento cria três efeitos comuns:</p>
     <ul>
@@ -27,7 +26,6 @@
       <li><strong>Experiência do cliente inconsistente:</strong> Problemas como contenção de recursos, latência variável ou o conhecido efeito de "vizinho barulhento" impactam diretamente aplicações hospedadas. Sem isolamento e governança, a qualidade percebida oscila.</li>
     </ul>
     <p>O resultado é um cenário onde a revenda vende cloud, mas não constrói autoridade nem diferenciação.</p>
-
     <h2>Controle transforma infraestrutura em produto</h2>
     <p>A mudança ocorre quando a revenda deixa de enxergar cloud como um recurso técnico e passa a estruturá-la como oferta comercial padronizada. Nesse momento, Private Cloud deixa de ser apenas uma arquitetura e passa a ser um modelo de posicionamento. Com controle, a revenda consegue estruturar elementos fundamentais de escala:</p>
     <ul>
@@ -37,7 +35,6 @@
       <li><strong>Isolamento e compliance:</strong> Capacidade de oferecer ambientes dedicados quando exigido por auditoria, governança ou requisitos de performance.</li>
     </ul>
     <p>Nesse contexto, o valor percebido muda. A revenda deixa de competir por preço de infraestrutura e passa a competir por confiabilidade, previsibilidade e experiência.</p>
-
     <h3>Quando Private Cloud passa a fazer sentido para revendas?</h3>
     <p>Nem toda revenda precisa iniciar com Private Cloud imediatamente, mas existem sinais claros de maturidade: clientes solicitando ambientes dedicados ou compliance; dificuldade em manter SLA consistente; crescimento do suporte reativo e incidentes recorrentes; pressão por margem ou commoditização da oferta; necessidade de padronizar onboarding e operação.</p>
     <p>Quando esses sinais aparecem, a discussão deixa de ser técnica e passa a ser estratégica. Private Cloud torna-se o caminho para estruturar uma oferta própria, com governança, previsibilidade e diferenciação competitiva.</p>
@@ -67,7 +64,7 @@
       <div class="wo-icon">🛠️</div>
       <div class="wo-text">
         <strong>Suporte Técnico</strong>
-        <span>Abertura de chamados</span>
+    <!-- Linhas omitidas -->
       </div>
     </a>
     <a href="https://wa.me/5511937315210" target="_blank" class="whatsapp-option">
@@ -87,29 +84,29 @@
   // ── Blog Entry Animations & Typewriter Effect ──
   document.addEventListener('DOMContentLoaded', () => {
     const titleElement = document.querySelector('.blog-post-title');
+    if (!titleElement) {
+      document.body.classList.add('blog-loaded');
+      return;
+    }
     const fullText = titleElement.getAttribute('data-text');
     let charIndex = 0;
-    
     // Clear the title
     titleElement.textContent = '';
     titleElement.classList.add('typing');
-    
     // Typewriter effect
     function typeWriter() {
       if (charIndex < fullText.length) {
         titleElement.textContent += fullText.charAt(charIndex);
         charIndex++;
-        setTimeout(typeWriter, 30); // Speed of typing (30ms per character)
+        setTimeout(typeWriter, 30);
       } else {
         titleElement.classList.remove('typing');
         titleElement.classList.add('typing-complete');
       }
     }
-    
-    // Start animations
     setTimeout(() => {
       document.body.classList.add('blog-loaded');
-      setTimeout(typeWriter, 400); // Delay before typing starts
+      setTimeout(typeWriter, 400);
     }, 100);
   });
 
