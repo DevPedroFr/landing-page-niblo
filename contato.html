@@ -37,21 +37,7 @@
       </p>
       <img src="images/contato.png" alt="Contato" style="width:100%;height:auto;margin-top:32px;border-radius:12px;">
     </div>
-    <div class="contact-form reveal">
-      <div class="form-group"><label>E-mail corporativo</label><input type="email" placeholder="seu@empresa.com"></div>
-      <div class="form-group">
-        <label>Assunto</label>
-        <select>
-          <option value="">Selecione um assunto</option>
-          <option>Suporte técnico</option>
-          <option>Comercial</option>
-          <option>Parceria</option>
-          <option>Outros</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Mensagem</label><textarea placeholder="Como podemos ajudar?"></textarea></div>
-      <button class="form-submit">Enviar mensagem →</button>
-      <!-- Segurança: Adicionado validação HTML5 e atributos de segurança -->
+    <form class="contact-form reveal">
       <div class="form-group"><label>Nome</label><input type="text" placeholder="Seu nome" name="nome" required minlength="2" maxlength="60"></div>
       <div class="form-group"><label>E-mail corporativo</label><input type="email" placeholder="seu@empresa.com" name="email" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" maxlength="100"></div>
       <div class="form-group">
@@ -66,7 +52,7 @@
       </div>
       <div class="form-group"><label>Mensagem</label><textarea placeholder="Como podemos ajudar?" name="mensagem" required minlength="10" maxlength="1000"></textarea></div>
       <button class="form-submit" type="submit">Enviar mensagem →</button>
-    </div>
+    </form>
   </div>
 </section>
 <footer>
@@ -82,6 +68,36 @@
     <a href="contato.html">Contato</a>
   </div>
 </footer>
+<!-- EmailJS SDK v4 UMD -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init('BDUWYY3eicXTr361g');
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('#contato .contact-form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const nome = form.querySelector('input[name="nome"]').value;
+        const email = form.querySelector('input[name="email"]').value;
+        const assunto = form.querySelector('select[name="assunto"]').value;
+        const mensagem = form.querySelector('textarea[name="mensagem"]').value;
+        emailjs.send("service_w9kqeif", "template_cl4knzx", {
+          nome,
+          email,
+          assunto,
+          mensagem
+        })
+        .then(function(response) {
+          alert('Mensagem enviada com sucesso!');
+          form.reset();
+        }, function(error) {
+          alert('Erro ao enviar mensagem. Veja o console para detalhes.');
+          console.log('Erro EmailJS:', error);
+        });
+      });
+    }
+  });
+</script>
 <div class="whatsapp-float">
   <div class="whatsapp-popup" id="wpPopup">
     <h4>💬 Fale com a Niblo</h4>

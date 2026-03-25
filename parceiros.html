@@ -38,20 +38,13 @@
       </p>
       <img src="images/parceiros.png" alt="Parceiros" style="width:100%;height:auto;margin-top:32px;border-radius:12px;">
     </div>
-    <div class="contact-form reveal">
-      <div class="form-group"><label>Empresa</label><input type="text" placeholder="Nome da empresa"></div>
-      <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
-      <div class="form-group"><label>Telefone</label><input type="tel" placeholder="(00) 00000-0000"></div>
-      <div class="form-group"><label>Mensagem</label><textarea placeholder="Conta um pouco sobre seu negócio..."></textarea></div>
-      <button class="form-submit">Quero ser parceiro →</button>
-      <!-- Segurança: Adicionado validação HTML5 e atributos de segurança -->
-      <div class="form-group"><label>Nome completo</label><input type="text" placeholder="Seu nome" name="nome" required minlength="2" maxlength="60"></div>
+    <form class="contact-form reveal">
       <div class="form-group"><label>Empresa</label><input type="text" placeholder="Nome da empresa" name="empresa" required minlength="2" maxlength="100"></div>
       <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com" name="email" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" maxlength="100"></div>
       <div class="form-group"><label>Telefone</label><input type="tel" placeholder="(00) 00000-0000" name="telefone" required pattern="\(\d{2}\) \d{5}-\d{4}" maxlength="15"></div>
       <div class="form-group"><label>Mensagem</label><textarea placeholder="Conta um pouco sobre seu negócio..." name="mensagem" required minlength="10" maxlength="1000"></textarea></div>
       <button class="form-submit" type="submit">Quero ser parceiro →</button>
-    </div>
+    </form>
   </div>
 </section>
 <footer>
@@ -67,6 +60,36 @@
     <a href="contato.html">Contato</a>
   </div>
 </footer>
+<!-- EmailJS SDK v4 UMD -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init('BDUWYY3eicXTr361g');
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('#form-parceiro .contact-form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const empresa = form.querySelector('input[name="empresa"]').value;
+        const email = form.querySelector('input[name="email"]').value;
+        const telefone = form.querySelector('input[name="telefone"]').value;
+        const mensagem = form.querySelector('textarea[name="mensagem"]').value;
+        emailjs.send("service_w9kqeif", "template_r9ks16t", {
+          empresa,
+          email,
+          telefone,
+          mensagem
+        })
+        .then(function(response) {
+          alert('Solicitação de parceria enviada com sucesso!');
+          form.reset();
+        }, function(error) {
+          alert('Erro ao enviar solicitação. Veja o console para detalhes.');
+          console.log('Erro EmailJS:', error);
+        });
+      });
+    }
+  });
+</script>
 <div class="whatsapp-float">
   <div class="whatsapp-popup" id="wpPopup">
     <h4>💬 Fale com a Niblo</h4>
