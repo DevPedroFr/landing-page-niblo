@@ -1,3 +1,70 @@
+/* ══════════════════════════════════════
+   HERO TITLE — Solução definitiva
+   Grande em telas grandes, menor em notebooks
+══════════════════════════════════════ */
+
+/* TELA GRANDE (padrão, acima de 1440px) */
+.hero-title {
+  font-family: 'Filson Pro', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 30px;
+  color: #1565C0;
+  font-style: italic;
+  text-shadow: none;
+  letter-spacing: -0.01em;
+  hyphens: manual;
+  word-break: keep-all;
+}
+
+/* NOTEBOOK (1025px até 1440px) */
+@media (max-width: 1440px) and (min-width: 1025px) {
+  .hero-title {
+    font-size: 1.75rem !important;
+  }
+}
+
+/* TABLET (1024px e abaixo) */
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 1.65rem !important;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 1.4rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 1.2rem !important;
+  }
+
+  .highlight-dark {
+    padding: 4px 10px;
+    margin: 1px 4px;
+    font-size: 0.95em;
+  }
+}
+
+/* Neutraliza QUALQUER outro clamp() residual que possa existir */
+@media (max-width: 900px) {
+  .hero-title {
+    font-size: 1.65rem !important;
+  }
+}
+@media (max-width: 1200px) and (min-width: 1025px) {
+  .hero-title {
+    font-size: 1.75rem !important;
+  }
+}
+
+
+
 @media (max-width: 1400px) and (min-width: 1000px) {
   .hero-image-wrapper img {
     max-width: 700px;
@@ -6,25 +73,11 @@
   }
 }
 /* Garante que 'cloud sob medida.' fique sempre junto na hero-title */
-.hero-title .highlight-dark {
-  white-space: nowrap;
-}
+/* (Regra removida pois não é mais necessária) */
 
-/* Garante que a linha "Flexibilidade real para negócios que nasceram para ser disruptivos." nunca quebre entre "para ser" e "disruptivos." */
-.hero-title {
-  hyphens: manual;
-}
 
-/* Força a quebra de linha após 'sob medida.' e impede quebra entre 'para ser disruptivos.' */
-.hero-title br {
-  display: none;
-}
 
-@media (min-width: 1px) {
-  .hero-title br {
-    display: initial;
-  }
-}
+/* Permite quebra de linha após 'sob medida.' na hero-title */
 /* Animação de flutuação para a imagem da hero-image na página inicial */
 /* Hero image maior e animada */
 .hero-image-wrapper img {
@@ -33,6 +86,20 @@
   min-width: 380px;
   width: 100%;
   height: auto;
+  position: relative;
+  z-index: 0; /* ou -1 se quiser que fique atrás de tudo */
+}
+
+@media (max-width: 1440px) {
+  .hero-image-wrapper img {
+    margin-left: 800px;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-image-wrapper img {
+    margin-left: 0;
+  }
 }
 
 @keyframes heroFloat {
@@ -1150,6 +1217,8 @@ nav::after {
   }
 }
 
+
+
 /* ═══════════════════════════════════════════════════════════
    ANTIGO - Cloud Click Zone (Manter para compatibilidade)
    ═══════════════════════════════════════════════════════════ */
@@ -1436,17 +1505,7 @@ nav::after {
   filter: drop-shadow(0 0 12px rgba(255,255,255,0.5));
 }
 
-.hero-title {
-  font-family: 'Filson Pro', sans-serif;
-  font-size: clamp(2.4rem, 4vw, 3.8rem);
-  font-weight: 700;
-  line-height: 1.15;
-  margin-bottom: 30px;
-  color: #1565C0;
-  font-style: italic;
-  text-shadow: none;
-  letter-spacing: -0.01em;
-}
+
 
 .gradient-text-orange {
   color: var(--orange);
@@ -2585,9 +2644,7 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
   .hero-visual {
     flex: 0 0 32%;
   }
-  .hero-title {
-    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
-  }
+
 }
 
 @media (max-width: 1024px) {
@@ -2612,7 +2669,6 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
   .hero-ring-3 { width: 125px; height: 125px; }
   .hero-circle-inner { width: 100px; height: 100px; }
   .hero-logo-img { width: 70px; }
-  .hero-title { font-size: 1.65rem; }
   .highlight-dark { padding: 6px 14px; margin: 1px 5px; }
   .stats-grid { grid-template-columns: repeat(3, 1fr); }
   .stat-item { border-radius: 12px !important; }
@@ -2635,7 +2691,6 @@ footer .footer-links a:hover { color: rgba(255,255,255,0.9); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .blog-grid { grid-template-columns: 1fr; }
   footer { flex-direction: column; text-align: center; }
-  .hero-title { font-size: 1.3rem; }
   .highlight-dark { padding: 4px 12px; margin: 1px 4px; font-size: 0.95em; }
   .multicloud-diagram { flex-direction: column; gap: 24px; }
   .mc-lines { flex-direction: row; width: 100%; height: 2px; align-self: auto; max-width: 100%; }
