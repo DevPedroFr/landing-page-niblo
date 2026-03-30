@@ -1028,14 +1028,7 @@
   });
 </script>
 
-            // Validação de conteúdo: bloquear links, URLs e HTML
-            // Regex robusta para bloquear URLs, links e HTML
-            const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|\[url|link\]|@|\b[a-z0-9.-]+\.(com|net|org|io|gov|br)\b|ftp:\/\/|mailto:|javascript:|data:|\[.*\]\(.*\))/i;
-            if (forbiddenPattern.test(mensagem) || forbiddenPattern.test(nome) || forbiddenPattern.test(assunto)) {
-              alert('Por favor, não inclua links, e-mails, URLs ou códigos no formulário. Envie apenas texto coerente.');
-              // Não envia, não reseta, não mostra sucesso
-              return false;
-            }
+
 
 </body>
 </html>
