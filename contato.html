@@ -1028,7 +1028,12 @@
   });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+            // Validação de conteúdo: bloquear links, URLs e HTML
+            const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|\[url|link\]|@|\.com|\.net|\.org|\.io|\.gov|\.br|ftp:\/\/|mailto:|javascript:|data:|\[.*\]\(.*\))/i;
+            if (forbiddenPattern.test(mensagem) || forbiddenPattern.test(nome) || forbiddenPattern.test(assunto)) {
+              alert('Por favor, não inclua links, e-mails, URLs ou códigos no formulário. Envie apenas texto coerente.');
+              return;
+            }
 
 </body>
 </html>
