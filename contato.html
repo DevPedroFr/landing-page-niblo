@@ -775,6 +775,7 @@
     width: fit-content;
   }
 </style>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -792,7 +793,7 @@
  
   <div class="nav-social">
     <a href="https://www.linkedin.com/company/niblo-cloud/" target="_blank"><img src="images/in.png" alt="LinkedIn"></a>
-    
+    <a href="https://www.instagram.com/niblo.cloud?igsh=bmxxbDBkazYzbndq" target="_blank"><img src="images/ig.png" alt="Instagram"></a>
   </div>
   <div class="hamburger" onclick="toggleMenu()">
     <span></span>
@@ -835,7 +836,10 @@
         <label>Mensagem</label>
         <textarea placeholder="Como podemos ajudar?" name="mensagem" required minlength="10" maxlength="1000"></textarea>
       </div>
-      <button class="form-submit" type="submit">Enviar mensagem →</button>
+      <div id="recaptcha-container" style="display:none; margin-bottom:16px;">
+        <div class="g-recaptcha" data-sitekey="6LeJKp4sAAAAAOC66DUGeo-p13E43P1ejr4FWcUT"></div>
+      </div>
+      <button class="form-submit" id="enviarBtn" type="button">Enviar mensagem →</button>
     </form>
   </div>
 </section>
@@ -959,14 +963,30 @@
 
     const form = document.getElementById('contactForm');
     if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
+      const enviarBtn = document.getElementById('enviarBtn');
+      const recaptchaContainer = document.getElementById('recaptcha-container');
+      let captchaShown = false;
+
+      enviarBtn.addEventListener('click', function() {
+        if (!captchaShown) {
+          recaptchaContainer.style.display = 'block';
+          captchaShown = true;
+          return;
+        }
+
+        // Verifica se o captcha foi resolvido
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+          alert('Por favor, resolva o captcha para enviar.');
+          return;
+        }
+
+        // Envia o formulário somente se o captcha for válido
         const nome = form.querySelector('input[name="nome"]').value;
         const email = form.querySelector('input[name="email"]').value;
         const assunto = form.querySelector('select[name="assunto"]').value;
         const mensagem = form.querySelector('textarea[name="mensagem"]').value;
-        
+
         if (typeof emailjs !== 'undefined' && emailjs.send) {
           emailjs.send("service_w9kqeif", "template_cl4knzx", {
             nome, email, assunto, mensagem
@@ -974,6 +994,9 @@
           .then(function() {
             alert('Mensagem enviada com sucesso!');
             form.reset();
+            grecaptcha.reset();
+            recaptchaContainer.style.display = 'none';
+            captchaShown = false;
           }, function(error) {
             alert('Erro ao enviar mensagem. Tente novamente.');
             console.log('Erro:', error);
@@ -981,6 +1004,9 @@
         } else {
           alert('Formulário enviado com sucesso! Entraremos em contato.');
           form.reset();
+          grecaptcha.reset();
+          recaptchaContainer.style.display = 'none';
+          captchaShown = false;
         }
       });
     }

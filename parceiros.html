@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parceiros — Niblo Cloud</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <nav id="navbar">
@@ -43,7 +44,10 @@
       <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com" name="email" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" maxlength="100"></div>
       <div class="form-group"><label>Telefone</label><input type="tel" placeholder="(00) 00000-0000" name="telefone" required pattern="\(\d{2}\) \d{5}-\d{4}" maxlength="15"></div>
       <div class="form-group"><label>Mensagem</label><textarea placeholder="Conta um pouco sobre seu negócio..." name="mensagem" required minlength="10" maxlength="1000"></textarea></div>
-      <button class="form-submit" type="submit">Quero ser parceiro →</button>
+      <div id="recaptcha-container-parceiro" style="display:none; margin-bottom:16px;">
+        <div class="g-recaptcha" data-sitekey="6LeJKp4sAAAAAOC66DUGeo-p13E43P1ejr4FWcUT"></div>
+      </div>
+      <button class="form-submit" id="enviarParceiroBtn" type="button">Quero ser parceiro →</button>
     </form>
   </div>
 </section>
@@ -67,8 +71,25 @@
   document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('#form-parceiro .contact-form');
     if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
+      const enviarBtn = document.getElementById('enviarParceiroBtn');
+      const recaptchaContainer = document.getElementById('recaptcha-container-parceiro');
+      let captchaShown = false;
+
+      enviarBtn.addEventListener('click', function() {
+        if (!captchaShown) {
+          recaptchaContainer.style.display = 'block';
+          captchaShown = true;
+          return;
+        }
+
+        // Verifica se o captcha foi resolvido
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+          alert('Por favor, resolva o captcha para enviar.');
+          return;
+        }
+
+        // Envia o formulário somente se o captcha for válido
         const empresa = form.querySelector('input[name="empresa"]').value;
         const email = form.querySelector('input[name="email"]').value;
         const telefone = form.querySelector('input[name="telefone"]').value;
@@ -82,6 +103,9 @@
         .then(function(response) {
           alert('Solicitação de parceria enviada com sucesso!');
           form.reset();
+          grecaptcha.reset();
+          recaptchaContainer.style.display = 'none';
+          captchaShown = false;
         }, function(error) {
           alert('Erro ao enviar solicitação. Veja o console para detalhes.');
           console.log('Erro EmailJS:', error);
