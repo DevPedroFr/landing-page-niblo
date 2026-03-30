@@ -108,13 +108,15 @@
           return;
         }
 
+
         // Validação de conteúdo: bloquear links, URLs e HTML
         const empresa = form.querySelector('input[name="empresa"]').value;
         const email = form.querySelector('input[name="email"]').value;
         const telefone = form.querySelector('input[name="telefone"]').value;
         const mensagem = form.querySelector('textarea[name="mensagem"]').value;
 
-        const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|\[url|link\]|@|\.com|\.net|\.org|\.io|\.gov|\.br|ftp:\/\/|mailto:|javascript:|data:|\[.*\]\(.*\))/i;
+        // Regex robusta para bloquear URLs, links e HTML
+        const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|\[url|link\]|@|\b[a-z0-9.-]+\.(com|net|org|io|gov|br)\b|ftp:\/\/|mailto:|javascript:|data:|\[.*\]\(.*\))/i;
         if (forbiddenPattern.test(mensagem) || forbiddenPattern.test(empresa)) {
           alert('Por favor, não inclua links, e-mails, URLs ou códigos no formulário. Envie apenas texto coerente.');
           return;
