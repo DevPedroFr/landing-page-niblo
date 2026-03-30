@@ -25,6 +25,22 @@
     }, 500);
   });
 </script>
+<script>
+  // Gira os cards MVV ao toque/click em dispositivos móveis
+  document.addEventListener('DOMContentLoaded', function() {
+    function isMobile() {
+      return window.innerWidth <= 1024;
+    }
+    var cards = document.querySelectorAll('.mvv-card');
+    cards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        if (isMobile()) {
+          card.classList.toggle('mvv-flip');
+        }
+      });
+    });
+  });
+</script>
 <body>
 <nav id="navbar">
   <a href="index.html" class="logo">
