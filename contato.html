@@ -776,6 +776,7 @@
   }
 </style>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -916,105 +917,118 @@
         document.getElementById('cookie-banner').style.display = 'none';
       };
     });
-  // MENU MOBILE
-  function toggleMenu() {
-    const navLinks = document.getElementById('navLinks');
-    navLinks.classList.toggle('mobile-open');
-  }
-
-  // WHATSAPP TOGGLE
-  function toggleWA() {
-    const popup = document.getElementById('wpPopup');
-    popup.classList.toggle('open');
-  }
-
-  // FECHAR EXIT POPUP
-  function closeExit() {
-    document.getElementById('exitPopup').classList.remove('show');
-  }
-
-  // EXIT INTENT
-  let exitShown = false;
-  function maybeShowExit() {
-    if (exitShown) return;
-    let count = parseInt(sessionStorage.getItem('tabSwitchCount') || '0') + 1;
-    sessionStorage.setItem('tabSwitchCount', count);
-    if (count % 3 === 0) {
-      exitShown = true;
-      document.getElementById('exitPopup').classList.add('show');
+    
+    // MENU MOBILE
+    function toggleMenu() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('mobile-open');
     }
-  }
 
-  document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'hidden') {
-      maybeShowExit();
+    // WHATSAPP TOGGLE
+    function toggleWA() {
+      const popup = document.getElementById('wpPopup');
+      popup.classList.toggle('open');
     }
-  });
 
-  // NAVBAR SCROLL
-  window.addEventListener('scroll', function() {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 50) {
-      nav.style.background = 'rgba(255,255,255,0.98)';
-      nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
-    } else {
-      nav.style.background = 'rgba(255,255,255,0.85)';
-      nav.style.boxShadow = 'none';
+    // FECHAR EXIT POPUP
+    function closeExit() {
+      document.getElementById('exitPopup').classList.remove('show');
     }
-  });
 
-  // FECHAR MENU AO CLICAR EM LINK
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('navLinks').classList.remove('mobile-open');
+    // EXIT INTENT
+    let exitShown = false;
+    function maybeShowExit() {
+      if (exitShown) return;
+      let count = parseInt(sessionStorage.getItem('tabSwitchCount') || '0') + 1;
+      sessionStorage.setItem('tabSwitchCount', count);
+      if (count % 3 === 0) {
+        exitShown = true;
+        document.getElementById('exitPopup').classList.add('show');
+      }
+    }
+
+    document.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'hidden') {
+        maybeShowExit();
+      }
     });
-  });
 
-  // FORMULÁRIO COM EMAILJS
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof emailjs !== 'undefined') {
+    // NAVBAR SCROLL
+    window.addEventListener('scroll', function() {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav.style.background = 'rgba(255,255,255,0.98)';
+        nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
+      } else {
+        nav.style.background = 'rgba(255,255,255,0.85)';
+        nav.style.boxShadow = 'none';
+      }
+    });
+
+    // FECHAR MENU AO CLICAR EM LINK
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('mobile-open');
+      });
+    });
+
+    // FORMULÁRIO COM EMAILJS (CORRIGIDO)
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar EmailJS
       emailjs.init('BDUWYY3eicXTr361g');
-    }
 
-    const form = document.getElementById('contactForm');
-    if (form) {
-      const enviarBtn = document.getElementById('enviarBtn');
-      const recaptchaContainer = document.getElementById('recaptcha-container');
-      let captchaShown = false;
+      const form = document.getElementById('contactForm');
+      if (form) {
+        const enviarBtn = document.getElementById('enviarBtn');
+        const recaptchaContainer = document.getElementById('recaptcha-container');
+        let captchaShown = false;
 
-      enviarBtn.addEventListener('click', function() {
-        if (!captchaShown) {
-          recaptchaContainer.style.display = 'block';
-          captchaShown = true;
-          return;
-        }
+        enviarBtn.addEventListener('click', function() {
+          if (!captchaShown) {
+            recaptchaContainer.style.display = 'block';
+            captchaShown = true;
+            return;
+          }
 
-        // Verifica se o captcha foi resolvido
-        const recaptchaResponse = grecaptcha.getResponse();
-        if (!recaptchaResponse) {
-          alert('Por favor, resolva o captcha para enviar.');
-          return;
-        }
+          // Verifica se o captcha foi resolvido
+          const recaptchaResponse = grecaptcha.getResponse();
+          if (!recaptchaResponse) {
+            alert('Por favor, resolva o captcha para enviar.');
+            return;
+          }
 
-        // Validação de conteúdo suspeito (links, URLs, HTML, etc)
-        const nome = form.querySelector('input[name="nome"]').value;
-        const email = form.querySelector('input[name="email"]').value;
-        const assunto = form.querySelector('select[name="assunto"]').value;
-        const mensagem = form.querySelector('textarea[name="mensagem"]').value;
+          // Validação de conteúdo suspeito (links, URLs, HTML)
+          // CORREÇÃO: Regex agora NÃO bloqueia o @, permitindo emails normalmente
+          const nome = form.querySelector('input[name="nome"]').value;
+          const email = form.querySelector('input[name="email"]').value;
+          const assunto = form.querySelector('select[name="assunto"]').value;
+          const mensagem = form.querySelector('textarea[name="mensagem"]').value;
 
-        // Regex para bloquear links, URLs e HTML apenas em nome e mensagem
-        const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|\[url|link\]|ftp:\/\/|mailto:|javascript:|data:|\[.*\]\(.*\))/i;
-        if (forbiddenPattern.test(mensagem) || forbiddenPattern.test(nome)) {
-          alert('Por favor, não inclua links, e-mails, URLs ou códigos no formulário. Envie apenas texto coerente.');
-          // Não envia, não reseta, não mostra sucesso
-          return false;
-        }
+          // Regex corrigida - bloqueia apenas links, URLs e HTML, NÃO bloqueia @
+          // Removeu o @ e \b[a-z0-9.-]+\.(com|net|org|io|gov|br)\b da regex
+          const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|\[url|link\]|ftp:\/\/|mailto:|javascript:|data:|\[.*\]\(.*\))/i;
+          
+          if (forbiddenPattern.test(mensagem) || forbiddenPattern.test(nome)) {
+            alert('Por favor, não inclua links, URLs ou códigos no formulário. Envie apenas texto coerente.');
+            // Não envia, não reseta, não mostra sucesso
+            return false;
+          }
 
-        if (typeof emailjs !== 'undefined' && emailjs.send) {
+          // Validar formato do email
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(email)) {
+            alert('Por favor, insira um e-mail válido.');
+            return false;
+          }
+
+          // Enviar via EmailJS
           emailjs.send("service_w9kqeif", "template_cl4knzx", {
-            nome, email, assunto, mensagem
+            nome: nome,
+            email: email,
+            assunto: assunto,
+            mensagem: mensagem
           })
-          .then(function() {
+          .then(function(response) {
             alert('Mensagem enviada com sucesso!');
             form.reset();
             grecaptcha.reset();
@@ -1024,19 +1038,10 @@
             alert('Erro ao enviar mensagem. Tente novamente.');
             console.log('Erro:', error);
           });
-        } else {
-          alert('Formulário enviado com sucesso! Entraremos em contato.');
-          form.reset();
-          grecaptcha.reset();
-          recaptchaContainer.style.display = 'none';
-          captchaShown = false;
-        }
-      });
-    }
-  });
+        });
+      }
+    });
 </script>
-
-
 
 </body>
 </html>
