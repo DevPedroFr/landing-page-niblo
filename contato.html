@@ -846,7 +846,7 @@
 
 <footer>
   <a href="index.html" class="logo">
-    <img src="images/logo1.png" alt="Niblo Cloud">
+    <img src="images/logo1.png" alt="Niblo Cloud" style="height: 80px;">
   </a>
   <p>© 2026 Niblo Cloud. Todos os direitos reservados.</p>
   <div class="footer-links">
@@ -1002,11 +1002,12 @@
         const assunto = form.querySelector('select[name="assunto"]').value;
         const mensagem = form.querySelector('textarea[name="mensagem"]').value;
 
-        // Regex para bloquear links, URLs, HTML tags e palavras suspeitas
-        const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|href=|src=|@|\.com|\.net|\.org|\.br|\[url|\[link|\[href|\[src|<script|<iframe|<img|<a |<form|<input|<button|<object|<embed|<svg|<base|<meta|<style|<link|<body|<head|<html|<title|<div|<span|<table|<tr|<td|<th|<ul|<li|<ol|<dl|<dt|<dd|<fieldset|<legend|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|<script|<onload|<onerror|<svg|<math|<base|<object|<embed|<form|<input|<button|<textarea|<select|<option|<iframe|<frame|<frameset|<applet|<bgsound|<layer|<ilayer|<xml|<xss|ftp:\/\/|mailto:|javascript:|data:|base64,|%3C|%3E|%22|%27|\{|\}|\[|\]|\^|\*|\$|\(|\)|\=|\+|\~|\`|\|)/i;
-        if (forbiddenPattern.test(mensagem) || forbiddenPattern.test(nome) || forbiddenPattern.test(email) || forbiddenPattern.test(assunto)) {
-          alert('Por favor, preencha o formulário apenas com texto válido. Não são permitidos links, URLs ou conteúdo suspeito.');
-          return;
+        // Regex para bloquear links, URLs e HTML apenas em nome e mensagem
+        const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|\[url|link\]|ftp:\/\/|mailto:|javascript:|data:|\[.*\]\(.*\))/i;
+        if (forbiddenPattern.test(mensagem) || forbiddenPattern.test(nome)) {
+          alert('Por favor, não inclua links, e-mails, URLs ou códigos no formulário. Envie apenas texto coerente.');
+          // Não envia, não reseta, não mostra sucesso
+          return false;
         }
 
         if (typeof emailjs !== 'undefined' && emailjs.send) {
