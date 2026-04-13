@@ -13,7 +13,7 @@
 </div>
 
 <div class="blog-post-container">
-  <div class="blog-post-title" data-text="Pronto para vender Private Cloud? Faça este teste de 7 perguntas (e descubra antes do cliente)"></div>
+  <div class="blog-post-title">Pronto para vender Private Cloud? Faça este teste de 7 perguntas (e descubra antes do cliente)</div>
   <div class="blog-post-meta">Publicado em 09/03/2026 • Autor: Niblo Cloud</div>
   <div class="blog-post-content">
     <p>Entrar no mercado de Private Cloud é um passo natural para muitas revendas que buscam recorrência, diferenciação e maior controle sobre a experiência do cliente. Porém, existe um ponto crítico que frequentemente passa despercebido: <strong>o cliente sempre testa sua oferta em produção, mesmo quando não diz explicitamente que está testando</strong>. Esse teste acontece quando ocorre um incidente, quando o desempenho oscila, quando surge uma auditoria ou quando o cliente precisa escalar rapidamente. Nesses momentos, não importa se a infraestrutura base é robusta — o que define o sucesso é a maturidade da sua oferta.</p>
@@ -87,39 +87,9 @@
 </div>
 
 <script>
-  // ── Blog Entry Animations & Typewriter Effect ──
-  document.addEventListener('DOMContentLoaded', () => {
-    const titleElement = document.querySelector('.blog-post-title');
-    const fullText = titleElement.getAttribute('data-text');
-    let charIndex = 0;
-    
-    // Clear the title
-    titleElement.textContent = '';
-    titleElement.classList.add('typing');
-    
-    // Typewriter effect
-    function typeWriter() {
-      if (charIndex < fullText.length) {
-        titleElement.textContent += fullText.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeWriter, 30); // Speed of typing (30ms per character)
-      } else {
-        titleElement.classList.remove('typing');
-        titleElement.classList.add('typing-complete');
-      }
-    }
-    
-    // Start animations
-    setTimeout(() => {
-      document.body.classList.add('blog-loaded');
-      setTimeout(typeWriter, 400); // Delay before typing starts
-    }, 100);
-  });
-
   function toggleWA() {
     document.getElementById('wpPopup').classList.toggle('open');
   }
-  
   function toggleMenu() {
     const links = document.querySelector('.nav-links');
     if (links.style.display === 'flex') {
@@ -131,7 +101,6 @@
         'border-bottom:1px solid rgba(0,0,0,0.08);z-index:150;';
     }
   }
-
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
     if (window.scrollY > 50) {
@@ -140,6 +109,9 @@
     } else {
       nav.style.background = 'rgba(255,255,255,0.85)';
       nav.style.boxShadow = 'none';
+    }
+  });
+</script>
     }
   });
 </script>

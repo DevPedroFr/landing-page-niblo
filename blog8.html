@@ -13,7 +13,7 @@
 </div>
 
 <div class="blog-post-container">
-  <div class="blog-post-title" data-text="O risco silencioso: o que acontece quando você terceiriza cloud sem SLA real"></div>
+  <div class="blog-post-title">O risco silencioso: o que acontece quando você terceiriza cloud sem SLA real</div>
   <div class="blog-post-meta">Publicado em 29/03/2026 • Autor: Niblo Cloud</div>
   <div class="blog-post-content">
     <p>Contratar serviços de nuvem é uma decisão estratégica que impacta continuidade operacional, experiência do cliente final e reputação da empresa. No entanto, muitas revendas e software houses terceirizam infraestrutura de cloud sem verificar se o SLA contratado é sustentado por operação real — e descobrem a fragilidade apenas quando ocorre um incidente crítico. Esse risco silencioso frequentemente passa despercebido até que gera prejuízo financeiro, perda de cliente ou comprometimento de marca.</p>
@@ -106,39 +106,9 @@
 </div>
 
 <script>
-  // ── Blog Entry Animations & Typewriter Effect ──
-  document.addEventListener('DOMContentLoaded', () => {
-    const titleElement = document.querySelector('.blog-post-title');
-    const fullText = titleElement.getAttribute('data-text');
-    let charIndex = 0;
-    
-    // Clear the title
-    titleElement.textContent = '';
-    titleElement.classList.add('typing');
-    
-    // Typewriter effect
-    function typeWriter() {
-      if (charIndex < fullText.length) {
-        titleElement.textContent += fullText.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeWriter, 30); // Speed of typing (30ms per character)
-      } else {
-        titleElement.classList.remove('typing');
-        titleElement.classList.add('typing-complete');
-      }
-    }
-    
-    // Start animations
-    setTimeout(() => {
-      document.body.classList.add('blog-loaded');
-      setTimeout(typeWriter, 400); // Delay before typing starts
-    }, 100);
-  });
-
   function toggleWA() {
     document.getElementById('wpPopup').classList.toggle('open');
   }
-  
   function toggleMenu() {
     const links = document.querySelector('.nav-links');
     if (links.style.display === 'flex') {
@@ -150,7 +120,6 @@
         'border-bottom:1px solid rgba(0,0,0,0.08);z-index:150;';
     }
   }
-
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
     if (window.scrollY > 50) {
@@ -159,6 +128,9 @@
     } else {
       nav.style.background = 'rgba(255,255,255,0.85)';
       nav.style.boxShadow = 'none';
+    }
+  });
+</script>
     }
   });
 </script>

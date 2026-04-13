@@ -5,6 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Soluções — Niblo Cloud</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  /* ── Substituição do SVG por linhas CSS absolutas ── */
+  .mc3d-svg { display: none; } /* SVG original desativado */
+
+  /* Container das linhas desenhadas via JS */
+  .mc3d-lines-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* Cada linha é um <div> rotacionado */
+  .mc3d-line {
+    position: absolute;
+    height: 2px;
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg,
+      rgba(26,108,245,0.6) 0%,
+      rgba(242,121,33,0.9) 50%,
+      rgba(26,108,245,0.6) 100%
+    );
+    border-radius: 2px;
+    animation: mcLineFlow 3s linear infinite;
+    box-shadow: 0 0 6px rgba(242,121,33,0.4);
+  }
+
+  @keyframes mcLineFlow {
+    0%   { opacity: 0.3; }
+    50%  { opacity: 1;   }
+    100% { opacity: 0.3; }
+  }
+
+  .mc3d-line:nth-child(1) { animation-delay: 0.0s; }
+  .mc3d-line:nth-child(2) { animation-delay: 0.6s; }
+  .mc3d-line:nth-child(3) { animation-delay: 1.2s; }
+  .mc3d-line:nth-child(4) { animation-delay: 1.8s; }
+  .mc3d-line:nth-child(5) { animation-delay: 2.4s; }
+</style>
 </head>
 <body>
 <nav id="navbar">
@@ -27,6 +69,7 @@
     <span></span><span></span><span></span>
   </div>
 </nav>
+
 <section style="padding:140px 6% 80px;background:white;">
   <div class="solucoes-layout">
     <div class="solucoes-intro reveal">
@@ -80,38 +123,33 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     <p class="multicloud-subtitle">Integração de dados, escalabilidade e segurança no seu ambiente</p>
   </div>
 
-  <div class="mc3d-scene reveal">
+  <div class="mc3d-scene reveal" id="mc3d-scene">
 
-    <!-- SVG linhas de conexão (por trás de tudo) -->
+    <!-- SVG original mantido no DOM mas oculto via CSS -->
     <svg class="mc3d-svg" viewBox="0 0 800 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <defs>
         <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#1A6CF5" stop-opacity="0.6"/>
-          <stop offset="50%" stop-color="#f27921" stop-opacity="0.9"/>
+          <stop offset="0%"   stop-color="#1A6CF5" stop-opacity="0.6"/>
+          <stop offset="50%"  stop-color="#f27921" stop-opacity="0.9"/>
           <stop offset="100%" stop-color="#1A6CF5" stop-opacity="0.6"/>
         </linearGradient>
         <linearGradient id="lg2" x1="100%" y1="0%" x2="0%" y2="0%">
-          <stop offset="0%" stop-color="#1A6CF5" stop-opacity="0.6"/>
-          <stop offset="50%" stop-color="#f27921" stop-opacity="0.9"/>
+          <stop offset="0%"   stop-color="#1A6CF5" stop-opacity="0.6"/>
+          <stop offset="50%"  stop-color="#f27921" stop-opacity="0.9"/>
           <stop offset="100%" stop-color="#1A6CF5" stop-opacity="0.6"/>
         </linearGradient>
-        <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
       </defs>
-      <!-- 5 linhas em pentágono: centro (400,280) → cada nó -->
-      <!-- Topo (Azure) -->
-      <line class="mc3d-conn" x1="400" y1="280" x2="400" y2="28" stroke="url(#lg1)" stroke-width="1.5" filter="url(#glow)"/>
-      <!-- Top-right (AWS) -->
-      <line class="mc3d-conn mc3d-conn--d1" x1="400" y1="280" x2="656" y2="157" stroke="url(#lg1)" stroke-width="1.5" filter="url(#glow)"/>
-      <!-- Bottom-right (Google) -->
-      <line class="mc3d-conn mc3d-conn--d2" x1="400" y1="280" x2="576" y2="431" stroke="url(#lg2)" stroke-width="1.5" filter="url(#glow)"/>
-      <!-- Bottom-left (IBM) -->
-      <line class="mc3d-conn mc3d-conn--d3" x1="400" y1="280" x2="224" y2="431" stroke="url(#lg2)" stroke-width="1.5" filter="url(#glow)"/>
-      <!-- Top-left (Oracle) -->
-      <line class="mc3d-conn mc3d-conn--d4" x1="400" y1="280" x2="144" y2="157" stroke="url(#lg1)" stroke-width="1.5" filter="url(#glow)"/>
     </svg>
 
+    <!-- Canvas das linhas CSS — preenchido pelo JS -->
+    <div class="mc3d-lines-canvas" id="mc3d-lines-canvas"></div>
+
     <!-- Nó central: Niblo Cloud -->
-    <div class="mc3d-center">
+    <div class="mc3d-center" id="mc3d-center">
       <div class="mc3d-center-ring mc3d-center-ring--1"></div>
       <div class="mc3d-center-ring mc3d-center-ring--2"></div>
       <div class="mc3d-center-glow"></div>
@@ -121,7 +159,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     </div>
 
     <!-- Nó 1 — Azure (topo) -->
-    <div class="mc3d-node mc3d-n1">
+    <div class="mc3d-node mc3d-n1" id="mc3d-n1">
       <div class="mc3d-node-body">
         <img src="images/azure.png" alt="Azure" class="mc3d-partner">
         <img src="images/pilar.png" alt="" class="mc3d-db">
@@ -131,7 +169,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     </div>
 
     <!-- Nó 2 — AWS (top-right) -->
-    <div class="mc3d-node mc3d-n2">
+    <div class="mc3d-node mc3d-n2" id="mc3d-n2">
       <div class="mc3d-node-body">
         <img src="images/aws.png" alt="AWS" class="mc3d-partner">
         <img src="images/pilar.png" alt="" class="mc3d-db">
@@ -141,7 +179,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     </div>
 
     <!-- Nó 3 — Google Cloud (bottom-right) -->
-    <div class="mc3d-node mc3d-n3">
+    <div class="mc3d-node mc3d-n3" id="mc3d-n3">
       <div class="mc3d-node-body">
         <img src="images/google.png" alt="Google Cloud" class="mc3d-partner">
         <img src="images/pilar.png" alt="" class="mc3d-db">
@@ -151,7 +189,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     </div>
 
     <!-- Nó 4 — IBM Cloud (bottom-left) -->
-    <div class="mc3d-node mc3d-n4">
+    <div class="mc3d-node mc3d-n4" id="mc3d-n4">
       <div class="mc3d-node-body">
         <img src="images/ibm.png" alt="IBM Cloud" class="mc3d-partner">
         <img src="images/pilar.png" alt="" class="mc3d-db">
@@ -161,7 +199,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     </div>
 
     <!-- Nó 5 — Oracle (top-left) -->
-    <div class="mc3d-node mc3d-n5">
+    <div class="mc3d-node mc3d-n5" id="mc3d-n5">
       <div class="mc3d-node-body">
         <img src="images/oracle.png" alt="Oracle" class="mc3d-partner">
         <img src="images/pilar.png" alt="" class="mc3d-db">
@@ -266,6 +304,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     <a href="contato.html">Contato</a>
   </div>
 </footer>
+
 <div class="whatsapp-float">
   <div class="whatsapp-popup" id="wpPopup">
     <h4>💬 Fale com a Niblo</h4>
@@ -288,6 +327,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     <img src="images/whatsapp.png" alt="WhatsApp">
   </div>
 </div>
+
 <div class="exit-popup-overlay" id="exitPopup">
   <div class="exit-popup">
     <button class="exit-popup-close" onclick="closeExit()">✕</button>
@@ -311,6 +351,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     </div>
   </div>
 </div>
+
 <script>
   // ── Scroll reveal ──
   const revealEls = document.querySelectorAll('.reveal');
@@ -355,10 +396,8 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
     document.getElementById('wpPopup').classList.toggle('open');
   }
 
-  // ── Exit intent: troca de aba, 1 a cada 3 vezes ──
-  // Usa sessionStorage para persistir a contagem entre páginas
+  // ── Exit intent ──
   let exitShown = false;
-
   function maybeShowExit() {
     if (exitShown) return;
     let count = parseInt(sessionStorage.getItem('tabSwitchCount') || '0') + 1;
@@ -368,15 +407,11 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
       document.getElementById('exitPopup').classList.add('show');
     }
   }
-
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') {
-      maybeShowExit();
-    }
+    if (document.visibilityState === 'hidden') maybeShowExit();
   });
-
   function closeExit() {
-    exitShown = false; // permite disparar novamente nas próximas 3 trocas
+    exitShown = false;
     document.getElementById('exitPopup').classList.remove('show');
   }
 
@@ -404,6 +439,89 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
       nav.style.boxShadow = 'none';
     }
   });
+
+  // ── Linhas de conexão multi-cloud ──
+  // Desenha <div> rotacionados de comprimento e ângulo calculados
+  // a partir das posições reais dos elementos no DOM.
+  // Estratégia: coordenadas relativas ao .mc3d-scene (offsetParent),
+  // evitando qualquer conversão de viewBox.
+  (function () {
+
+    function getCenter(el, scene) {
+      // Posição do elemento relativa ao topo-esquerdo do scene
+      var eRect = el.getBoundingClientRect();
+      var sRect = scene.getBoundingClientRect();
+      return {
+        x: eRect.left - sRect.left + eRect.width  / 2,
+        y: eRect.top  - sRect.top  + eRect.height / 2
+      };
+    }
+
+    function drawLine(canvas, x1, y1, x2, y2, delay) {
+      var dx  = x2 - x1;
+      var dy  = y2 - y1;
+      var len = Math.sqrt(dx * dx + dy * dy);
+      var ang = Math.atan2(dy, dx) * 180 / Math.PI;
+
+      var div = document.createElement('div');
+      div.className = 'mc3d-line';
+      div.style.width        = len + 'px';
+      div.style.left         = x1 + 'px';
+      div.style.top          = y1 + 'px';
+      div.style.transform    = 'rotate(' + ang + 'deg)';
+      div.style.animationDelay = delay + 's';
+      canvas.appendChild(div);
+    }
+
+    function buildLines() {
+      var scene  = document.getElementById('mc3d-scene');
+      var canvas = document.getElementById('mc3d-lines-canvas');
+      var hub    = document.getElementById('mc3d-center');
+
+      if (!scene || !canvas || !hub) return;
+
+      var nodes = [
+        { id: 'mc3d-n1', delay: 0.0 },
+        { id: 'mc3d-n2', delay: 0.6 },
+        { id: 'mc3d-n3', delay: 1.2 },
+        { id: 'mc3d-n4', delay: 1.8 },
+        { id: 'mc3d-n5', delay: 2.4 }
+      ];
+
+      // Limpa linhas anteriores (para o resize)
+      canvas.innerHTML = '';
+
+      var c = getCenter(hub, scene);
+
+      nodes.forEach(function (n) {
+        var el = document.getElementById(n.id);
+        if (!el) return;
+        var p = getCenter(el, scene);
+        drawLine(canvas, c.x, c.y, p.x, p.y, n.delay);
+      });
+    }
+
+    // Aguarda imagens carregarem para garantir layout estável
+    window.addEventListener('load', buildLines);
+
+    // Refaz no resize
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(buildLines, 100);
+    });
+
+    // Tenta também no DOMContentLoaded como fallback
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', buildLines);
+    } else {
+      // Adia 1 frame para garantir que o layout foi calculado
+      requestAnimationFrame(function () {
+        requestAnimationFrame(buildLines);
+      });
+    }
+
+  })();
 </script>
 </body>
 </html>

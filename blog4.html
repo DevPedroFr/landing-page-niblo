@@ -13,7 +13,7 @@
 </div>
 
 <div class="blog-post-container">
-  <div class="blog-post-title" data-text="Se o seu ERP parar hoje, você recupera em quanto tempo? (RTO/RPO sem enrolação)"></div>
+  <div class="blog-post-title">Se o seu ERP parar hoje, você recupera em quanto tempo? (RTO/RPO sem enrolação)</div>
   <div class="blog-post-meta">Publicado em 09/03/2026 • Autor: Niblo Cloud</div>
   <div class="blog-post-content">
     <p>Existe uma pergunta simples que revela a maturidade real da hospedagem de qualquer ERP: <strong>se o sistema parar agora, quando ele volta e quanto dado será perdido?</strong></p>
@@ -92,39 +92,9 @@
 </div>
 
 <script>
-  // ── Blog Entry Animations & Typewriter Effect ──
-  document.addEventListener('DOMContentLoaded', () => {
-    const titleElement = document.querySelector('.blog-post-title');
-    const fullText = titleElement.getAttribute('data-text');
-    let charIndex = 0;
-    
-    // Clear the title
-    titleElement.textContent = '';
-    titleElement.classList.add('typing');
-    
-    // Typewriter effect
-    function typeWriter() {
-      if (charIndex < fullText.length) {
-        titleElement.textContent += fullText.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeWriter, 30); // Speed of typing (30ms per character)
-      } else {
-        titleElement.classList.remove('typing');
-        titleElement.classList.add('typing-complete');
-      }
-    }
-    
-    // Start animations
-    setTimeout(() => {
-      document.body.classList.add('blog-loaded');
-      setTimeout(typeWriter, 400); // Delay before typing starts
-    }, 100);
-  });
-
   function toggleWA() {
     document.getElementById('wpPopup').classList.toggle('open');
   }
-  
   function toggleMenu() {
     const links = document.querySelector('.nav-links');
     if (links.style.display === 'flex') {
@@ -136,7 +106,6 @@
         'border-bottom:1px solid rgba(0,0,0,0.08);z-index:150;';
     }
   }
-
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
     if (window.scrollY > 50) {
@@ -145,6 +114,9 @@
     } else {
       nav.style.background = 'rgba(255,255,255,0.85)';
       nav.style.boxShadow = 'none';
+    }
+  });
+</script>
     }
   });
 </script>

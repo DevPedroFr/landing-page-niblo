@@ -13,7 +13,7 @@
 </div>
 
 <div class="blog-post-container">
-  <div class="blog-post-title" data-text="O que o parceiro precisa saber antes de vender nuvem privada"></div>
+  <div class="blog-post-title">O que o parceiro precisa saber antes de vender nuvem privada</div>
   <div class="blog-post-meta">Publicado em 15/03/2026 • Autor: Niblo Cloud</div>
   <div class="blog-post-content">
     <p>Adicionar nuvem privada ao portfólio pode representar crescimento consistente de receita recorrente, retenção de clientes e posicionamento competitivo mais sólido. No entanto, o sucesso dessa estratégia depende diretamente de compreender o que está envolvido na operação e entrega da solução. A decisão de vender nuvem privada não deve ser apenas comercial — ela precisa ser acompanhada de clareza sobre operação, capacitação, suporte estruturado e infraestrutura adequada.</p>
@@ -84,39 +84,9 @@
 </div>
 
 <script>
-  // ── Blog Entry Animations & Typewriter Effect ──
-  document.addEventListener('DOMContentLoaded', () => {
-    const titleElement = document.querySelector('.blog-post-title');
-    const fullText = titleElement.getAttribute('data-text');
-    let charIndex = 0;
-    
-    // Clear the title
-    titleElement.textContent = '';
-    titleElement.classList.add('typing');
-    
-    // Typewriter effect
-    function typeWriter() {
-      if (charIndex < fullText.length) {
-        titleElement.textContent += fullText.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeWriter, 30); // Speed of typing (30ms per character)
-      } else {
-        titleElement.classList.remove('typing');
-        titleElement.classList.add('typing-complete');
-      }
-    }
-    
-    // Start animations
-    setTimeout(() => {
-      document.body.classList.add('blog-loaded');
-      setTimeout(typeWriter, 400); // Delay before typing starts
-    }, 100);
-  });
-
   function toggleWA() {
     document.getElementById('wpPopup').classList.toggle('open');
   }
-  
   function toggleMenu() {
     const links = document.querySelector('.nav-links');
     if (links.style.display === 'flex') {
@@ -128,7 +98,6 @@
         'border-bottom:1px solid rgba(0,0,0,0.08);z-index:150;';
     }
   }
-
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
     if (window.scrollY > 50) {
@@ -137,6 +106,9 @@
     } else {
       nav.style.background = 'rgba(255,255,255,0.85)';
       nav.style.boxShadow = 'none';
+    }
+  });
+</script>
     }
   });
 </script>

@@ -13,7 +13,7 @@
 </div>
 
 <div class="blog-post-container">
-  <div class="blog-post-title" data-text="Proposta que fecha: como posicionar nuvem privada em 5 bullets (sem falar &quot;infraestrutura&quot;)"></div>
+  <div class="blog-post-title">Proposta que fecha: como posicionar nuvem privada em 5 bullets (sem falar "infraestrutura")</div>
   <div class="blog-post-meta">Publicado em 09/03/2026 • Autor: Niblo Cloud</div>
   
   
@@ -99,39 +99,9 @@
 </div>
 
 <script>
-  // ── Blog Entry Animations & Typewriter Effect ──
-  document.addEventListener('DOMContentLoaded', () => {
-    const titleElement = document.querySelector('.blog-post-title');
-    const fullText = titleElement.getAttribute('data-text');
-    let charIndex = 0;
-    
-    // Clear the title
-    titleElement.textContent = '';
-    titleElement.classList.add('typing');
-    
-    // Typewriter effect
-    function typeWriter() {
-      if (charIndex < fullText.length) {
-        titleElement.textContent += fullText.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeWriter, 30); // Speed of typing (30ms per character)
-      } else {
-        titleElement.classList.remove('typing');
-        titleElement.classList.add('typing-complete');
-      }
-    }
-    
-    // Start animations
-    setTimeout(() => {
-      document.body.classList.add('blog-loaded');
-      setTimeout(typeWriter, 400); // Delay before typing starts
-    }, 100);
-  });
-
   function toggleWA() {
     document.getElementById('wpPopup').classList.toggle('open');
   }
-  
   function toggleMenu() {
     const links = document.querySelector('.nav-links');
     if (links.style.display === 'flex') {
@@ -143,7 +113,6 @@
         'border-bottom:1px solid rgba(0,0,0,0.08);z-index:150;';
     }
   }
-
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
     if (window.scrollY > 50) {
@@ -152,6 +121,9 @@
     } else {
       nav.style.background = 'rgba(255,255,255,0.85)';
       nav.style.boxShadow = 'none';
+    }
+  });
+</script>
     }
   });
 </script>

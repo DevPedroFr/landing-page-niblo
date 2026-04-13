@@ -1,3 +1,40 @@
+/* --- Animação de entrada suave para artigos do blog --- */
+.blog-post-container {
+  animation: blogFadeIn 0.9s cubic-bezier(0.2,0.8,0.3,1) 0.1s both;
+}
+@keyframes blogFadeIn {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Corrigir botão de voltar para o blog com contraste garantido */
+.back-button a {
+  display: inline-block;
+  background: #1565C0 !important;
+  color: #fff !important;
+  padding: 12px 32px !important;
+  border-radius: 30px !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  text-decoration: none !important;
+  box-shadow: 0 2px 12px rgba(21,101,192,0.08) !important;
+  margin-bottom: 24px !important;
+  border: none !important;
+  letter-spacing: 0.01em;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.back-button a:hover {
+  background: #0D47A1 !important;
+  color: #fff !important;
+  box-shadow: 0 4px 18px rgba(21,101,192,0.18) !important;
+}
+/* --- Hotfix: Forçar visibilidade do conteúdo dos artigos do blog --- */
+.blog-post-container, .blog-post-title, .blog-post-meta, .blog-post-content, .blog-post-footer {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: #fff !important;
+}
 @media (max-width: 1400px) and (min-width: 1000px) {
   .hero-image-wrapper img {
     max-width: 700px;
