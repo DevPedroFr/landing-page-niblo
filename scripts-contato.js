@@ -1,4 +1,4 @@
-// scripts-contato.js
+﻿// scripts-contato.js
 // Funções JS migradas do inline de contato.html
 
 // MENU MOBILE
