@@ -6,19 +6,41 @@
 <title>Cloud é para grandes empresas? — Niblo Cloud</title>
 <link rel="stylesheet" href="style.css">
 </head>
+<script>
+  // COOKIES BANNER UNIVERSAL
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      if (!localStorage.getItem('cookiesAccepted')) {
+        var banner = document.createElement('div');
+        banner.id = 'cookie-banner';
+        banner.style = 'position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:18px 12px;z-index:9999;text-align:center;font-size:1rem;';
+        banner.innerHTML = 'Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <a href="termos-de-uso.txt" target="_blank" style="color:#ffd700;text-decoration:underline;">Política de Cookies</a>.' +
+          '<button id="accept-cookies" style="margin-left:18px;background:#ffd700;color:#222;border:none;padding:8px 18px;border-radius:4px;cursor:pointer;font-weight:600;">Aceitar</button>';
+        document.body.appendChild(banner);
+        document.getElementById('accept-cookies').onclick = function() {
+          localStorage.setItem('cookiesAccepted', 'true');
+          banner.style.display = 'none';
+        };
+      }
+    }, 500);
+  });
+</script>
 <body>
 
-<div class="back-button">
-  <a href="blog.html">Voltar para o Blog</a>
-</div>
 
 <div class="blog-post-container">
+<<<<<<< HEAD
   <div class="blog-post-title">Private Cloud para revendas: por que "revender cloud" não é o mesmo que ter controle da oferta</div>
+=======
+  <div class="back-button">
+    <a href="blog.html">Voltar para o Blog</a>
+  </div>
+  <div class="blog-post-title" data-text="Private Cloud para revendas: por que &quot;revender cloud&quot; não é o mesmo que ter controle da oferta"></div>
+>>>>>>> 07c14662e550fe481f3c834b76f95820a7251da5
   <div class="blog-post-meta">Publicado em 09/03/2026 • Autor: Niblo Cloud</div>
   <div class="blog-post-content">
     <p>Revender cloud parece, à primeira vista, um movimento natural para qualquer revenda de tecnologia. O modelo é simples: escolher um provedor, contratar recursos, adicionar uma margem e disponibilizar o serviço ao cliente final. Porém, essa simplicidade esconde um fator crítico que separa revendas que crescem de forma sustentável daquelas que entram em ciclos constantes de retrabalho e compressão de margem: <strong>controle da oferta</strong>.</p>
     <p>Na prática, muitas revendas estão vendendo cloud sem realmente controlar o serviço que entregam. Elas intermediam infraestrutura, mas não dominam os elementos que definem a experiência do cliente — desempenho, disponibilidade, suporte, custos operacionais e capacidade de padronização. E quando não há controle, a cloud deixa de ser um produto estratégico e passa a ser apenas um repasse — e o impacto disso aparece rapidamente no negócio.</p>
-    
     <h2>Quando você não controla a cloud, você não controla o resultado</h2>
     <p>O cliente final não enxerga camadas técnicas, contratos de upstream ou limitações do provedor base. Ele enxerga a sua marca. Se existe instabilidade, lentidão, indisponibilidade ou demora no suporte, a percepção negativa é direcionada à revenda — independentemente de onde está a origem do problema. Esse desalinhamento cria três efeitos comuns:</p>
     <ul>
@@ -27,7 +49,6 @@
       <li><strong>Experiência do cliente inconsistente:</strong> Problemas como contenção de recursos, latência variável ou o conhecido efeito de "vizinho barulhento" impactam diretamente aplicações hospedadas. Sem isolamento e governança, a qualidade percebida oscila.</li>
     </ul>
     <p>O resultado é um cenário onde a revenda vende cloud, mas não constrói autoridade nem diferenciação.</p>
-
     <h2>Controle transforma infraestrutura em produto</h2>
     <p>A mudança ocorre quando a revenda deixa de enxergar cloud como um recurso técnico e passa a estruturá-la como oferta comercial padronizada. Nesse momento, Private Cloud deixa de ser apenas uma arquitetura e passa a ser um modelo de posicionamento. Com controle, a revenda consegue estruturar elementos fundamentais de escala:</p>
     <ul>
@@ -37,7 +58,6 @@
       <li><strong>Isolamento e compliance:</strong> Capacidade de oferecer ambientes dedicados quando exigido por auditoria, governança ou requisitos de performance.</li>
     </ul>
     <p>Nesse contexto, o valor percebido muda. A revenda deixa de competir por preço de infraestrutura e passa a competir por confiabilidade, previsibilidade e experiência.</p>
-
     <h3>Quando Private Cloud passa a fazer sentido para revendas?</h3>
     <p>Nem toda revenda precisa iniciar com Private Cloud imediatamente, mas existem sinais claros de maturidade: clientes solicitando ambientes dedicados ou compliance; dificuldade em manter SLA consistente; crescimento do suporte reativo e incidentes recorrentes; pressão por margem ou commoditização da oferta; necessidade de padronizar onboarding e operação.</p>
     <p>Quando esses sinais aparecem, a discussão deixa de ser técnica e passa a ser estratégica. Private Cloud torna-se o caminho para estruturar uma oferta própria, com governança, previsibilidade e diferenciação competitiva.</p>
@@ -67,7 +87,7 @@
       <div class="wo-icon">🛠️</div>
       <div class="wo-text">
         <strong>Suporte Técnico</strong>
-        <span>Abertura de chamados</span>
+    <!-- Linhas omitidas -->
       </div>
     </a>
     <a href="https://wa.me/5511937315210" target="_blank" class="whatsapp-option">
@@ -84,6 +104,38 @@
 </div>
 
 <script>
+<<<<<<< HEAD
+=======
+  // ── Blog Entry Animations & Typewriter Effect ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.querySelector('.blog-post-title');
+    if (!titleElement) {
+      document.body.classList.add('blog-loaded');
+      return;
+    }
+    const fullText = titleElement.getAttribute('data-text');
+    let charIndex = 0;
+    // Clear the title
+    titleElement.textContent = '';
+    titleElement.classList.add('typing');
+    // Typewriter effect
+    function typeWriter() {
+      if (charIndex < fullText.length) {
+        titleElement.textContent += fullText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, 30);
+      } else {
+        titleElement.classList.remove('typing');
+        titleElement.classList.add('typing-complete');
+      }
+    }
+    setTimeout(() => {
+      document.body.classList.add('blog-loaded');
+      setTimeout(typeWriter, 400);
+    }, 100);
+  });
+
+>>>>>>> 07c14662e550fe481f3c834b76f95820a7251da5
   function toggleWA() {
     document.getElementById('wpPopup').classList.toggle('open');
   }

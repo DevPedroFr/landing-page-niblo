@@ -5,7 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parceiros — Niblo Cloud</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
+<script>
+  // COOKIES BANNER UNIVERSAL
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      if (!localStorage.getItem('cookiesAccepted')) {
+        var banner = document.createElement('div');
+        banner.id = 'cookie-banner';
+        banner.style = 'position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:18px 12px;z-index:9999;text-align:center;font-size:1rem;';
+        banner.innerHTML = 'Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <a href="termos-de-uso.txt" target="_blank" style="color:#ffd700;text-decoration:underline;">Política de Cookies</a>.' +
+          '<button id="accept-cookies" style="margin-left:18px;background:#ffd700;color:#222;border:none;padding:8px 18px;border-radius:4px;cursor:pointer;font-weight:600;">Aceitar</button>';
+        document.body.appendChild(banner);
+        document.getElementById('accept-cookies').onclick = function() {
+          localStorage.setItem('cookiesAccepted', 'true');
+          banner.style.display = 'none';
+        };
+      }
+    }, 500);
+  });
+</script>
 <body>
 <nav id="navbar">
   <a href="index.html" class="logo">
@@ -18,7 +38,7 @@
     <li><a href="blog.html">Blog</a></li>
     <li><a href="contato.html" class="nav-cta">Contato</a></li>
   </ul>
-  <a href="#" class="nav-cloud-btn">Área do cliente</a>
+
   <div class="nav-social">
     <a href="https://www.linkedin.com/company/niblo-cloud/" target="_blank"><img src="images/in.png" alt="LinkedIn"></a>
     <a href="https://www.instagram.com/niblo.cloud?igsh=bmxxbDBkazYzbndq" target="_blank"><img src="images/ig.png" alt="Instagram"></a>
@@ -38,6 +58,7 @@
       </p>
       <img src="images/parceiros.png" alt="Parceiros" style="width:100%;height:auto;margin-top:32px;border-radius:12px;">
     </div>
+<<<<<<< HEAD
     <div class="contact-form reveal">
       <div class="form-group"><label>Nome completo</label><input type="text" placeholder="Seu nome" required></div>
       <div class="form-group"><label>Empresa</label><input type="text" placeholder="Nome da empresa" required></div>
@@ -46,6 +67,18 @@
       <div class="form-group"><label>Mensagem</label><textarea placeholder="Conta um pouco sobre seu negócio..." required></textarea></div>
       <button class="form-submit">Quero ser parceiro →</button>
     </div>
+=======
+    <form class="contact-form reveal">
+      <div class="form-group"><label>Empresa</label><input type="text" placeholder="Nome da empresa" name="empresa" required minlength="2" maxlength="100"></div>
+      <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com" name="email" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" maxlength="100"></div>
+      <div class="form-group"><label>Telefone</label><input type="tel" placeholder="(00) 00000-0000" name="telefone" required pattern="\(\d{2}\) \d{5}-\d{4}" maxlength="15"></div>
+      <div class="form-group"><label>Mensagem</label><textarea placeholder="Conta um pouco sobre seu negócio..." name="mensagem" required minlength="10" maxlength="1000"></textarea></div>
+      <div id="recaptcha-container-parceiro" style="display:none; margin-bottom:16px;">
+        <div class="g-recaptcha" data-sitekey="6LeJKp4sAAAAAOC66DUGeo-p13E43P1ejr4FWcUT"></div>
+      </div>
+      <button class="form-submit" id="enviarParceiroBtn" type="button">Quero ser parceiro →</button>
+    </form>
+>>>>>>> 07c14662e550fe481f3c834b76f95820a7251da5
   </div>
 </section>
 <footer>
@@ -61,6 +94,66 @@
     <a href="contato.html">Contato</a>
   </div>
 </footer>
+<!-- EmailJS SDK v4 UMD -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init('BDUWYY3eicXTr361g');
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('#form-parceiro .contact-form');
+    if (form) {
+      const enviarBtn = document.getElementById('enviarParceiroBtn');
+      const recaptchaContainer = document.getElementById('recaptcha-container-parceiro');
+      let captchaShown = false;
+
+      enviarBtn.addEventListener('click', function() {
+        if (!captchaShown) {
+          recaptchaContainer.style.display = 'block';
+          captchaShown = true;
+          return;
+        }
+
+        // Verifica se o captcha foi resolvido
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+          alert('Por favor, resolva o captcha para enviar.');
+          return;
+        }
+
+
+        // Validação de conteúdo: bloquear links, URLs e HTML
+        const empresa = form.querySelector('input[name="empresa"]').value;
+        const email = form.querySelector('input[name="email"]').value;
+        const telefone = form.querySelector('input[name="telefone"]').value;
+        const mensagem = form.querySelector('textarea[name="mensagem"]').value;
+
+        // Regex robusta para bloquear URLs, links e HTML
+        const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|\[url|link\]|@|\b[a-z0-9.-]+\.(com|net|org|io|gov|br)\b|ftp:\/\/|mailto:|javascript:|data:|\[.*\]\(.*\))/i;
+        if (forbiddenPattern.test(mensagem) || forbiddenPattern.test(empresa)) {
+          alert('Por favor, não inclua links, e-mails, URLs ou códigos no formulário. Envie apenas texto coerente.');
+          // Não envia, não reseta, não mostra sucesso
+          return false;
+        }
+
+        emailjs.send("service_w9kqeif", "template_r9ks16t", {
+          empresa,
+          email,
+          telefone,
+          mensagem
+        })
+        .then(function(response) {
+          alert('Solicitação de parceria enviada com sucesso!');
+          form.reset();
+          grecaptcha.reset();
+          recaptchaContainer.style.display = 'none';
+          captchaShown = false;
+        }, function(error) {
+          alert('Erro ao enviar solicitação. Veja o console para detalhes.');
+          console.log('Erro EmailJS:', error);
+        });
+      });
+    }
+  });
+</script>
 <div class="whatsapp-float">
   <div class="whatsapp-popup" id="wpPopup">
     <h4>💬 Fale com a Niblo</h4>
