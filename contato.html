@@ -262,75 +262,38 @@
     box-shadow: 0 16px 48px rgba(0,0,0,0.08);
   }
 
-  /* FORMULÁRIO ORIGINAL */
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .form-group label {
-    font-size: 0.85rem;
-    color: var(--muted);
-    font-weight: 500;
-  }
-
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
+  /* ========== GOOGLE FORMS EMBED ========== */
+  .gform-embed {
+    position: sticky;
+    top: 100px;
     background: white;
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 18px;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
-    resize: vertical;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.08);
+    max-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
   }
 
-  .form-group input:focus,
-  .form-group textarea:focus,
-  .form-group select:focus {
-    border-color: rgba(26,108,245,0.4);
-    box-shadow: 0 0 0 3px rgba(26,108,245,0.06);
-  }
-
-  .form-group textarea {
-    min-height: 120px;
-  }
-
-  .form-group select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%233d4566' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 18px center;
-  }
-
-  .form-submit {
-    background: #0F3759;
-    color: white;
+  .gform-embed iframe {
+    width: 100%;
+    flex: 1;
+    min-height: 640px;
     border: none;
-    padding: 16px 32px;
-    border-radius: 50px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.2s;
-    align-self: flex-start;
+    display: block;
   }
 
-  .form-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(245,99,26,0.25);
+  @media (max-width: 1024px) {
+    .gform-embed {
+      position: static;
+      max-height: none;
+    }
+    .gform-embed iframe { min-height: 580px; }
+  }
+
+  @media (max-width: 480px) {
+    .gform-embed iframe { min-height: 520px; }
   }
 
   /* ========== FOOTER ORIGINAL ========== */
@@ -663,23 +626,8 @@
       font-size: 0.9rem;
     }
 
-    .contact-form {
-      gap: 16px;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      padding: 12px 14px;
-      font-size: 0.9rem;
-    }
-
-    .form-submit {
-      padding: 14px 28px;
-      font-size: 0.9rem;
-      width: 100%;
-      text-align: center;
-      align-self: stretch;
+    .gform-cta-card {
+      padding: 36px 24px;
     }
 
     footer {
@@ -775,8 +723,6 @@
     width: fit-content;
   }
 </style>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -813,50 +759,14 @@
       </p>
       <img src="images/contato.png" alt="Contato" onerror="this.style.display='none'">
     </div>
-<<<<<<< HEAD
-    <div class="contact-form reveal">
-      <div class="form-group"><label>Nome</label><input type="text" placeholder="Seu nome" required></div>
-      <div class="form-group"><label>E-mail corporativo</label><input type="email" placeholder="seu@empresa.com" required></div>
-      <div class="form-group">
-        <label>Assunto</label>
-        <select required>
-=======
-    
-        <form class="contact-form" id="contactForm" method="post">
-      <div class="form-group">
-        <label>Nome</label>
-        <input type="text" placeholder="Seu nome" name="nome" required minlength="2" maxlength="60">
-      </div>
-      <div class="form-group">
-        <label>E-mail corporativo</label>
-        <input type="email" placeholder="seu@empresa.com" name="email" required>
-      </div>
-      <div class="form-group">
-        <label>Assunto</label>
-        <select name="assunto" required>
->>>>>>> 07c14662e550fe481f3c834b76f95820a7251da5
-          <option value="">Selecione um assunto</option>
-          <option>Suporte técnico</option>
-          <option>Comercial</option>
-          <option>Parceria</option>
-          <option>Outros</option>
-        </select>
-      </div>
-<<<<<<< HEAD
-      <div class="form-group"><label>Mensagem</label><textarea placeholder="Como podemos ajudar?" required></textarea></div>
-      <button class="form-submit">Enviar mensagem →</button>
+    <div class="gform-embed">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSd1aDyGSje5qrMgwLz1zuWfJqa0e7GRjlqq2aRzKP9mXNKz8w/viewform?embedded=true"
+        title="Formulário de contato Niblo Cloud"
+        loading="lazy">
+        Carregando formulário…
+      </iframe>
     </div>
-=======
-      <div class="form-group">
-        <label>Mensagem</label>
-        <textarea placeholder="Como podemos ajudar?" name="mensagem" required minlength="10" maxlength="1000"></textarea>
-      </div>
-      <div id="recaptcha-container" style="display:none; margin-bottom:16px;">
-        <div class="g-recaptcha" data-sitekey="6LeJKp4sAAAAAOC66DUGeo-p13E43P1ejr4FWcUT"></div>
-      </div>
-      <button class="form-submit" id="enviarBtn" type="button">Enviar mensagem →</button>
-    </form>
->>>>>>> 07c14662e550fe481f3c834b76f95820a7251da5
   </div>
 </section>
 
@@ -990,75 +900,7 @@
       });
     });
 
-    // FORMULÁRIO COM EMAILJS (CORRIGIDO)
-    document.addEventListener('DOMContentLoaded', function() {
-      // Inicializar EmailJS
-      emailjs.init('BDUWYY3eicXTr361g');
-
-      const form = document.getElementById('contactForm');
-      if (form) {
-        const enviarBtn = document.getElementById('enviarBtn');
-        const recaptchaContainer = document.getElementById('recaptcha-container');
-        let captchaShown = false;
-
-        enviarBtn.addEventListener('click', function() {
-          if (!captchaShown) {
-            recaptchaContainer.style.display = 'block';
-            captchaShown = true;
-            return;
-          }
-
-          // Verifica se o captcha foi resolvido
-          const recaptchaResponse = grecaptcha.getResponse();
-          if (!recaptchaResponse) {
-            alert('Por favor, resolva o captcha para enviar.');
-            return;
-          }
-
-          // Validação de conteúdo suspeito (links, URLs, HTML)
-          // CORREÇÃO: Regex agora NÃO bloqueia o @, permitindo emails normalmente
-          const nome = form.querySelector('input[name="nome"]').value;
-          const email = form.querySelector('input[name="email"]').value;
-          const assunto = form.querySelector('select[name="assunto"]').value;
-          const mensagem = form.querySelector('textarea[name="mensagem"]').value;
-
-          // Regex corrigida - bloqueia apenas links, URLs e HTML, NÃO bloqueia @
-          // Removeu o @ e \b[a-z0-9.-]+\.(com|net|org|io|gov|br)\b da regex
-          const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|\[url|link\]|ftp:\/\/|mailto:|javascript:|data:|\[.*\]\(.*\))/i;
-          
-          if (forbiddenPattern.test(mensagem) || forbiddenPattern.test(nome)) {
-            alert('Por favor, não inclua links, URLs ou códigos no formulário. Envie apenas texto coerente.');
-            // Não envia, não reseta, não mostra sucesso
-            return false;
-          }
-
-          // Validar formato do email
-          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailPattern.test(email)) {
-            alert('Por favor, insira um e-mail válido.');
-            return false;
-          }
-
-          // Enviar via EmailJS
-          emailjs.send("service_w9kqeif", "template_cl4knzx", {
-            nome: nome,
-            email: email,
-            assunto: assunto,
-            mensagem: mensagem
-          })
-          .then(function(response) {
-            alert('Mensagem enviada com sucesso!');
-            form.reset();
-            grecaptcha.reset();
-            recaptchaContainer.style.display = 'none';
-            captchaShown = false;
-          }, function(error) {
-            alert('Erro ao enviar mensagem. Tente novamente.');
-            console.log('Erro:', error);
-          });
-        });
-      }
-    });
+    // Google Forms carregado diretamente no layout da página
 </script>
 
 </body>

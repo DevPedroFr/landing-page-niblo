@@ -5,7 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parceiros — Niblo Cloud</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<style>
+  .gform-embed {
+    position: sticky;
+    top: 100px;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.08);
+    max-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+  }
+  .gform-embed iframe {
+    width: 100%;
+    flex: 1;
+    min-height: 640px;
+    border: none;
+    display: block;
+  }
+  @media (max-width: 1024px) {
+    .gform-embed { position: static; max-height: none; }
+    .gform-embed iframe { min-height: 580px; }
+  }
+  @media (max-width: 480px) {
+    .gform-embed iframe { min-height: 520px; }
+  }
+</style>
 </head>
 <script>
   // COOKIES BANNER UNIVERSAL
@@ -58,27 +85,14 @@
       </p>
       <img src="images/parceiros.png" alt="Parceiros" style="width:100%;height:auto;margin-top:32px;border-radius:12px;">
     </div>
-<<<<<<< HEAD
-    <div class="contact-form reveal">
-      <div class="form-group"><label>Nome completo</label><input type="text" placeholder="Seu nome" required></div>
-      <div class="form-group"><label>Empresa</label><input type="text" placeholder="Nome da empresa" required></div>
-      <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com" required></div>
-      <div class="form-group"><label>Telefone</label><input type="tel" placeholder="(00) 00000-0000" required></div>
-      <div class="form-group"><label>Mensagem</label><textarea placeholder="Conta um pouco sobre seu negócio..." required></textarea></div>
-      <button class="form-submit">Quero ser parceiro →</button>
+    <div class="gform-embed">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSdIhKKCH1DytCEa3Q5PjWdeQEjmjpWwAESzbGNKrie1vLmlJQ/viewform?embedded=true"
+        title="Formulário de parceiros Niblo Cloud"
+        loading="lazy">
+        Carregando formulário…
+      </iframe>
     </div>
-=======
-    <form class="contact-form reveal">
-      <div class="form-group"><label>Empresa</label><input type="text" placeholder="Nome da empresa" name="empresa" required minlength="2" maxlength="100"></div>
-      <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com" name="email" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" maxlength="100"></div>
-      <div class="form-group"><label>Telefone</label><input type="tel" placeholder="(00) 00000-0000" name="telefone" required pattern="\(\d{2}\) \d{5}-\d{4}" maxlength="15"></div>
-      <div class="form-group"><label>Mensagem</label><textarea placeholder="Conta um pouco sobre seu negócio..." name="mensagem" required minlength="10" maxlength="1000"></textarea></div>
-      <div id="recaptcha-container-parceiro" style="display:none; margin-bottom:16px;">
-        <div class="g-recaptcha" data-sitekey="6LeJKp4sAAAAAOC66DUGeo-p13E43P1ejr4FWcUT"></div>
-      </div>
-      <button class="form-submit" id="enviarParceiroBtn" type="button">Quero ser parceiro →</button>
-    </form>
->>>>>>> 07c14662e550fe481f3c834b76f95820a7251da5
   </div>
 </section>
 <footer>
@@ -97,66 +111,6 @@
     <a href="politica-de-privacidade.html">Privacidade</a>
   </div>
 </footer>
-<!-- EmailJS SDK v4 UMD -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  emailjs.init('BDUWYY3eicXTr361g');
-  document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('#form-parceiro .contact-form');
-    if (form) {
-      const enviarBtn = document.getElementById('enviarParceiroBtn');
-      const recaptchaContainer = document.getElementById('recaptcha-container-parceiro');
-      let captchaShown = false;
-
-      enviarBtn.addEventListener('click', function() {
-        if (!captchaShown) {
-          recaptchaContainer.style.display = 'block';
-          captchaShown = true;
-          return;
-        }
-
-        // Verifica se o captcha foi resolvido
-        const recaptchaResponse = grecaptcha.getResponse();
-        if (!recaptchaResponse) {
-          alert('Por favor, resolva o captcha para enviar.');
-          return;
-        }
-
-
-        // Validação de conteúdo: bloquear links, URLs e HTML
-        const empresa = form.querySelector('input[name="empresa"]').value;
-        const email = form.querySelector('input[name="email"]').value;
-        const telefone = form.querySelector('input[name="telefone"]').value;
-        const mensagem = form.querySelector('textarea[name="mensagem"]').value;
-
-        // Regex robusta para bloquear URLs, links e HTML
-        const forbiddenPattern = /(https?:\/\/|www\.|<[^>]+>|\[url|link\]|@|\b[a-z0-9.-]+\.(com|net|org|io|gov|br)\b|ftp:\/\/|mailto:|javascript:|data:|\[.*\]\(.*\))/i;
-        if (forbiddenPattern.test(mensagem) || forbiddenPattern.test(empresa)) {
-          alert('Por favor, não inclua links, e-mails, URLs ou códigos no formulário. Envie apenas texto coerente.');
-          // Não envia, não reseta, não mostra sucesso
-          return false;
-        }
-
-        emailjs.send("service_w9kqeif", "template_r9ks16t", {
-          empresa,
-          email,
-          telefone,
-          mensagem
-        })
-        .then(function(response) {
-          alert('Solicitação de parceria enviada com sucesso!');
-          form.reset();
-          grecaptcha.reset();
-          recaptchaContainer.style.display = 'none';
-          captchaShown = false;
-        }, function(error) {
-          alert('Erro ao enviar solicitação. Veja o console para detalhes.');
-          console.log('Erro EmailJS:', error);
-        });
-      });
-    }
-  });
-</script>
 <div class="whatsapp-float">
   <div class="whatsapp-popup" id="wpPopup">
     <h4>💬 Fale com a Niblo</h4>

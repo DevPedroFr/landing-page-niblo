@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /* --- Animação de entrada suave para artigos do blog --- */
 .blog-post-container {
   animation: blogFadeIn 0.9s cubic-bezier(0.2,0.8,0.3,1) 0.1s both;
@@ -36,7 +36,7 @@
   visibility: visible !important;
   background: #fff !important;
 }
-=======
+
 /* AJUSTE PARA TABLET E MOBILE GRANDE (600px a 900px) */
 @media (max-width: 900px) {
   .form-layout, .contact-form, .form-layout .reveal, .form-layout form {
@@ -205,7 +205,6 @@
 
 
 
->>>>>>> 07c14662e550fe481f3c834b76f95820a7251da5
 @media (max-width: 1400px) and (min-width: 1000px) {
   .hero-image-wrapper img {
     max-width: 700px;

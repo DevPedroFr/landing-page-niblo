@@ -29,14 +29,7 @@
 
 
 <div class="blog-post-container">
-<<<<<<< HEAD
-  <div class="blog-post-title">Private Cloud para revendas: por que "revender cloud" não é o mesmo que ter controle da oferta</div>
-=======
-  <div class="back-button">
-    <a href="blog.html">Voltar para o Blog</a>
-  </div>
-  <div class="blog-post-title" data-text="Private Cloud para revendas: por que &quot;revender cloud&quot; não é o mesmo que ter controle da oferta"></div>
->>>>>>> 07c14662e550fe481f3c834b76f95820a7251da5
+  <div class="blog-post-title" data-text="Private Cloud para revendas: por que 'revender cloud' não é o mesmo que ter controle da oferta">Private Cloud para revendas: por que "revender cloud" não é o mesmo que ter controle da oferta</div>
   <div class="blog-post-meta">Publicado em 09/03/2026 • Autor: Niblo Cloud</div>
   <div class="blog-post-content">
     <p>Revender cloud parece, à primeira vista, um movimento natural para qualquer revenda de tecnologia. O modelo é simples: escolher um provedor, contratar recursos, adicionar uma margem e disponibilizar o serviço ao cliente final. Porém, essa simplicidade esconde um fator crítico que separa revendas que crescem de forma sustentável daquelas que entram em ciclos constantes de retrabalho e compressão de margem: <strong>controle da oferta</strong>.</p>
@@ -107,38 +100,6 @@
 </div>
 
 <script>
-<<<<<<< HEAD
-=======
-  // ── Blog Entry Animations & Typewriter Effect ──
-  document.addEventListener('DOMContentLoaded', () => {
-    const titleElement = document.querySelector('.blog-post-title');
-    if (!titleElement) {
-      document.body.classList.add('blog-loaded');
-      return;
-    }
-    const fullText = titleElement.getAttribute('data-text');
-    let charIndex = 0;
-    // Clear the title
-    titleElement.textContent = '';
-    titleElement.classList.add('typing');
-    // Typewriter effect
-    function typeWriter() {
-      if (charIndex < fullText.length) {
-        titleElement.textContent += fullText.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeWriter, 30);
-      } else {
-        titleElement.classList.remove('typing');
-        titleElement.classList.add('typing-complete');
-      }
-    }
-    setTimeout(() => {
-      document.body.classList.add('blog-loaded');
-      setTimeout(typeWriter, 400);
-    }, 100);
-  });
-
->>>>>>> 07c14662e550fe481f3c834b76f95820a7251da5
   function toggleWA() {
     document.getElementById('wpPopup').classList.toggle('open');
   }
