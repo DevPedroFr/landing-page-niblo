@@ -48,25 +48,7 @@
   .mc3d-line:nth-child(5) { animation-delay: 2.4s; }
 </style>
 </head>
-<script>
-  // COOKIES BANNER UNIVERSAL
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      if (!localStorage.getItem('cookiesAccepted')) {
-        var banner = document.createElement('div');
-        banner.id = 'cookie-banner';
-        banner.style = 'position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:18px 12px;z-index:9999;text-align:center;font-size:1rem;';
-        banner.innerHTML = 'Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <a href="politica-de-privacidade.html" style="color:#ffd700;text-decoration:underline;">Política de Privacidade</a>.' +
-          '<button id="accept-cookies" style="margin-left:18px;background:#ffd700;color:#222;border:none;padding:8px 18px;border-radius:4px;cursor:pointer;font-weight:600;">Aceitar</button>';
-        document.body.appendChild(banner);
-        document.getElementById('accept-cookies').onclick = function() {
-          localStorage.setItem('cookiesAccepted', 'true');
-          banner.style.display = 'none';
-        };
-      }
-    }, 500);
-  });
-</script>
+
 <body>
 <nav id="navbar">
   <a href="index.html" class="logo">
@@ -84,12 +66,12 @@
     <a href="https://www.linkedin.com/company/niblo-cloud/" target="_blank"><img src="images/in.png" alt="LinkedIn"></a>
     <a href="https://www.instagram.com/niblo.cloud?igsh=bmxxbDBkazYzbndq" target="_blank"><img src="images/ig.png" alt="Instagram"></a>
   </div>
-  <div class="hamburger" onclick="toggleMenu()">
+  <div class="hamburger" data-action="toggle-menu">
     <span></span><span></span><span></span>
   </div>
 </nav>
 
-<section style="padding:140px 6% 80px;background:white;">
+<section class="section-hero">
   <div class="solucoes-layout">
     <div class="solucoes-intro reveal">
       <span class="section-tag">Soluções</span>
@@ -231,7 +213,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
 </section>
 
 <!-- ── CERTIFICAÇÕES: INFRAESTRUTURA ── -->
-<section style="background:var(--surface);padding:80px 6%;border-top:1px solid var(--border);">
+<section class="section-secondary">
   <div class="cert-layout">
     <div class="cert-text reveal">
       <span class="section-tag">Certificações</span>
@@ -265,7 +247,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
 </section>
 
 <!-- ── CERTIFICAÇÕES: ESG ── -->
-<section style="background:white;padding:80px 6%;border-top:1px solid var(--border);">
+<section class="section-alt">
   <div class="cert-layout cert-layout--reverse">
     <div class="cert-text reveal">
       <span class="section-tag">ESG</span>
@@ -312,7 +294,7 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
 
 <footer>
   <a href="index.html" class="logo">
-    <img src="images/logo1.png" alt="Niblo Cloud" style="height:80px;width:auto;filter:brightness(0) invert(1);opacity:0.85;margin:0;">
+    <img src="images/logo1.png" alt="Niblo Cloud" class="footer-logo-img">
   </a>
   <p>© 2026 Niblo Cloud. Todos os direitos reservados.</p>
   <div class="footer-links">
@@ -345,205 +327,33 @@ Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.
       </div>
     </a>
   </div>
-  <div class="whatsapp-btn" onclick="toggleWA()">
+  <div class="whatsapp-btn" data-action="toggle-wa">
     <img src="images/whatsapp.png" alt="WhatsApp">
   </div>
 </div>
 
 <div class="exit-popup-overlay" id="exitPopup">
   <div class="exit-popup">
-    <button class="exit-popup-close" onclick="closeExit()">✕</button>
+    <button class="exit-popup-close" data-action="close-exit">✕</button>
     <img src="images/logos.png" alt="Niblo Cloud"
-         style="width:80px;height:auto;margin:0 auto 16px;display:block;">
+         class="exit-popup-logo">
     <h2>Antes de ir, que tal<br>
-      <span style="background:var(--grad);-webkit-background-clip:text;
-                   -webkit-text-fill-color:transparent;background-clip:text;">
+      <span class="exit-highlight">
         economizar de verdade?
       </span>
     </h2>
     <p>Fale com nosso time e descubra quanto você pode economizar migrando para a Niblo Cloud.</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-      <a href="contato.html" class="btn-primary" onclick="closeExit()">Falar com especialista</a>
-      <button onclick="closeExit()"
-              style="border:1px solid rgba(0,0,0,0.12);cursor:pointer;background:transparent;
-                     color:var(--muted);padding:16px 24px;border-radius:50px;
-                     font-family:'DM Sans',sans-serif;font-size:0.9rem;">
+    <div class="exit-popup-actions">
+      <a href="contato.html" class="btn-primary" data-action="close-exit">Falar com especialista</a>
+      <button data-action="close-exit" class="btn-dismiss">
         Agora não
       </button>
     </div>
   </div>
 </div>
 
-<script>
-  // ── Scroll reveal ──
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        revealObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  revealEls.forEach(el => revealObs.observe(el));
 
-  // ── Counter animation ──
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.target);
-    if (!target) return;
-    const prefix = target > 100 ? '+' : '';
-    const step = target / (1800 / 16);
-    let current = 0;
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= target) { current = target; clearInterval(timer); }
-      el.textContent = prefix + Math.floor(current).toLocaleString('pt-BR');
-    }, 16);
-  }
-  const statsEl = document.getElementById('stats');
-  if (statsEl) {
-    const statObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.querySelectorAll('[data-target]').forEach(animateCounter);
-          statObs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    statObs.observe(statsEl);
-  }
-
-  // ── WhatsApp toggle ──
-  function toggleWA() {
-    document.getElementById('wpPopup').classList.toggle('open');
-  }
-
-  // ── Exit intent ──
-  let exitShown = false;
-  function maybeShowExit() {
-    if (exitShown) return;
-    let count = parseInt(sessionStorage.getItem('tabSwitchCount') || '0') + 1;
-    sessionStorage.setItem('tabSwitchCount', count);
-    if (count % 3 === 0) {
-      exitShown = true;
-      document.getElementById('exitPopup').classList.add('show');
-    }
-  }
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') maybeShowExit();
-  });
-  function closeExit() {
-    exitShown = false;
-    document.getElementById('exitPopup').classList.remove('show');
-  }
-
-  // ── Mobile menu ──
-  function toggleMenu() {
-    const links = document.querySelector('.nav-links');
-    if (links.style.display === 'flex') {
-      links.style.display = 'none';
-    } else {
-      links.style.cssText =
-        'display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;' +
-        'background:rgba(255,255,255,0.97);padding:24px;gap:20px;' +
-        'border-bottom:1px solid rgba(0,0,0,0.08);z-index:150;';
-    }
-  }
-
-  // ── Navbar scroll ──
-  window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 50) {
-      nav.style.background = 'rgba(255,255,255,0.98)';
-      nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
-    } else {
-      nav.style.background = 'rgba(255,255,255,0.85)';
-      nav.style.boxShadow = 'none';
-    }
-  });
-
-  // ── Linhas de conexão multi-cloud ──
-  // Desenha <div> rotacionados de comprimento e ângulo calculados
-  // a partir das posições reais dos elementos no DOM.
-  // Estratégia: coordenadas relativas ao .mc3d-scene (offsetParent),
-  // evitando qualquer conversão de viewBox.
-  (function () {
-
-    function getCenter(el, scene) {
-      // Posição do elemento relativa ao topo-esquerdo do scene
-      var eRect = el.getBoundingClientRect();
-      var sRect = scene.getBoundingClientRect();
-      return {
-        x: eRect.left - sRect.left + eRect.width  / 2,
-        y: eRect.top  - sRect.top  + eRect.height / 2
-      };
-    }
-
-    function drawLine(canvas, x1, y1, x2, y2, delay) {
-      var dx  = x2 - x1;
-      var dy  = y2 - y1;
-      var len = Math.sqrt(dx * dx + dy * dy);
-      var ang = Math.atan2(dy, dx) * 180 / Math.PI;
-
-      var div = document.createElement('div');
-      div.className = 'mc3d-line';
-      div.style.width        = len + 'px';
-      div.style.left         = x1 + 'px';
-      div.style.top          = y1 + 'px';
-      div.style.transform    = 'rotate(' + ang + 'deg)';
-      div.style.animationDelay = delay + 's';
-      canvas.appendChild(div);
-    }
-
-    function buildLines() {
-      var scene  = document.getElementById('mc3d-scene');
-      var canvas = document.getElementById('mc3d-lines-canvas');
-      var hub    = document.getElementById('mc3d-center');
-
-      if (!scene || !canvas || !hub) return;
-
-      var nodes = [
-        { id: 'mc3d-n1', delay: 0.0 },
-        { id: 'mc3d-n2', delay: 0.6 },
-        { id: 'mc3d-n3', delay: 1.2 },
-        { id: 'mc3d-n4', delay: 1.8 },
-        { id: 'mc3d-n5', delay: 2.4 }
-      ];
-
-      // Limpa linhas anteriores (para o resize)
-      canvas.innerHTML = '';
-
-      var c = getCenter(hub, scene);
-
-      nodes.forEach(function (n) {
-        var el = document.getElementById(n.id);
-        if (!el) return;
-        var p = getCenter(el, scene);
-        drawLine(canvas, c.x, c.y, p.x, p.y, n.delay);
-      });
-    }
-
-    // Aguarda imagens carregarem para garantir layout estável
-    window.addEventListener('load', buildLines);
-
-    // Refaz no resize
-    var resizeTimer;
-    window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(buildLines, 100);
-    });
-
-    // Tenta também no DOMContentLoaded como fallback
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', buildLines);
-    } else {
-      // Adia 1 frame para garantir que o layout foi calculado
-      requestAnimationFrame(function () {
-        requestAnimationFrame(buildLines);
-      });
-    }
-
-  })();
-</script>
+<script src="scripts-common.js" defer></script>
+<script src="scripts-solucoes.js" defer></script>
 </body>
 </html>

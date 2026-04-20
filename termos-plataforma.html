@@ -116,24 +116,7 @@
     }
   </style>
 </head>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      if (!localStorage.getItem('cookiesAccepted')) {
-        var banner = document.createElement('div');
-        banner.id = 'cookie-banner';
-        banner.style = 'position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:18px 12px;z-index:9999;text-align:center;font-size:1rem;';
-        banner.innerHTML = 'Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <a href="politica-de-privacidade.html" style="color:#ffd700;text-decoration:underline;">Política de Privacidade</a>.' +
-          '<button id="accept-cookies" style="margin-left:18px;background:#ffd700;color:#222;border:none;padding:8px 18px;border-radius:4px;cursor:pointer;font-weight:600;">Aceitar</button>';
-        document.body.appendChild(banner);
-        document.getElementById('accept-cookies').onclick = function() {
-          localStorage.setItem('cookiesAccepted', 'true');
-          banner.style.display = 'none';
-        };
-      }
-    }, 500);
-  });
-</script>
+
 <body>
 
 <nav id="navbar">
@@ -151,7 +134,7 @@
     <a href="https://www.linkedin.com/company/niblo-cloud/" target="_blank" rel="noopener noreferrer"><img src="images/in.png" alt="LinkedIn"></a>
     <a href="https://www.instagram.com/niblo.cloud?igsh=bmxxbDBkazYzbndq" target="_blank" rel="noopener noreferrer"><img src="images/ig.png" alt="Instagram"></a>
   </div>
-  <div class="hamburger" onclick="toggleMenu()">
+  <div class="hamburger" data-action="toggle-menu">
     <span></span><span></span><span></span>
   </div>
 </nav>
@@ -219,7 +202,7 @@
   <div class="legal-section">
     <h2>6. Dados e LGPD</h2>
     <p>Os dados inseridos na plataforma são de responsabilidade do usuário.</p>
-    <p>A NIBLO atuará como operadora ou controladora, conforme o caso, em conformidade com a LGPD. Consulte nossa <a href="politica-de-privacidade.html" style="color:#1A6CF5;font-weight:600;">Política de Privacidade</a> para mais detalhes.</p>
+    <p>A NIBLO atuará como operadora ou controladora, conforme o caso, em conformidade com a LGPD. Consulte nossa <a href="politica-de-privacidade.html" class="inline-link-blue">Política de Privacidade</a> para mais detalhes.</p>
   </div>
 
   <div class="legal-section">
@@ -261,7 +244,7 @@
 
 <footer>
   <a href="index.html" class="logo">
-    <img src="images/logo1.png" alt="Niblo Cloud" style="height:80px;width:auto;filter:brightness(0) invert(1);opacity:0.85;margin:0;">
+    <img src="images/logo1.png" alt="Niblo Cloud" class="footer-logo-img">
   </a>
   <p>© 2025 Niblo Cloud. Todos os direitos reservados.</p>
   <div class="footer-links">
@@ -276,25 +259,7 @@
   </div>
 </footer>
 
-<script>
-  function toggleMenu() {
-    const links = document.querySelector('.nav-links');
-    if (links.style.display === 'flex') {
-      links.style.display = 'none';
-    } else {
-      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(255,255,255,0.97);padding:24px;gap:20px;border-bottom:1px solid rgba(0,0,0,0.08);z-index:150;';
-    }
-  }
-  window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 50) {
-      nav.style.background = 'rgba(255,255,255,0.98)';
-      nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
-    } else {
-      nav.style.background = 'rgba(255,255,255,0.85)';
-      nav.style.boxShadow = 'none';
-    }
-  });
-</script>
+
+<script src="scripts-common.js" defer></script>
 </body>
 </html>

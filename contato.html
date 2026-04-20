@@ -742,7 +742,7 @@
     <a href="https://www.linkedin.com/company/niblo-cloud/" target="_blank"><img src="images/in.png" alt="LinkedIn"></a>
     <a href="https://www.instagram.com/niblo.cloud?igsh=bmxxbDBkazYzbndq" target="_blank"><img src="images/ig.png" alt="Instagram"></a>
   </div>
-  <div class="hamburger" onclick="toggleMenu()">
+  <div class="hamburger" data-action="toggle-menu">
     <span></span>
     <span></span>
     <span></span>
@@ -757,7 +757,7 @@
       <p>
         Preencha o formulário e nossa equipe retornará em até 24 horas úteis para entender como podemos ajudar.
       </p>
-      <img src="images/contato.png" alt="Contato" onerror="this.style.display='none'">
+      <img src="images/contato.png" alt="Contato">
     </div>
     <div class="gform-embed">
       <iframe
@@ -772,7 +772,7 @@
 
 <footer>
   <a href="index.html" class="logo">
-    <img src="images/logo1.png" alt="Niblo Cloud" style="height: 80px;">
+    <img src="images/logo1.png" alt="Niblo Cloud" class="footer-logo-img">
   </a>
   <p>© 2026 Niblo Cloud. Todos os direitos reservados.</p>
   <div class="footer-links">
@@ -788,9 +788,9 @@
 </footer>
 
 <!-- COOKIES BANNER -->
-<div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; width:100%; background:#222; color:#fff; padding:18px 12px; z-index:9999; text-align:center; font-size:1rem;">
-  Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <a href="politica-de-privacidade.html" style="color:#ffd700;text-decoration:underline;">Política de Privacidade</a>.
-  <button id="accept-cookies" style="margin-left:18px; background:#ffd700; color:#222; border:none; padding:8px 18px; border-radius:4px; cursor:pointer; font-weight:600;">Aceitar</button>
+<div id="cookie-banner" class="cookie-banner" hidden>
+  Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <a href="politica-de-privacidade.html" class="cookie-link">Política de Privacidade</a>.
+  <button id="accept-cookies" class="cookie-accept-btn">Aceitar</button>
 </div>
 <!-- WHATSAPP FLOAT -->
 <div class="whatsapp-float">
@@ -811,97 +811,32 @@
       </div>
     </a>
   </div>
-  <div class="whatsapp-btn" onclick="toggleWA()">
-    <img src="images/whatsapp.png" alt="WhatsApp" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22white%22%3E%3Cpath d=%22M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.47 3.45 1.35 4.95L2 22l5.4-1.42c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zM9.8 7.65c.3-.02.59-.01.87.03.26.03.52.14.75.31.23.17.39.41.47.67.08.26.12.54.12.81 0 .25-.05.5-.14.73-.09.24-.21.46-.37.65-.15.2-.32.37-.51.51-.18.14-.38.26-.59.34-.21.08-.44.12-.67.12-.22 0-.44-.04-.65-.12-.21-.08-.4-.2-.58-.34-.18-.14-.34-.31-.48-.51-.14-.19-.25-.41-.33-.65-.08-.23-.12-.48-.12-.73 0-.27.04-.55.12-.81.08-.26.24-.5.47-.67.23-.17.49-.28.75-.31.28-.03.57-.02.85.01zM15.4 15.5c-.17.47-.68.85-1.2.93-.3.05-.61.03-.91-.05-.3-.08-.6-.21-.87-.39-.27-.18-.52-.39-.75-.63-.23-.24-.44-.5-.62-.78-.18-.28-.33-.58-.44-.89-.11-.31-.18-.63-.2-.95-.02-.32.01-.64.09-.95.08-.31.2-.6.37-.87.17-.27.37-.51.6-.72.23-.21.49-.38.77-.5.28-.12.58-.19.88-.19.3 0 .59.07.86.2.27.13.51.32.7.56.19.24.33.52.42.82.09.3.12.61.09.92-.03.31-.12.61-.26.89-.14.28-.34.53-.58.73-.24.2-.52.36-.82.46-.3.1-.62.15-.94.15-.32 0-.64-.05-.94-.15-.3-.1-.58-.26-.82-.46-.24-.2-.44-.45-.58-.73-.14-.28-.23-.58-.26-.89-.03-.31 0-.62.09-.92.09-.3.23-.58.42-.82.19-.24.43-.43.7-.56.27-.13.56-.2.86-.2.3 0 .6.07.88.19.28.12.54.29.77.5.23.21.43.45.6.72.17.27.29.56.37.87.08.31.11.63.09.95-.02.32-.09.64-.2.95z%22/%3E%3C/svg%3E'">
+  <div class="whatsapp-btn" data-action="toggle-wa">
+    <img src="images/whatsapp.png" alt="WhatsApp">
   </div>
 </div>
 
 <!-- EXIT POPUP -->
 <div class="exit-popup-overlay" id="exitPopup">
   <div class="exit-popup">
-    <button class="exit-popup-close" onclick="closeExit()">✕</button>
-    <img src="images/logos.png" alt="Niblo Cloud" style="width: 80px; height: auto; margin: 0 auto 16px; display: block;" onerror="this.style.display='none'">
+    <button class="exit-popup-close" data-action="close-exit">✕</button>
+    <img src="images/logos.png" alt="Niblo Cloud" class="exit-popup-logo">
     <h2>Antes de ir, que tal<br>
-      <span style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+      <span class="exit-highlight">
         economizar de verdade?
       </span>
     </h2>
     <p>Fale com nosso time e descubra quanto você pode economizar migrando para a Niblo Cloud.</p>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-      <a href="contato.html" class="btn-primary" onclick="closeExit()">Falar com especialista</a>
-      <button onclick="closeExit()">Agora não</button>
+    <div class="exit-popup-actions">
+      <a href="contato.html" class="btn-primary" data-action="close-exit">Falar com especialista</a>
+      <button data-action="close-exit">Agora não</button>
     </div>
   </div>
 </div>
 
-<script>
-    // COOKIES BANNER
-    document.addEventListener('DOMContentLoaded', function() {
-      if (!localStorage.getItem('cookiesAccepted')) {
-        document.getElementById('cookie-banner').style.display = 'block';
-      }
-      document.getElementById('accept-cookies').onclick = function() {
-        localStorage.setItem('cookiesAccepted', 'true');
-        document.getElementById('cookie-banner').style.display = 'none';
-      };
-    });
-    
-    // MENU MOBILE
-    function toggleMenu() {
-      const navLinks = document.getElementById('navLinks');
-      navLinks.classList.toggle('mobile-open');
-    }
 
-    // WHATSAPP TOGGLE
-    function toggleWA() {
-      const popup = document.getElementById('wpPopup');
-      popup.classList.toggle('open');
-    }
 
-    // FECHAR EXIT POPUP
-    function closeExit() {
-      document.getElementById('exitPopup').classList.remove('show');
-    }
-
-    // EXIT INTENT
-    let exitShown = false;
-    function maybeShowExit() {
-      if (exitShown) return;
-      let count = parseInt(sessionStorage.getItem('tabSwitchCount') || '0') + 1;
-      sessionStorage.setItem('tabSwitchCount', count);
-      if (count % 3 === 0) {
-        exitShown = true;
-        document.getElementById('exitPopup').classList.add('show');
-      }
-    }
-
-    document.addEventListener('visibilitychange', function() {
-      if (document.visibilityState === 'hidden') {
-        maybeShowExit();
-      }
-    });
-
-    // NAVBAR SCROLL
-    window.addEventListener('scroll', function() {
-      const nav = document.getElementById('navbar');
-      if (window.scrollY > 50) {
-        nav.style.background = 'rgba(255,255,255,0.98)';
-        nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
-      } else {
-        nav.style.background = 'rgba(255,255,255,0.85)';
-        nav.style.boxShadow = 'none';
-      }
-    });
-
-    // FECHAR MENU AO CLICAR EM LINK
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('navLinks').classList.remove('mobile-open');
-      });
-    });
-
-    // Google Forms carregado diretamente no layout da página
-</script>
-
+<script src="scripts-common.js" defer></script>
+<script src="scripts-contato.js" defer></script>
 </body>
 </html>

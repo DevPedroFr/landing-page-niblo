@@ -6,25 +6,7 @@
 <title>Home — Niblo Cloud</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<script>
-  // COOKIES BANNER UNIVERSAL
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      if (!localStorage.getItem('cookiesAccepted')) {
-        var banner = document.createElement('div');
-        banner.id = 'cookie-banner';
-        banner.style = 'position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:18px 12px;z-index:9999;text-align:center;font-size:1rem;';
-        banner.innerHTML = 'Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <a href="politica-de-privacidade.html" style="color:#ffd700;text-decoration:underline;">Política de Privacidade</a>.' +
-          '<button id="accept-cookies" style="margin-left:18px;background:#ffd700;color:#222;border:none;padding:8px 18px;border-radius:4px;cursor:pointer;font-weight:600;">Aceitar</button>';
-        document.body.appendChild(banner);
-        document.getElementById('accept-cookies').onclick = function() {
-          localStorage.setItem('cookiesAccepted', 'true');
-          banner.style.display = 'none';
-        };
-      }
-    }, 500);
-  });
-</script>
+
 <body>
 
 <nav id="navbar">
@@ -43,7 +25,7 @@
     <a href="https://www.linkedin.com/company/niblo-cloud/" target="_blank" rel="noopener noreferrer"><img src="images/in.png" alt="LinkedIn"></a>
     <a href="https://www.instagram.com/niblo.cloud?igsh=bmxxbDBkazYzbndq" target="_blank" rel="noopener noreferrer"><img src="images/ig.png" alt="Instagram"></a>
   </div>
-  <div class="hamburger" onclick="toggleMenu()">
+  <div class="hamburger" data-action="toggle-menu">
     <span></span><span></span><span></span>
   </div>
 </nav>
@@ -58,38 +40,38 @@
     </defs>
     <g class="circuit-lines" stroke="rgba(245,99,26,0.4)" stroke-width="2" fill="none" filter="url(#glow)">
       <polyline class="circuit-line" points="420,80 480,80 480,140 560,140"/>
-      <polyline class="circuit-line" points="560,140 620,140 620,200 700,200" style="animation-delay:0.3s"/>
-      <polyline class="circuit-line" points="700,200 760,200 760,120 840,120" style="animation-delay:0.6s"/>
-      <polyline class="circuit-line" points="840,120 900,120 900,80 980,80" style="animation-delay:0.9s"/>
-      <polyline class="circuit-line" points="980,80 1040,80 1040,160 1120,160" style="animation-delay:1.2s"/>
-      <polyline class="circuit-line" points="1120,160 1180,160 1180,240 1280,240" style="animation-delay:1.5s"/>
-      <polyline class="circuit-line" points="420,300 500,300 500,380 600,380" style="animation-delay:1.8s"/>
-      <polyline class="circuit-line" points="600,380 680,380 680,320 760,320" style="animation-delay:2.1s"/>
-      <polyline class="circuit-line" points="760,320 820,320 820,420 940,420" style="animation-delay:2.4s"/>
-      <polyline class="circuit-line" points="940,420 1020,420 1020,360 1100,360" style="animation-delay:2.7s"/>
-      <polyline class="circuit-line" points="1100,360 1160,360 1160,440 1300,440" style="animation-delay:3s"/>
+      <polyline class="circuit-line" points="560,140 620,140 620,200 700,200"/>
+      <polyline class="circuit-line" points="700,200 760,200 760,120 840,120"/>
+      <polyline class="circuit-line" points="840,120 900,120 900,80 980,80"/>
+      <polyline class="circuit-line" points="980,80 1040,80 1040,160 1120,160"/>
+      <polyline class="circuit-line" points="1120,160 1180,160 1180,240 1280,240"/>
+      <polyline class="circuit-line" points="420,300 500,300 500,380 600,380"/>
+      <polyline class="circuit-line" points="600,380 680,380 680,320 760,320"/>
+      <polyline class="circuit-line" points="760,320 820,320 820,420 940,420"/>
+      <polyline class="circuit-line" points="940,420 1020,420 1020,360 1100,360"/>
+      <polyline class="circuit-line" points="1100,360 1160,360 1160,440 1300,440"/>
     </g>
     <g class="circuit-dots" fill="rgba(245,99,26,0.7)">
-      <circle class="circuit-dot" cx="480"  cy="80"  r="3" style="animation-delay:0.1s"/>
-      <circle class="circuit-dot" cx="480"  cy="140" r="3" style="animation-delay:0.15s"/>
-      <circle class="circuit-dot" cx="560"  cy="140" r="3" style="animation-delay:0.2s"/>
-      <circle class="circuit-dot" cx="700"  cy="200" r="3" style="animation-delay:0.5s"/>
-      <circle class="circuit-dot" cx="760"  cy="120" r="3" style="animation-delay:0.7s"/>
-      <circle class="circuit-dot" cx="840"  cy="120" r="3" style="animation-delay:0.8s"/>
-      <circle class="circuit-dot" cx="900"  cy="80"  r="3" style="animation-delay:1.0s"/>
-      <circle class="circuit-dot" cx="980"  cy="80"  r="3" style="animation-delay:1.1s"/>
-      <circle class="circuit-dot" cx="1040" cy="160" r="3" style="animation-delay:1.3s"/>
-      <circle class="circuit-dot" cx="1120" cy="160" r="3" style="animation-delay:1.4s"/>
-      <circle class="circuit-dot" cx="1180" cy="240" r="3" style="animation-delay:1.6s"/>
-      <circle class="circuit-dot" cx="500"  cy="300" r="3" style="animation-delay:1.9s"/>
-      <circle class="circuit-dot" cx="500"  cy="380" r="3" style="animation-delay:2.0s"/>
-      <circle class="circuit-dot" cx="680"  cy="380" r="3" style="animation-delay:2.2s"/>
-      <circle class="circuit-dot" cx="680"  cy="320" r="3" style="animation-delay:2.25s"/>
-      <circle class="circuit-dot" cx="820"  cy="320" r="3" style="animation-delay:2.5s"/>
-      <circle class="circuit-dot" cx="820"  cy="420" r="3" style="animation-delay:2.6s"/>
-      <circle class="circuit-dot" cx="1020" cy="360" r="3" style="animation-delay:2.8s"/>
-      <circle class="circuit-dot" cx="1100" cy="360" r="3" style="animation-delay:2.9s"/>
-      <circle class="circuit-dot" cx="1160" cy="440" r="3" style="animation-delay:3.1s"/>
+      <circle class="circuit-dot" cx="480"  cy="80"  r="3"/>
+      <circle class="circuit-dot" cx="480"  cy="140" r="3"/>
+      <circle class="circuit-dot" cx="560"  cy="140" r="3"/>
+      <circle class="circuit-dot" cx="700"  cy="200" r="3"/>
+      <circle class="circuit-dot" cx="760"  cy="120" r="3"/>
+      <circle class="circuit-dot" cx="840"  cy="120" r="3"/>
+      <circle class="circuit-dot" cx="900"  cy="80"  r="3"/>
+      <circle class="circuit-dot" cx="980"  cy="80"  r="3"/>
+      <circle class="circuit-dot" cx="1040" cy="160" r="3"/>
+      <circle class="circuit-dot" cx="1120" cy="160" r="3"/>
+      <circle class="circuit-dot" cx="1180" cy="240" r="3"/>
+      <circle class="circuit-dot" cx="500"  cy="300" r="3"/>
+      <circle class="circuit-dot" cx="500"  cy="380" r="3"/>
+      <circle class="circuit-dot" cx="680"  cy="380" r="3"/>
+      <circle class="circuit-dot" cx="680"  cy="320" r="3"/>
+      <circle class="circuit-dot" cx="820"  cy="320" r="3"/>
+      <circle class="circuit-dot" cx="820"  cy="420" r="3"/>
+      <circle class="circuit-dot" cx="1020" cy="360" r="3"/>
+      <circle class="circuit-dot" cx="1100" cy="360" r="3"/>
+      <circle class="circuit-dot" cx="1160" cy="440" r="3"/>
     </g>
   </svg>
 
@@ -106,7 +88,7 @@
 
   <!-- HERO IMAGE SIMPLIFICADA -->
   <div class="hero-image-wrapper">
-    <img src="images/hero-image.png" alt="Niblo Cloud Hero" style="width:100%;max-width:700px;min-width:340px;display:block;margin:0 auto;">
+    <img src="images/hero-image.png" alt="Niblo Cloud Hero">
   </div>
 
 </section>
@@ -122,7 +104,7 @@
   </div>
 </div>
 
-<section id="parceiros-preview" style="padding:80px 6%;background:var(--surface);">
+<section id="parceiros-preview" class="section-secondary">
   <div class="parceiros-layout">
     <div class="puzzle-visual reveal">
       <video class="puzzle-video" autoplay loop muted playsinline>
@@ -139,41 +121,41 @@
         <div class="parceiros-point"><div class="point-dot"></div><p>Oferecemos performance, segurança e confiabilidade para que você incorpore nossa solução ao seu portfólio com tranquilidade, transformando tecnologia em vantagem competitiva.</p></div>
         <div class="parceiros-point"><div class="point-dot"></div><p>Sua expertise cria possibilidades. Nossa cloud torna tudo viável.</p></div>
       </div>
-      <div style="margin-top:32px;">
+      <div class="mt-32">
         <a href="parceiros.html" class="btn-primary">Seja nosso parceiro →</a>
       </div>
     </div>
   </div>
 </section>
 
-<section style="background:white;padding:80px 6%;">
-  <div style="text-align:center;margin-bottom:48px;" class="reveal">
+<section class="section-alt">
+  <div class="section-header-center reveal">
     <span class="section-tag">Últimas notícias</span>
     <h2 class="section-title">Esteja por dentro do mundo cloud</h2>
   </div>
   <div class="blog-grid">
-    <a href="blog1.html" class="blog-card reveal" style="text-decoration:none;color:inherit;">
-      <div class="blog-img" style="background-image:url('images/blog1.png');background-size:cover;background-position:center;"></div>
-      <div class="blog-footer"><span>Clique e saiba mais</span><span style="font-weight:700;font-size:1.2em;margin-left:8px;">→</span></div>
+    <a href="blog1.html" class="blog-card reveal">
+      <div class="blog-img" data-bg="blog1"></div>
+      <div class="blog-footer"><span>Clique e saiba mais</span><span class="arrow-icon">→</span></div>
     </a>
-    <a href="blog2.html" class="blog-card reveal" style="text-decoration:none;color:inherit;">
-      <div class="blog-img" style="background-image:url('images/blog2.png');background-size:cover;background-position:center;"></div>
-      <div class="blog-footer"><span>Clique e saiba mais</span><span style="font-weight:700;font-size:1.2em;margin-left:8px;">→</span></div>
+    <a href="blog2.html" class="blog-card reveal">
+      <div class="blog-img" data-bg="blog2"></div>
+      <div class="blog-footer"><span>Clique e saiba mais</span><span class="arrow-icon">→</span></div>
     </a>
-    <a href="blog3.html" class="blog-card reveal" style="text-decoration:none;color:inherit;">
-      <div class="blog-img" style="background-image:url('images/blog3.png');background-size:cover;background-position:center;"></div>
-      <div class="blog-footer"><span>Clique e saiba mais</span><span style="font-weight:700;font-size:1.2em;margin-left:8px;">→</span></div>
+    <a href="blog3.html" class="blog-card reveal">
+      <div class="blog-img" data-bg="blog3"></div>
+      <div class="blog-footer"><span>Clique e saiba mais</span><span class="arrow-icon">→</span></div>
     </a>
-    <a href="blog4.html" class="blog-card reveal" style="text-decoration:none;color:inherit;">
-      <div class="blog-img" style="background-image:url('images/blog4.png');background-size:cover;background-position:center;"></div>
-      <div class="blog-footer"><span>Clique e saiba mais</span><span style="font-weight:700;font-size:1.2em;margin-left:8px;">→</span></div>
+    <a href="blog4.html" class="blog-card reveal">
+      <div class="blog-img" data-bg="blog4"></div>
+      <div class="blog-footer"><span>Clique e saiba mais</span><span class="arrow-icon">→</span></div>
     </a>
   </div>
 </section>
 
 <footer>
   <a href="index.html" class="logo">
-    <img src="images/logo1.png" alt="Niblo Cloud" style="height:80px;width:auto;filter:brightness(0) invert(1);opacity:0.85;margin:0;">
+    <img src="images/logo1.png" alt="Niblo Cloud" class="footer-logo-img">
   </a>
   <p>© 2025 Niblo Cloud. Todos os direitos reservados.</p>
   <div class="footer-links">
@@ -200,95 +182,28 @@
       <div class="wo-text"><strong>Time Comercial</strong><span>Planos e propostas</span></div>
     </a>
   </div>
-  <div class="whatsapp-btn" onclick="toggleWA()">
+  <div class="whatsapp-btn" data-action="toggle-wa">
     <img src="images/whatsapp.png" alt="WhatsApp">
   </div>
 </div>
 
 <div class="exit-popup-overlay" id="exitPopup">
   <div class="exit-popup">
-    <button class="exit-popup-close" onclick="closeExit()">✕</button>
-    <img src="images/logos.png" alt="Niblo Cloud" style="width:80px;height:auto;margin:0 auto 16px;display:block;">
+    <button class="exit-popup-close" data-action="close-exit">✕</button>
+    <img src="images/logos.png" alt="Niblo Cloud" class="exit-popup-logo">
     <h2>Antes de ir, que tal<br>
-      <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">economizar de verdade?</span>
+      <span class="exit-highlight">economizar de verdade?</span>
     </h2>
     <p>Fale com nosso time e descubra quanto você pode economizar migrando para a Niblo Cloud.</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-      <a href="contato.html" class="btn-primary" onclick="closeExit()">Falar com especialista</a>
-      <button onclick="closeExit()" style="border:1px solid rgba(0,0,0,0.12);cursor:pointer;background:transparent;color:var(--muted);padding:16px 24px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.9rem;">Agora não</button>
+    <div class="exit-popup-actions">
+      <a href="contato.html" class="btn-primary" data-action="close-exit">Falar com especialista</a>
+      <button data-action="close-exit" class="btn-dismiss">Agora não</button>
     </div>
   </div>
 </div>
 
-<script>
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        revealObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  revealEls.forEach(el => revealObs.observe(el));
 
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.target);
-    if (!target) return;
-    const prefix = target > 100 ? '+' : '';
-    const step = target / (1800 / 16);
-    let current = 0;
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= target) { current = target; clearInterval(timer); }
-      el.textContent = prefix + Math.floor(current).toLocaleString('pt-BR');
-    }, 16);
-  }
-  const statsEl = document.getElementById('stats');
-  if (statsEl) {
-    const statObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.querySelectorAll('[data-target]').forEach(animateCounter);
-          statObs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    statObs.observe(statsEl);
-  }
 
-  function toggleWA() { document.getElementById('wpPopup').classList.toggle('open'); }
-
-  let exitShown = false;
-  function maybeShowExit() {
-    if (exitShown) return;
-    let count = parseInt(sessionStorage.getItem('tabSwitchCount') || '0') + 1;
-    sessionStorage.setItem('tabSwitchCount', count);
-    if (count % 3 === 0) { exitShown = true; document.getElementById('exitPopup').classList.add('show'); }
-  }
-  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') maybeShowExit(); });
-  function closeExit() { exitShown = false; document.getElementById('exitPopup').classList.remove('show'); }
-
-  function toggleMenu() {
-    const links = document.querySelector('.nav-links');
-    if (links.style.display === 'flex') {
-      links.style.display = 'none';
-    } else {
-      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(255,255,255,0.97);padding:24px;gap:20px;border-bottom:1px solid rgba(0,0,0,0.08);z-index:150;';
-    }
-  }
-
-  window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    if (window.scrollY > 50) {
-      nav.style.background = 'rgba(255,255,255,0.98)';
-      nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
-    } else {
-      nav.style.background = 'rgba(255,255,255,0.85)';
-      nav.style.boxShadow = 'none';
-    }
-  });
-</script>
-
+<script src="scripts-common.js" defer></script>
 </body>
 </html>

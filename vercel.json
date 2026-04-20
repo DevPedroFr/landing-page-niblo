@@ -29,7 +29,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://cdn.emailjs.com 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://docs.google.com https://lh3.googleusercontent.com; font-src 'self' https://fonts.gstatic.com; frame-src https://www.google.com/recaptcha/ https://docs.google.com; connect-src 'self' https://api.emailjs.com https://docs.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com;"
+          "value": "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://lh3.googleusercontent.com; font-src 'self' https://fonts.gstatic.com; frame-src https://www.google.com/recaptcha/ https://docs.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
         }
       ]
     }
