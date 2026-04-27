@@ -4,6 +4,6 @@
     Header always set X-Frame-Options "DENY"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set X-XSS-Protection "1; mode=block"
-    Header always set Access-Control-Allow-Origin "https://landing-page-niblo.vercel.app"
+    Header always set Access-Control-Allow-Origin "https://niblo.cloud"
     Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://lh3.googleusercontent.com; font-src 'self' https://fonts.gstatic.com; frame-src https://www.google.com/recaptcha/ https://docs.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';"
 </IfModule>
