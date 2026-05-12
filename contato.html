@@ -6,7 +6,7 @@
 <title>Contato — Niblo Cloud</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page-key="contato">
 
 <nav id="navbar">
   <a href="index.html" class="logo">
@@ -34,9 +34,9 @@
 <section id="contato">
   <div class="form-layout">
     <div>
-      <span class="section-tag">Contato</span>
-      <h2 class="section-title">Entre em contato com nosso time</h2>
-      <p>
+      <span class="section-tag" data-content-key="hero_tag">Contato</span>
+      <h2 class="section-title" data-content-key="hero_title">Entre em contato com nosso time</h2>
+      <p data-content-key="hero_intro">
         Preencha o formulário e nossa equipe retornará em até 24 horas úteis para entender como podemos ajudar.
       </p>
       <img src="images/contato.png" alt="Contato">
@@ -78,19 +78,19 @@
 <!-- WHATSAPP FLOAT -->
 <div class="whatsapp-float">
   <div class="whatsapp-popup" id="wpPopup">
-    <h4>💬 Fale com a Niblo</h4>
+    <h4 data-content-key="whatsapp_title">💬 Fale com a Niblo</h4>
     <a href="https://wa.me/551155940238" target="_blank" rel="noopener noreferrer" class="whatsapp-option">
       <div class="wo-icon">🛠️</div>
       <div class="wo-text">
-        <strong>Suporte Técnico</strong>
-        <span>Abertura de chamados</span>
+        <strong data-content-key="whatsapp_support_title">Suporte Técnico</strong>
+        <span data-content-key="whatsapp_support_subtitle">Abertura de chamados</span>
       </div>
     </a>
     <a href="https://wa.me/5511937315210" target="_blank" rel="noopener noreferrer" class="whatsapp-option">
       <div class="wo-icon">💼</div>
       <div class="wo-text">
-        <strong>Time Comercial</strong>
-        <span>Planos e propostas</span>
+        <strong data-content-key="whatsapp_sales_title">Time Comercial</strong>
+        <span data-content-key="whatsapp_sales_subtitle">Planos e propostas</span>
       </div>
     </a>
   </div>
@@ -104,15 +104,15 @@
   <div class="exit-popup">
     <button class="exit-popup-close" data-action="close-exit">✕</button>
     <img src="images/logos.png" alt="Niblo Cloud" class="exit-popup-logo">
-    <h2>Antes de ir, que tal<br>
+    <h2 data-content-key="exit_title_html" data-content-mode="html">Antes de ir, que tal<br>
       <span class="exit-highlight">
         economizar de verdade?
       </span>
     </h2>
-    <p>Fale com nosso time e descubra quanto você pode economizar migrando para a Niblo Cloud.</p>
+    <p data-content-key="exit_text">Fale com nosso time e descubra quanto você pode economizar migrando para a Niblo Cloud.</p>
     <div class="exit-popup-actions">
-      <a href="contato.html" class="btn-primary" data-action="close-exit">Falar com especialista</a>
-      <button data-action="close-exit">Agora não</button>
+      <a href="contato.html" class="btn-primary" data-action="close-exit" data-content-key="exit_cta">Falar com especialista</a>
+      <button data-action="close-exit" data-content-key="exit_dismiss">Agora não</button>
     </div>
   </div>
 </div>
@@ -121,5 +121,6 @@
 
 <script src="scripts-common.js" defer></script>
 <script src="scripts-contato.js" defer></script>
+<script src="scripts-managed-content.js" defer></script>
 </body>
 </html>
