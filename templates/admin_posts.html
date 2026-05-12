@@ -1,0 +1,55 @@
+{% extends 'admin_base.html' %}
+{% block title %}Posts do blog{% endblock %}
+{% block page_title %}Posts do blog{% endblock %}
+{% block topbar_sub %}Gerencie os posts publicados e rascunhos{% endblock %}
+{% block topbar_actions %}
+  <a class="btn btn-primary" href="{{ url_for('admin_new_post') }}">&#43; Novo post</a>
+{% endblock %}
+
+{% block content %}
+<div class="panel">
+  <div class="panel-body" style="padding:0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>T&iacute;tulo</th>
+          <th>Status</th>
+          <th>Publica&ccedil;&atilde;o</th>
+          <th>A&ccedil;&otilde;es</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td>
+            <span class="t-title">{{ post.title }}</span>
+            <span class="t-sub">/{{ post.slug }}</span>
+          </td>
+          <td>
+            {% if post.is_published %}
+            <span class="badge badge-green">Publicado</span>
+            {% else %}
+            <span class="badge badge-gray">Rascunho</span>
+            {% endif %}
+          </td>
+          <td style="white-space:nowrap">{{ post.published_at | date_br }}</td>
+          <td>
+            <div class="row-actions">
+              <a class="btn btn-secondary" href="{{ url_for('admin_edit_post', slug=post.slug) }}">Editar</a>
+              <a class="btn btn-secondary" href="{{ url_for('blog_post', slug=post.slug) }}" target="_blank" rel="noopener noreferrer">Ver</a>
+              <form method="post" action="{{ url_for('admin_delete_post', slug=post.slug) }}"
+                    onsubmit="return confirm('Remover este post permanentemente?');" style="margin:0">
+                <button type="submit" class="btn btn-danger">Excluir</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+        {% if not posts %}
+        <tr><td colspan="4" style="text-align:center;color:var(--muted);padding:24px">Nenhum post encontrado.</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

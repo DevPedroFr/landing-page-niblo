@@ -1,0 +1,50 @@
+{% extends 'admin_base.html' %}
+{% block title %}{{ page_config.label }}{% endblock %}
+{% block page_title %}{{ page_config.label }}{% endblock %}
+{% block topbar_sub %}Textos da p&aacute;gina &mdash; {{ page_config.description }}{% endblock %}
+{% block topbar_actions %}
+  <a class="btn btn-secondary" href="{{ url_for('admin_dashboard') }}">&#8592; Dashboard</a>
+  <a class="btn btn-secondary" href="{{ page_config.preview_path }}" target="_blank" rel="noopener noreferrer">Abrir p&aacute;gina</a>
+  <button type="submit" form="content-form" class="btn btn-primary">Salvar</button>
+{% endblock %}
+
+{% block content %}
+<div class="grid-45-55">
+
+  {# ── Form column ── #}
+  <div class="panel panel-body" style="overflow-y:auto;max-height:calc(100vh - var(--topbar-h) - 56px)">
+    <form id="content-form" method="post">
+      {% for field in page_config.fields %}
+      <div class="field">
+        <label for="{{ field.key }}">{{ field.label }}</label>
+        {% if field.mode == 'html' %}
+        <textarea id="{{ field.key }}" name="{{ field.key }}"
+                  style="min-height:140px;font-family:monospace;font-size:0.8rem">{{ page_content.get(field.key, '') }}</textarea>
+        <p class="hint">Aceita HTML simples.</p>
+        {% else %}
+        <textarea id="{{ field.key }}" name="{{ field.key }}"
+                  style="min-height:70px">{{ page_content.get(field.key, '') }}</textarea>
+        {% endif %}
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:9px">Salvar conte&uacute;do</button>
+    </form>
+  </div>
+
+  {# ── Preview column ── #}
+  <div class="preview-col">
+    <div class="preview-toolbar">
+      <span style="font-size:0.78rem;color:var(--muted);font-weight:600">Preview ao vivo</span>
+      <button type="button" class="btn btn-secondary"
+              onclick="document.getElementById('pg-preview').contentWindow.location.reload()">
+        Recarregar
+      </button>
+    </div>
+    <iframe id="pg-preview"
+            src="{{ page_config.preview_path }}"
+            title="Preview {{ page_config.label }}"
+            class="preview-frame"></iframe>
+  </div>
+
+</div>
+{% endblock %}

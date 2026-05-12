@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Niblo Cloud{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .blog-card-media {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height: 220px;
+    }
+  </style>
+</head>
+<body data-page-key="{{ page_key|default('blog') }}">
+<nav id="navbar">
+  <a href="{{ url_for('static', filename='index.html') }}" class="logo">
+    <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Niblo Cloud" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li><a href="{{ url_for('static', filename='solucoes.html') }}">Soluções</a></li>
+    <li><a href="{{ url_for('static', filename='sobre.html') }}">Sobre</a></li>
+    <li><a href="{{ url_for('static', filename='parceiros.html') }}">Parceiros</a></li>
+    <li><a href="{{ url_for('blog_index') }}">Blog</a></li>
+    <li><a href="{{ url_for('static', filename='contato.html') }}" class="nav-cta">Contato</a></li>
+  </ul>
+  <div class="nav-social">
+    <a href="https://www.linkedin.com/company/niblo-cloud/" target="_blank" rel="noopener noreferrer"><img src="{{ url_for('static', filename='images/in.png') }}" alt="LinkedIn"></a>
+    <a href="https://www.instagram.com/niblo.cloud?igsh=bmxxbDBkazYzbndq" target="_blank" rel="noopener noreferrer"><img src="{{ url_for('static', filename='images/ig.png') }}" alt="Instagram"></a>
+  </div>
+  <div class="hamburger" data-action="toggle-menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer>
+  <a href="{{ url_for('static', filename='index.html') }}" class="logo">
+    <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Niblo Cloud" class="footer-logo-img">
+  </a>
+  <p>© {{ current_year }} Niblo Cloud. Todos os direitos reservados.</p>
+  <div class="footer-links">
+    <a href="{{ url_for('static', filename='solucoes.html') }}">Soluções</a>
+    <a href="{{ url_for('static', filename='sobre.html') }}">Sobre</a>
+    <a href="{{ url_for('static', filename='parceiros.html') }}">Parceiros</a>
+    <a href="{{ url_for('blog_index') }}">Blog</a>
+    <a href="{{ url_for('static', filename='contato.html') }}">Contato</a>
+    <a href="{{ url_for('static', filename='termos-de-uso.html') }}">Termos de Uso</a>
+    <a href="{{ url_for('static', filename='termos-plataforma.html') }}">Termos da Plataforma</a>
+    <a href="{{ url_for('static', filename='politica-de-privacidade.html') }}">Privacidade</a>
+  </div>
+</footer>
+
+<div class="whatsapp-float">
+  <div class="whatsapp-popup" id="wpPopup">
+    <h4 data-content-key="whatsapp_title">💬 Fale com a Niblo</h4>
+    <a href="https://wa.me/551155940238" target="_blank" rel="noopener noreferrer" class="whatsapp-option">
+      <div class="wo-icon">🛠️</div>
+      <div class="wo-text">
+        <strong data-content-key="whatsapp_support_title">Suporte Técnico</strong>
+        <span data-content-key="whatsapp_support_subtitle">Abertura de chamados</span>
+      </div>
+    </a>
+    <a href="https://wa.me/5511937315210" target="_blank" rel="noopener noreferrer" class="whatsapp-option">
+      <div class="wo-icon">💼</div>
+      <div class="wo-text">
+        <strong data-content-key="whatsapp_sales_title">Time Comercial</strong>
+        <span data-content-key="whatsapp_sales_subtitle">Planos e propostas</span>
+      </div>
+    </a>
+  </div>
+  <div class="whatsapp-btn" data-action="toggle-wa">
+    <img src="{{ url_for('static', filename='images/whatsapp.png') }}" alt="WhatsApp">
+  </div>
+</div>
+
+<div class="exit-popup-overlay" id="exitPopup">
+  <div class="exit-popup">
+    <button class="exit-popup-close" data-action="close-exit">✕</button>
+    <img src="{{ url_for('static', filename='images/logos.png') }}" alt="Niblo Cloud" class="exit-popup-logo">
+    <h2 data-content-key="exit_title_html" data-content-mode="html">Antes de ir, que tal<br><span class="exit-highlight">economizar de verdade?</span></h2>
+    <p data-content-key="exit_text">Fale com nosso time e descubra quanto você pode economizar migrando para a Niblo Cloud.</p>
+    <div class="exit-popup-actions">
+      <a href="{{ url_for('static', filename='contato.html') }}" class="btn-primary" data-action="close-exit" data-content-key="exit_cta">Falar com especialista</a>
+      <button data-action="close-exit" class="btn-dismiss" data-content-key="exit_dismiss">Agora não</button>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='scripts-common.js') }}" defer></script>
+<script src="{{ url_for('static', filename='scripts-managed-content.js') }}" defer></script>
+</body>
+</html>
