@@ -261,6 +261,7 @@
     </div>
     <div class="sidebar-footer">
       <form method="post" action="{{ url_for('admin_logout') }}" style="margin:0">
+        {{ csrf_input() }}
         <button type="submit" class="nav-link">
           <span class="nav-ico">&#8617;</span><span>Sair</span>
         </button>

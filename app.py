@@ -1,12 +1,19 @@
 import json
+import hmac
 import os
 import re
+import secrets
+import time
 import unicodedata
-from datetime import datetime
+from datetime import datetime, timedelta
 from functools import wraps
 from pathlib import Path
 
+import bleach
 from flask import Flask, abort, flash, jsonify, redirect, render_template, request, send_from_directory, session, url_for
+from markupsafe import Markup
+from werkzeug.middleware.proxy_fix import ProxyFix
+from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
 
 
@@ -22,8 +29,13 @@ DATA_DIR = Path("/tmp/niblo-data") if _IS_VERCEL else _COMMITTED_DATA
 POSTS_FILE = DATA_DIR / "posts.json"
 SITE_CONTENT_FILE = DATA_DIR / "site_content.json"
 IMAGES_DIR = SITE_DIR / "images"
-ADMIN_USERNAME = "niblo"
-ADMIN_PASSWORD = "niblo@2026"
+IS_PRODUCTION = bool(os.environ.get("VERCEL") or os.environ.get("NIBLO_ENV") == "production" or os.environ.get("FLASK_ENV") == "production")
+ADMIN_USERNAME = os.environ.get("NIBLO_ADMIN_USERNAME", "niblo")
+ADMIN_PASSWORD_HASH = os.environ.get(
+    "NIBLO_ADMIN_PASSWORD_HASH",
+    "scrypt:32768:8:1$PXwfhLtXiWiHpJnT$20fff7e890bc7d6031f6253df2985feea04cee876712f445b334ceda2eef96750c0e309a5ea9fa4eb3fd3e8409f391aee8a1ed27256fcb04d7f6e37269246d1b",
+)
+ADMIN_PASSWORD_LEGACY = os.environ.get("NIBLO_ADMIN_PASSWORD", "") if not IS_PRODUCTION else ""
 ADMIN_SLUG = "acesso-interno-cloud-2026"
 ALLOWED_MEDIA_EXTENSIONS = {
     ".png",
@@ -31,11 +43,47 @@ ALLOWED_MEDIA_EXTENSIONS = {
     ".jpeg",
     ".webp",
     ".gif",
-    ".svg",
     ".mp4",
     ".webm",
     ".avif",
 }
+ALLOWED_MEDIA_MIME_TYPES = {
+    ".png": {"image/png"},
+    ".jpg": {"image/jpeg"},
+    ".jpeg": {"image/jpeg"},
+    ".webp": {"image/webp"},
+    ".gif": {"image/gif"},
+    ".avif": {"image/avif"},
+    ".mp4": {"video/mp4"},
+    ".webm": {"video/webm"},
+}
+ALLOWED_HTML_TAGS = {
+    "a", "blockquote", "br", "code", "div", "em", "figcaption", "figure",
+    "h1", "h2", "h3", "h4", "hr", "img", "li", "ol", "p", "pre", "span",
+    "strong", "u", "ul",
+}
+ALLOWED_HTML_ATTRIBUTES = {
+    "a": ["href", "title", "rel"],
+    "div": ["class"],
+    "figure": ["class"],
+    "figcaption": ["class"],
+    "h1": ["class"],
+    "h2": ["class"],
+    "h3": ["class"],
+    "h4": ["class"],
+    "img": ["src", "alt", "title", "loading"],
+    "li": ["class"],
+    "ol": ["class"],
+    "p": ["class"],
+    "pre": ["class"],
+    "span": ["class"],
+    "ul": ["class"],
+}
+ALLOWED_HTML_PROTOCOLS = {"http", "https", "mailto"}
+LOGIN_WINDOW_SECONDS = 15 * 60
+LOGIN_MAX_ATTEMPTS = 5
+LOGIN_LOCKOUT_SECONDS = 15 * 60
+FAILED_LOGIN_ATTEMPTS = {}
 
 SITE_CONTENT_SCHEMA = {
     "common": {
@@ -144,10 +192,20 @@ SITE_CONTENT_SCHEMA = {
 
 
 app = Flask(__name__, static_folder=str(SITE_DIR), static_url_path="")
-app.secret_key = os.environ.get("NIBLO_ADMIN_SECRET", "niblo-dev-secret-2026")
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+app.secret_key = os.environ.get("NIBLO_ADMIN_SECRET") or os.environ.get("SECRET_KEY") or secrets.token_hex(32)
 app.config["MAX_CONTENT_LENGTH"] = 100 * 1024 * 1024
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = bool(_truthy := os.environ.get("NIBLO_SESSION_COOKIE_SECURE")) and _truthy.lower() in {"1", "true", "yes", "on"}
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=8)
+
+
+def should_use_secure_cookies():
+    return app.config["SESSION_COOKIE_SECURE"] or IS_PRODUCTION
+
+
+app.config["SESSION_COOKIE_SECURE"] = should_use_secure_cookies()
 
 
 def slugify(value):
@@ -201,6 +259,135 @@ def format_date_br(value):
 app.jinja_env.filters["date_br"] = format_date_br
 
 
+def client_ip():
+    forwarded_for = request.headers.get("X-Forwarded-For", "")
+    if forwarded_for:
+        return forwarded_for.split(",")[0].strip()
+    return request.remote_addr or "unknown"
+
+
+def get_rate_limit_key(username):
+    return f"{client_ip()}::{username.lower()}"
+
+
+def prune_login_attempts(now=None):
+    current_time = now or time.time()
+    expired_keys = [
+        key for key, state in FAILED_LOGIN_ATTEMPTS.items()
+        if current_time - state.get("last_attempt", 0) > LOGIN_WINDOW_SECONDS
+    ]
+    for key in expired_keys:
+        FAILED_LOGIN_ATTEMPTS.pop(key, None)
+
+
+def login_is_locked(username):
+    prune_login_attempts()
+    state = FAILED_LOGIN_ATTEMPTS.get(get_rate_limit_key(username))
+    if not state:
+        return False
+    return time.time() < state.get("locked_until", 0)
+
+
+def register_failed_login(username):
+    now = time.time()
+    key = get_rate_limit_key(username)
+    state = FAILED_LOGIN_ATTEMPTS.get(key, {"count": 0, "last_attempt": 0, "locked_until": 0})
+    if now - state.get("last_attempt", 0) > LOGIN_WINDOW_SECONDS:
+        state = {"count": 0, "last_attempt": now, "locked_until": 0}
+    state["count"] += 1
+    state["last_attempt"] = now
+    if state["count"] >= LOGIN_MAX_ATTEMPTS:
+        state["locked_until"] = now + LOGIN_LOCKOUT_SECONDS
+    FAILED_LOGIN_ATTEMPTS[key] = state
+
+
+def clear_failed_login(username):
+    FAILED_LOGIN_ATTEMPTS.pop(get_rate_limit_key(username), None)
+
+
+def verify_admin_password(password):
+    if ADMIN_PASSWORD_HASH:
+        return check_password_hash(ADMIN_PASSWORD_HASH, password)
+    return bool(ADMIN_PASSWORD_LEGACY) and hmac.compare_digest(password, ADMIN_PASSWORD_LEGACY)
+
+
+def admin_login_enabled():
+    return bool(ADMIN_PASSWORD_HASH or ADMIN_PASSWORD_LEGACY)
+
+
+def get_csrf_token():
+    token = session.get("csrf_token")
+    if not token:
+        token = secrets.token_urlsafe(32)
+        session["csrf_token"] = token
+    return token
+
+
+def csrf_input():
+    return Markup(f'<input type="hidden" name="csrf_token" value="{get_csrf_token()}">')
+
+
+def validate_csrf():
+    expected = session.get("csrf_token")
+    provided = request.form.get("csrf_token", "")
+    return bool(expected and provided and hmac.compare_digest(expected, provided))
+
+
+def sanitize_html_fragment(value):
+    cleaned = bleach.clean(
+        value or "",
+        tags=ALLOWED_HTML_TAGS,
+        attributes=ALLOWED_HTML_ATTRIBUTES,
+        protocols=ALLOWED_HTML_PROTOCOLS,
+        strip=True,
+    )
+    return re.sub(r"\s+rel=(['\"])(?![^>]*noopener)([^'\"]*)(['\"])", r" rel=\1noopener noreferrer\3", cleaned)
+
+
+def normalize_media_path(value, fallback="images/logo1.png"):
+    raw_value = (value or "").strip().replace("\\", "/")
+    if not raw_value:
+        return fallback
+    raw_value = raw_value.lstrip("/")
+    if not raw_value.startswith("images/"):
+        return fallback
+    filename = Path(raw_value).name
+    if secure_filename(filename) != filename or not allowed_media(filename):
+        return fallback
+    return f"images/{filename}"
+
+
+def sanitize_site_content_payload(content):
+    sanitized = build_default_site_content()
+    for page_key, config in SITE_CONTENT_SCHEMA.items():
+        source_page = content.get(page_key, {}) if isinstance(content, dict) else {}
+        if not isinstance(source_page, dict):
+            source_page = {}
+        page_payload = {}
+        for field in config["fields"]:
+            raw_value = (source_page.get(field["key"], field.get("default", "")) or "").strip()
+            if field.get("mode") == "html":
+                page_payload[field["key"]] = sanitize_html_fragment(raw_value)
+            else:
+                page_payload[field["key"]] = raw_value
+        sanitized[page_key] = page_payload
+    return sanitized
+
+
+def sanitize_post_payload(post):
+    sanitized = dict(post)
+    sanitized["title"] = (sanitized.get("title") or "").strip()
+    sanitized["excerpt"] = strip_html((sanitized.get("excerpt") or "").strip())
+    sanitized["content"] = sanitize_html_fragment((sanitized.get("content") or "").strip())
+    sanitized["author"] = (sanitized.get("author") or "Niblo Cloud").strip() or "Niblo Cloud"
+    sanitized["cover_image"] = normalize_media_path(sanitized.get("cover_image"), fallback="images/logo1.png")
+    sanitized["slug"] = slugify(sanitized.get("slug") or sanitized["title"])
+    return sanitized
+
+
+app.jinja_env.globals["csrf_input"] = csrf_input
+
+
 SHORT_LABELS = {
     "common": "Globais",
     "home": "Home",
@@ -218,6 +405,7 @@ def inject_globals():
         "current_year": datetime.now().year,
         "sidebar_content_pages": list_site_pages(include_common=True),
         "current_content_page": (request.view_args or {}).get("page_key"),
+        "csrf_token": get_csrf_token,
     }
 
 
@@ -254,23 +442,15 @@ def read_site_content():
     bootstrap_site_content()
     with SITE_CONTENT_FILE.open("r", encoding="utf-8") as handle:
         data = json.load(handle)
-    defaults = build_default_site_content()
-    merged = deep_copy_data(defaults)
-    for page_key, page_values in data.items():
-        if page_key not in merged or not isinstance(page_values, dict):
-            continue
-        merged[page_key].update(page_values)
-    return merged
+    sanitized = sanitize_site_content_payload(data)
+    if sanitized != data:
+        write_site_content(sanitized)
+    return sanitized
 
 
 def write_site_content(content):
     ensure_storage()
-    defaults = build_default_site_content()
-    merged = deep_copy_data(defaults)
-    for page_key, page_values in content.items():
-        if page_key not in merged or not isinstance(page_values, dict):
-            continue
-        merged[page_key].update(page_values)
+    merged = sanitize_site_content_payload(content)
     with SITE_CONTENT_FILE.open("w", encoding="utf-8") as handle:
         json.dump(merged, handle, ensure_ascii=False, indent=2)
 
@@ -314,13 +494,17 @@ def read_posts():
         return []
     with POSTS_FILE.open("r", encoding="utf-8") as handle:
         data = json.load(handle)
-    return sort_posts(data)
+    sanitized = [sanitize_post_payload(item) for item in data if isinstance(item, dict)]
+    if sanitized != data:
+        write_posts(sanitized)
+    return sort_posts(sanitized)
 
 
 def write_posts(posts):
     ensure_storage()
+    sanitized_posts = [sanitize_post_payload(item) for item in posts if isinstance(item, dict)]
     with POSTS_FILE.open("w", encoding="utf-8") as handle:
-        json.dump(sort_posts(posts), handle, ensure_ascii=False, indent=2)
+        json.dump(sort_posts(sanitized_posts), handle, ensure_ascii=False, indent=2)
 
 
 def sort_posts(posts):
@@ -401,16 +585,26 @@ def allowed_media(filename):
     return Path(filename).suffix.lower() in ALLOWED_MEDIA_EXTENSIONS
 
 
+def allowed_media_upload(file_storage, filename):
+    extension = Path(filename).suffix.lower()
+    if extension not in ALLOWED_MEDIA_MIME_TYPES:
+        return False
+    mimetype = (file_storage.mimetype or "").lower()
+    return mimetype in ALLOWED_MEDIA_MIME_TYPES[extension]
+
+
 def save_media_upload(file_storage, replace_target=None, prefix="media"):
     if not file_storage or not file_storage.filename:
         return None
 
     original_name = secure_filename(file_storage.filename)
-    if not original_name or not allowed_media(original_name):
+    if not original_name or not allowed_media(original_name) or not allowed_media_upload(file_storage, original_name):
         return None
 
     if replace_target:
         safe_name = secure_filename(Path(replace_target).name)
+        if not safe_name or not allowed_media(safe_name):
+            return None
     else:
         stem = slugify(Path(original_name).stem)
         extension = Path(original_name).suffix.lower()
@@ -444,11 +638,29 @@ def list_media_files():
     return files
 
 
+@app.before_request
+def enforce_csrf_for_admin():
+    if request.method not in {"POST", "PUT", "PATCH", "DELETE"}:
+        return None
+    if not request.path.startswith(f"/{ADMIN_SLUG}"):
+        return None
+    if not validate_csrf():
+        abort(400)
+    return None
+
+
 @app.after_request
 def secure_admin_routes(response):
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "SAMEORIGIN")
+    response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    response.headers.setdefault("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+    if request.is_secure:
+        response.headers.setdefault("Strict-Transport-Security", "max-age=31536000")
     if request.path.startswith(f"/{ADMIN_SLUG}"):
         response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
-        response.headers["Cache-Control"] = "no-store"
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+        response.headers["Pragma"] = "no-cache"
     return response
 
 
@@ -483,7 +695,7 @@ def legacy_blog_post(legacy_id):
 @app.route("/api/public/posts")
 def public_posts_api():
     limit = request.args.get("limit", default=4, type=int)
-    posts = [post for post in read_posts() if post.get("is_published")][: max(limit, 1)]
+    posts = [post for post in read_posts() if post.get("is_published")][: min(max(limit, 1), 12)]
     payload = [
         {
             "title": post["title"],
@@ -511,11 +723,20 @@ def admin_login():
     if request.method == "POST":
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "")
-        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+        if not admin_login_enabled():
+            abort(503)
+        if login_is_locked(username):
+            flash("Muitas tentativas. Aguarde alguns minutos e tente novamente.", "error")
+        elif hmac.compare_digest(username, ADMIN_USERNAME) and verify_admin_password(password):
+            clear_failed_login(username)
+            session.clear()
             session["admin_logged_in"] = True
+            session["csrf_token"] = secrets.token_urlsafe(32)
             session.permanent = True
             return redirect(url_for("admin_dashboard"))
-        flash("Credenciais inválidas.", "error")
+        else:
+            register_failed_login(username)
+            flash("Credenciais inválidas.", "error")
 
     return render_template("admin_login.html", admin_path=f"/{ADMIN_SLUG}")
 
@@ -569,7 +790,11 @@ def admin_edit_site_content(page_key):
     if request.method == "POST":
         updated_page = {}
         for field in config["fields"]:
-            updated_page[field["key"]] = request.form.get(field["key"], "").strip()
+            field_value = request.form.get(field["key"], "").strip()
+            if field.get("mode") == "html":
+                updated_page[field["key"]] = sanitize_html_fragment(field_value)
+            else:
+                updated_page[field["key"]] = field_value
         content[page_key] = updated_page
         write_site_content(content)
         flash(f"Conteúdo de {config['label']} atualizado com sucesso.", "success")
@@ -604,7 +829,10 @@ def upsert_post(existing_slug=None):
         flash("Já existe um post com esse slug.", "error")
         return None
 
-    cover_image = request.form.get("cover_image", "").strip() or (current_post or {}).get("cover_image") or "images/logo1.png"
+    cover_image = normalize_media_path(
+        request.form.get("cover_image", "").strip() or (current_post or {}).get("cover_image"),
+        fallback="images/logo1.png",
+    )
     uploaded_cover = save_media_upload(request.files.get("cover_upload"), prefix="blog")
     if uploaded_cover:
         cover_image = uploaded_cover
@@ -615,7 +843,7 @@ def upsert_post(existing_slug=None):
         "slug": new_slug,
         "title": title,
         "excerpt": request.form.get("excerpt", "").strip() or extract_excerpt(request.form.get("content", "")),
-        "content": request.form.get("content", "").strip(),
+        "content": sanitize_html_fragment(request.form.get("content", "").strip()),
         "cover_image": cover_image,
         "author": request.form.get("author", "").strip() or "Niblo Cloud",
         "published_at": published_at,
@@ -708,4 +936,8 @@ def favicon():
 if __name__ == "__main__":
     bootstrap_posts()
     bootstrap_site_content()
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(
+        debug=os.environ.get("FLASK_DEBUG") == "1",
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", "5000")),
+    )

@@ -39,6 +39,7 @@
               <a class="btn btn-secondary" href="{{ url_for('blog_post', slug=post.slug) }}" target="_blank" rel="noopener noreferrer">Ver</a>
               <form method="post" action="{{ url_for('admin_delete_post', slug=post.slug) }}"
                     onsubmit="return confirm('Remover este post permanentemente?');" style="margin:0">
+                {{ csrf_input() }}
                 <button type="submit" class="btn btn-danger">Excluir</button>
               </form>
             </div>

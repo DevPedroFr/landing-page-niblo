@@ -7,6 +7,7 @@
     <div class="login-brand">niblo<em>.</em>cloud</div>
     <p class="login-sub">Entrada protegida &mdash; painel de conte&uacute;do</p>
     <form method="post" action="{{ admin_path }}">
+      {{ csrf_input() }}
       <div class="field">
         <label for="username">Usu&aacute;rio</label>
         <input id="username" name="username" autocomplete="username" required>

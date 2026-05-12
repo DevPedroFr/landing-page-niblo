@@ -40,6 +40,7 @@
     <div class="panel panel-body">
       <p style="font-weight:700;margin-bottom:12px">Adicionar ou substituir arquivo</p>
       <form method="post" action="{{ url_for('admin_upload_media') }}" enctype="multipart/form-data">
+        {{ csrf_input() }}
         <div class="field">
           <label for="replace_target">Substituir arquivo existente</label>
           <select id="replace_target" name="replace_target">
@@ -51,8 +52,8 @@
         </div>
         <div class="field">
           <label for="media_file">Arquivo</label>
-          <input id="media_file" type="file" name="media_file" required>
-          <p class="hint">PNG, JPG, GIF, SVG, WEBP, MP4, WEBM &mdash; m&aacute;x. 100 MB</p>
+          <input id="media_file" type="file" name="media_file" accept=".png,.jpg,.jpeg,.webp,.gif,.avif,.mp4,.webm" required>
+          <p class="hint">PNG, JPG, GIF, WEBP, AVIF, MP4, WEBM &mdash; m&aacute;x. 100 MB</p>
         </div>
         <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:9px">
           Salvar arquivo

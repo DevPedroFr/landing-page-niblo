@@ -12,6 +12,7 @@
 
 {% block content %}
 <form id="post-form" method="post" enctype="multipart/form-data">
+  {{ csrf_input() }}
   <div class="grid-2" style="margin-bottom:14px">
     <div class="panel panel-body">
       <div class="field">
@@ -46,7 +47,7 @@
       </div>
       <div class="field">
         <label for="cover_upload">Ou envie uma nova capa</label>
-        <input id="cover_upload" type="file" name="cover_upload">
+        <input id="cover_upload" type="file" name="cover_upload" accept=".png,.jpg,.jpeg,.webp,.gif,.avif,.mp4,.webm">
       </div>
       {% if post.cover_image %}
       <div class="field">

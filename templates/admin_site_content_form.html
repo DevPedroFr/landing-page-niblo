@@ -14,6 +14,7 @@
   {# ── Form column ── #}
   <div class="panel panel-body" style="overflow-y:auto;max-height:calc(100vh - var(--topbar-h) - 56px)">
     <form id="content-form" method="post">
+      {{ csrf_input() }}
       {% for field in page_config.fields %}
       <div class="field">
         <label for="{{ field.key }}">{{ field.label }}</label>
