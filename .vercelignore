@@ -1,0 +1,7 @@
+# Vercel build ignores
+.git
+.git_bak
+__pycache__
+*.pyc
+*.pyo
+.vscode

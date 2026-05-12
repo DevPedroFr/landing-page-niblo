@@ -11,8 +11,14 @@ from werkzeug.utils import secure_filename
 
 
 BASE_DIR = Path(__file__).resolve().parent
-SITE_DIR = BASE_DIR / "landing-page-niblo"
-DATA_DIR = BASE_DIR / "data"
+# In local dev: app.py lives in niblo_site/, static files in niblo_site/landing-page-niblo/
+# On Vercel/production: app.py and static files are both at repo root
+_landing_subdir = BASE_DIR / "landing-page-niblo"
+SITE_DIR = _landing_subdir if _landing_subdir.is_dir() else BASE_DIR
+# On Vercel the filesystem is read-only except /tmp; seed committed data/ on first boot
+_IS_VERCEL = bool(os.environ.get("VERCEL"))
+_COMMITTED_DATA = BASE_DIR / "data"
+DATA_DIR = Path("/tmp/niblo-data") if _IS_VERCEL else _COMMITTED_DATA
 POSTS_FILE = DATA_DIR / "posts.json"
 SITE_CONTENT_FILE = DATA_DIR / "site_content.json"
 IMAGES_DIR = SITE_DIR / "images"
@@ -153,6 +159,13 @@ def slugify(value):
 def ensure_storage():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+    # On Vercel: copy committed JSON files to /tmp on first boot so reads work
+    if _IS_VERCEL and _COMMITTED_DATA.is_dir():
+        for src in _COMMITTED_DATA.glob("*.json"):
+            dst = DATA_DIR / src.name
+            if not dst.exists():
+                import shutil
+                shutil.copy2(src, dst)
 
 
 def deep_copy_data(value):
