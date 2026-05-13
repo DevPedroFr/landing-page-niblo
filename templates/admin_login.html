@@ -1,0 +1,32 @@
+{% extends 'admin_base.html' %}
+{% block title %}Acesso Interno{% endblock %}
+
+{% block full_body %}
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-brand">niblo<em>.</em>cloud</div>
+    <p class="login-sub">Entrada protegida &mdash; painel de conte&uacute;do</p>
+    <form method="post" action="{{ admin_path }}">
+      {{ csrf_input() }}
+      <div class="field">
+        <label for="username">Usu&aacute;rio</label>
+        <input id="username" name="username" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="password">Senha</label>
+        <input id="password" type="password" name="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:10px">Entrar</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div style="margin-top:12px">
+      {% for category, message in messages %}
+      <div class="flash flash-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+  </div>
+</div>
+{% endblock %}

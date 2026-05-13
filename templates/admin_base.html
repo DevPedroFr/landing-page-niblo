@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Painel Niblo{% endblock %} — Niblo Cloud</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root {
+      --bg: #f4f1eb;
+      --surface: #ffffff;
+      --sidebar-bg: #1a1a1a;
+      --sidebar-hover: rgba(255,255,255,0.07);
+      --sidebar-active-bg: rgba(234,91,12,0.15);
+      --sidebar-active: #f77c3a;
+      --sidebar-muted: #6a6058;
+      --accent: #ea5b0c;
+      --text: #1a1a1a;
+      --muted: #6b6259;
+      --line: #e7ddd4;
+      --success-bg: #eaf7ee;
+      --success: #1d7a44;
+      --danger-bg: #fdecec;
+      --danger: #b32116;
+      --radius: 12px;
+      --topbar-h: 52px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 14px; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg); color: var(--text); min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed; top: 0; left: 0;
+      width: 220px; height: 100vh;
+      background: var(--sidebar-bg);
+      display: flex; flex-direction: column;
+      z-index: 200; overflow-y: auto;
+    }
+    .sidebar-logo {
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .sidebar-logo .brand { font-size: 1rem; font-weight: 800; color: #fff; letter-spacing: -0.4px; }
+    .sidebar-logo .brand em { color: var(--accent); font-style: normal; }
+    .sidebar-logo small {
+      display: block; color: var(--sidebar-muted);
+      font-size: 0.68rem; margin-top: 2px; letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .sidebar-nav { padding: 10px 8px; flex: 1; }
+    .nav-section {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.9px;
+      text-transform: uppercase; color: var(--sidebar-muted);
+      padding: 10px 6px 3px;
+    }
+    .nav-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 8px; border-radius: 8px;
+      color: #bcb4ac; font-size: 0.83rem; font-weight: 500;
+      cursor: pointer; transition: background 0.12s, color 0.12s;
+      margin-bottom: 1px; border: 0; background: transparent;
+      width: 100%; text-align: left;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+    .nav-link:hover { background: var(--sidebar-hover); color: #fff; }
+    .nav-link.is-active { background: var(--sidebar-active-bg); color: var(--sidebar-active); }
+    .nav-ico { width: 16px; text-align: center; font-size: 0.88rem; flex-shrink: 0; }
+    .sidebar-footer {
+      padding: 10px 8px 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+
+    /* ── Main area ── */
+    .main { margin-left: 220px; min-height: 100vh; display: flex; flex-direction: column; }
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--surface); border-bottom: 1px solid var(--line);
+      padding: 0 24px; height: var(--topbar-h);
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      flex-shrink: 0;
+    }
+    .topbar-title { font-size: 0.92rem; font-weight: 700; }
+    .topbar-sub { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+    .content { padding: 20px 24px 40px; flex: 1; }
+
+    /* ── Flash messages ── */
+    .flash-wrap { padding: 10px 24px 0; }
+    .flash-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .flash { padding: 8px 14px; border-radius: 8px; font-weight: 600; font-size: 0.8rem; }
+    .flash-success { background: var(--success-bg); color: var(--success); }
+    .flash-error { background: var(--danger-bg); color: var(--danger); }
+
+    /* ── Panels ── */
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+    .panel-body { padding: 16px 18px; }
+    .panel-head {
+      padding: 11px 16px; border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+    }
+    .panel-head-title { font-size: 0.86rem; font-weight: 700; }
+    .panel-desc { font-size: 0.73rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── Stats row ── */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 13px 16px; }
+    .stat-num { font-size: 1.6rem; font-weight: 800; line-height: 1; }
+    .stat-label { font-size: 0.68rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+    /* ── Tables ── */
+    .table { width: 100%; border-collapse: collapse; }
+    .table th {
+      font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--muted); font-weight: 600; padding: 0 10px 8px;
+      text-align: left; border-bottom: 1px solid var(--line);
+    }
+    .table td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; font-size: 0.83rem; }
+    .table tbody tr:last-child td { border-bottom: none; }
+    .table tbody tr:hover > td { background: #faf8f5; }
+    .t-title { font-weight: 600; }
+    .t-sub { font-size: 0.71rem; color: var(--muted); margin-top: 1px; display: block; }
+
+    /* ── Badges ── */
+    .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px; font-size: 0.68rem; font-weight: 700; }
+    .badge-orange { background: #fff0e6; color: #a83a00; }
+    .badge-green { background: var(--success-bg); color: var(--success); }
+    .badge-gray { background: #f0ece6; color: var(--muted); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      border: 0; border-radius: 8px; padding: 6px 11px;
+      cursor: pointer;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.78rem; font-weight: 600;
+      text-decoration: none; white-space: nowrap; transition: opacity 0.12s;
+    }
+    .btn:hover { opacity: 0.84; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--line); }
+    .btn-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid #f0c8c8; }
+    .btn-save { background: var(--accent); color: #fff; padding: 9px 20px; font-size: 0.86rem; border-radius: 10px; border: 0; cursor: pointer; font-family: "Segoe UI", system-ui, sans-serif; font-weight: 700; }
+    .toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .row-actions { display: flex; gap: 5px; align-items: center; }
+
+    /* ── Grid helpers ── */
+    .grid-2   { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid-60-40 { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; align-items: start; }
+    .grid-45-55 { display: grid; grid-template-columns: 45fr 55fr; gap: 14px; align-items: start; }
+    .mt-14 { margin-top: 14px; }
+    .mt-20 { margin-top: 20px; }
+
+    /* ── Forms ── */
+    .field { margin-bottom: 13px; }
+    label { display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    input[type=text], input[type=date], input[type=password], input[type=file],
+    input:not([type]), textarea, select {
+      width: 100%; border: 1px solid var(--line); border-radius: 8px;
+      padding: 7px 10px;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.84rem; background: #fff; color: var(--text);
+      transition: border-color 0.12s, box-shadow 0.12s;
+    }
+    input[type=checkbox] { width: auto; }
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(234,91,12,0.09);
+    }
+    textarea { resize: vertical; min-height: 100px; }
+    .hint { font-size: 0.7rem; color: var(--muted); margin-top: 3px; }
+    .check-row { display: flex; align-items: center; gap: 8px; }
+    .check-row label { margin: 0; }
+
+    /* ── Media library ── */
+    .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 7px; margin-top: 14px; }
+    .media-tile { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #faf6f0; }
+    .media-tile img, .media-tile video { width: 100%; height: 50px; object-fit: cover; display: block; }
+    .media-tile-label { padding: 3px 5px; font-size: 0.63rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ── Content-page preview ── */
+    .preview-col { position: sticky; top: calc(var(--topbar-h) + 20px); }
+    .preview-frame { width: 100%; height: calc(100vh - var(--topbar-h) - 56px); border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+    .preview-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 8px; }
+
+    /* ── Login page ── */
+    .login-page {
+      min-height: 100vh; display: grid; place-items: center; padding: 24px;
+      background: radial-gradient(circle at top left, #fff7ef 0%, var(--bg) 55%, #eeddd0 100%);
+    }
+    .login-card {
+      width: 100%; max-width: 400px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-radius: 20px; padding: 32px;
+      border: 1px solid rgba(234,91,12,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+    .login-brand { font-size: 1.25rem; font-weight: 800; margin-bottom: 3px; }
+    .login-brand em { color: var(--accent); font-style: normal; }
+    .login-sub { font-size: 0.83rem; color: var(--muted); margin-bottom: 22px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 920px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .grid-60-40, .grid-45-55 { grid-template-columns: 1fr; }
+      .preview-col { position: static; }
+      .preview-frame { height: 480px; }
+    }
+    @media (max-width: 680px) {
+      .sidebar { width: 52px; }
+      .sidebar .nav-link span:not(.nav-ico),
+      .sidebar-logo .brand, .sidebar-logo small, .nav-section { display: none; }
+      .nav-link { justify-content: center; }
+      .main { margin-left: 52px; }
+    }
+    @media (max-width: 480px) { .sidebar { display: none; } .main { margin-left: 0; } }
+  </style>
+</head>
+<body>
+{% block full_body %}
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">niblo<em>.</em>cloud</div>
+      <small>Painel interno</small>
+    </div>
+    <div class="sidebar-nav">
+      <div class="nav-section">Vis&atilde;o geral</div>
+      <a class="nav-link {% if request.endpoint == 'admin_dashboard' %}is-active{% endif %}"
+         href="{{ url_for('admin_dashboard') }}">
+        <span class="nav-ico">&#9632;</span><span>Dashboard</span>
+      </a>
+
+      <div class="nav-section" style="margin-top:10px">Blog</div>
+      <a class="nav-link {% if request.endpoint in ('admin_posts', 'admin_edit_post') %}is-active{% endif %}"
+         href="{{ url_for('admin_posts') }}">
+        <span class="nav-ico">&#8801;</span><span>Posts</span>
+      </a>
+      <a class="nav-link {% if request.endpoint == 'admin_new_post' %}is-active{% endif %}"
+         href="{{ url_for('admin_new_post') }}">
+        <span class="nav-ico">&#43;</span><span>Novo post</span>
+      </a>
+
+      <div class="nav-section" style="margin-top:10px">Imagens</div>
+      <a class="nav-link {% if request.endpoint == 'admin_media_page' %}is-active{% endif %}"
+         href="{{ url_for('admin_media_page') }}">
+        <span class="nav-ico">&#9706;</span><span>Biblioteca</span>
+      </a>
+
+      <div class="nav-section" style="margin-top:10px">Textos do site</div>
+      {% for pg in sidebar_content_pages %}
+      <a class="nav-link {% if request.endpoint == 'admin_edit_site_content' and current_content_page == pg.key %}is-active{% endif %}"
+         href="{{ url_for('admin_edit_site_content', page_key=pg.key) }}">
+        <span class="nav-ico">&#9671;</span><span>{{ pg.label_short }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    <div class="sidebar-footer">
+      <form method="post" action="{{ url_for('admin_logout') }}" style="margin:0">
+        {{ csrf_input() }}
+        <button type="submit" class="nav-link">
+          <span class="nav-ico">&#8617;</span><span>Sair</span>
+        </button>
+      </form>
+    </div>
+  </nav>
+
+  <div class="main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-wrap">
+      <div class="flash-group">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">{% block page_title %}Painel{% endblock %}</div>
+        <div class="topbar-sub">{% block topbar_sub %}{% endblock %}</div>
+      </div>
+      <div class="toolbar">{% block topbar_actions %}{% endblock %}</div>
+    </div>
+
+    <div class="content">{% block content %}{% endblock %}</div>
+  </div>
+{% endblock %}
+</body>
+</html>

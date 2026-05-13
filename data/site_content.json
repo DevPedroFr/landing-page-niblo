@@ -1,0 +1,69 @@
+{
+  "common": {
+    "whatsapp_title": "💬 Fale com a Niblo",
+    "whatsapp_support_title": "Suporte Técnico",
+    "whatsapp_support_subtitle": "Abertura de chamados",
+    "whatsapp_sales_title": "Time Comercial",
+    "whatsapp_sales_subtitle": "Planos e propostas",
+    "exit_title_html": "Antes de ir, que tal<br><span class=\"exit-highlight\">economizar de verdade?</span>",
+    "exit_text": "Fale com nosso time e descubra quanto você pode economizar migrando para a Niblo Cloud.",
+    "exit_cta": "Falar com especialista",
+    "exit_dismiss": "Agora não"
+  },
+  "home": {
+    "hero_title_html": "Não é sobre estar nas nuvens é sobre ter a sua cloud <span class=\"highlight-dark\">sob medida.</span><br>Flexibilidade real para negócios que nasceram para ser <span class=\"highlight-dark\">disruptivos.</span>",
+    "hero_primary_cta": "Migrar para Niblo →",
+    "hero_secondary_cta": "Ver soluções",
+    "stats_title": "Números que demonstram nossa capacidade",
+    "partners_tag": "Parceiros",
+    "partners_title": "Parceiros que completam, soluções que evoluem",
+    "partners_points_html": "<div class=\"parceiros-point\"><div class=\"point-dot\"></div><p>Somos mais do que uma cloud somos o elemento estratégico que faltava para destravar o crescimento do seu negócio.</p></div><div class=\"parceiros-point\"><div class=\"point-dot\"></div><p>Enquanto você foca no que faz de melhor, nós garantimos a infraestrutura que sustenta sua evolução. Atuamos como um parceiro de verdade, permitindo que você amplie sua oferta de serviços, gere novas receitas e entregue ainda mais valor aos seus clientes sem aumentar a complexidade operacional.</p></div><div class=\"parceiros-point\"><div class=\"point-dot\"></div><p>Com nossa cloud, sua marca ganha força, sua proposta se torna mais competitiva e suas oportunidades se expandem de forma consistente.</p></div><div class=\"parceiros-point\"><div class=\"point-dot\"></div><p>Oferecemos performance, segurança e confiabilidade para que você incorpore nossa solução ao seu portfólio com tranquilidade, transformando tecnologia em vantagem competitiva.</p></div><div class=\"parceiros-point\"><div class=\"point-dot\"></div><p>Sua expertise cria possibilidades. Nossa cloud torna tudo viável.</p></div>",
+    "partners_cta": "Seja nosso parceiro →",
+    "news_tag": "Últimas notícias",
+    "news_title": "Esteja por dentro do mundo cloud"
+  },
+  "solucoes": {
+    "intro_tag": "Soluções",
+    "intro_title": "Você sabe o quanto pode economizar migrando para a Niblo Cloud?",
+    "intro_desc_html": "Migrar para a cloud certa vai muito além de reduzir custos — é sobre ganhar controle, eficiência e tranquilidade no dia a dia. Modelos em nuvem eliminam investimentos em infraestrutura própria, manutenção e energia, além de permitir pagar apenas pelo que é utilizado, tornando os gastos mais previsíveis e fáceis de planejar.<br><br>Com a Niblo Cloud, você transforma tecnologia em vantagem competitiva.",
+    "intro_cta": "Falar com um especialista →",
+    "features_html": "<li class=\"feature-item reveal\"><div class=\"feature-icon\"></div><div class=\"feature-text\"><h4>Segurança de verdade</h4><p>Infraestrutura robusta com monitoramento constante e recursos avançados de proteção de dados.</p></div></li><li class=\"feature-item reveal\"><div class=\"feature-icon\"></div><div class=\"feature-text\"><h4>Atendimento facilitado e rápido</h4><p>Suporte próximo, ágil e preparado para resolver demandas com velocidade, mantendo sua operação sempre disponível.</p></div></li><li class=\"feature-item reveal\"><div class=\"feature-icon\"></div><div class=\"feature-text\"><h4>Preços acessíveis</h4><p>Reduza custos com hardware, manutenção e equipe dedicada. Modelo mais econômico e eficiente.</p></div></li><li class=\"feature-item reveal\"><div class=\"feature-icon\"></div><div class=\"feature-text\"><h4>Previsibilidade de custos</h4><p>Modelo transparente e escalável — você sabe exatamente quanto vai investir, sem surpresas no orçamento.</p></div></li>",
+    "multicloud_tag": "Multi-Cloud",
+    "multicloud_title": "Nos conectamos com as clouds públicas",
+    "multicloud_subtitle": "Integração de dados, escalabilidade e segurança no seu ambiente",
+    "infra_tag": "Certificações",
+    "infra_title": "Nossa Infraestrutura: Garantia de Continuidade e Segurança",
+    "infra_intro": "Operamos sob os mais rígidos padrões internacionais para garantir que sua operação nunca pare. Nossas certificações atestam o compromisso com a resiliência e a proteção de dados:",
+    "esg_tag": "ESG",
+    "esg_title": "Compromisso com o Futuro: Nossa Jornada ESG",
+    "esg_intro": "Mais do que uma tendência, o ESG é o pilar que sustenta nossa operação. Nossas certificações e práticas de gestão refletem um compromisso genuíno com a ética e a preservação do planeta:"
+  },
+  "sobre": {
+    "hero_tag": "Sobre nós",
+    "hero_title": "Missão, Visão e Valores",
+    "hero_intro": "Passe o mouse sobre os cards para conhecer o que nos move.",
+    "mission_html": "Prover a liberdade digital através de uma <strong>Cloud flexível</strong>, personalizada e segura, que se adapta à estratégia de cada operação.",
+    "vision_html": "Ser reconhecida como a Cloud que rompe o padrão do mercado, tornando-se referência em soluções <strong>sob medida e disruptivas</strong>, onde cada empresa da nossa rede encontra flexibilidade real para evoluir com autonomia, previsibilidade e alta performance.",
+    "values_html": "<li>• <strong>Conexão estratégica</strong></li><li>• <strong>Flexibilidade verdadeira</strong></li><li>• <strong>Personalização</strong></li><li>• <strong>Inovação com impacto</strong></li><li>• <strong>Proximidade ativa</strong></li><li>• <strong>Excelência operacional</strong></li><li>• <strong>Evolução permanente</strong></li>",
+    "who_tag": "Quem somos",
+    "who_title": "Uma cloud que é parceira do seu negócio",
+    "who_body_html": "<p class=\"section-desc\">Há 24 anos, um grupo de profissionais visionários uniu experiência e paixão por tecnologia para acelerar a jornada digital das empresas. Dessa trajetória de evolução constante e compreensão profunda das necessidades do mercado nasce a:</p><p class=\"section-desc\"><strong>NIBLO</strong> uma marca de identidade jovem, mas sustentada por mais de duas décadas de solidez técnica.</p><p class=\"section-desc\">Carregamos a maturidade de quem acompanhou a transformação digital desde o início e a energia de quem continua inovando todos os dias, transformando 24 anos de história em soluções de Cloud que atendem organizações de diversos portes com eficiência e confiabilidade.</p><p class=\"section-desc\">Nossa atuação vai além da entrega de infraestrutura; somos parceiros estratégicos que oferecem consultoria especializada, suporte próximo e soluções que permitem escalar operações com segurança, performance e previsibilidade de custos. Acreditamos que a tecnologia cumpre seu papel quando simplifica processos e potencializa resultados reais. Por isso, mantemos padrões rigorosos de qualidade em toda a nossa operação, seguindo comprometidos com o propósito de ajudar empresas a crescer com confiança e construir, junto aos nossos clientes, o futuro digital que já começou.</p>",
+    "coverage_tag": "Cobertura",
+    "coverage_title": "Onde atendemos",
+    "coverage_body_html": "Nossa infraestrutura já está em <strong>São Paulo e Fortaleza</strong>, garantindo performance, segurança e disponibilidade para operações críticas.<br><br>Agora, damos mais um passo em nossa evolução: <strong>em breve estaremos também nos Estados Unidos</strong>, ampliando nossa presença e aproximando ainda mais nossos serviços de clientes e parceiros internacionais. Mais presença, mais conectividade, mais possibilidades para o seu negócio.<br><br>E os nossos planos não param por aí, em 2028 desembarcaremos na <strong>Europa</strong>. Um novo horizonte de conectividade para romper fronteiras e impulsionar o crescimento da sua empresa em escala mundial."
+  },
+  "parceiros": {
+    "hero_tag": "Seja parceiro",
+    "hero_title": "Seja nosso parceiro comercial",
+    "hero_intro": "Preencha o formulário e nossa equipe de marketing entrará em contato para apresentar as oportunidades de parceria."
+  },
+  "contato": {
+    "hero_tag": "Contato",
+    "hero_title": "Entre em contato com nosso time",
+    "hero_intro": "Preencha o formulário e nossa equipe retornará em até 24 horas úteis para entender como podemos ajudar."
+  },
+  "blog": {
+    "hero_tag": "Blog",
+    "hero_title": "Esteja por dentro das últimas notícias"
+  }
+}

@@ -1,0 +1,12 @@
+{% extends 'site_base.html' %}
+
+{% block title %}{{ post.title }} — Niblo Cloud{% endblock %}
+
+{% block content %}
+<div class="blog-post-container blog-loaded">
+  <div class="blog-post-title">{{ post.title }}</div>
+  <div class="blog-post-meta">Publicado em {{ post.published_at | date_br }} • Autor: {{ post.author }}</div>
+  <div class="blog-post-content">{{ post.content | safe }}</div>
+  <div class="blog-post-footer">Niblo Cloud • Soluções em Cloud sob medida</div>
+</div>
+{% endblock %}

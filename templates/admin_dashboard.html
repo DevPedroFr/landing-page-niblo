@@ -1,0 +1,93 @@
+{% extends 'admin_base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block topbar_sub %}Vis&atilde;o geral do conte&uacute;do do site{% endblock %}
+{% block topbar_actions %}
+  <a class="btn btn-primary" href="{{ url_for('admin_new_post') }}">&#43; Novo post</a>
+{% endblock %}
+
+{% block content %}
+
+{# ── Stats ── #}
+{% set published = posts | selectattr('is_published') | list | length %}
+{% set drafts = posts | length - published %}
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-num">{{ posts | length }}</div>
+    <div class="stat-label">Posts totais</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" style="color:var(--success)">{{ published }}</div>
+    <div class="stat-label">Publicados</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" style="color:var(--muted)">{{ drafts }}</div>
+    <div class="stat-label">Rascunhos</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">{{ media_count }}</div>
+    <div class="stat-label">Arquivos de m&iacute;dia</div>
+  </div>
+</div>
+
+{# ── Quick links ── #}
+<div class="grid-2" style="margin-bottom:14px">
+
+  <div class="panel panel-body">
+    <p style="font-weight:700;margin-bottom:10px">Blog</p>
+    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:14px">Publicados aparecem em /blog.html e alimentam a home.</p>
+    <div class="toolbar">
+      <a class="btn btn-secondary" href="{{ url_for('admin_posts') }}">Ver todos os posts</a>
+      <a class="btn btn-primary" href="{{ url_for('admin_new_post') }}">&#43; Novo post</a>
+    </div>
+  </div>
+
+  <div class="panel panel-body">
+    <p style="font-weight:700;margin-bottom:10px">Imagens &amp; m&iacute;dia</p>
+    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:14px">Substitua ou adicione imagens, gifs e v&iacute;deos usados no site.</p>
+    <div class="toolbar">
+      <a class="btn btn-secondary" href="{{ url_for('admin_media_page') }}">Abrir biblioteca</a>
+    </div>
+  </div>
+
+</div>
+
+{# ── Textos por página ── #}
+<div class="panel">
+  <div class="panel-head">
+    <div>
+      <div class="panel-head-title">Textos por p&aacute;gina</div>
+      <div class="panel-desc">Clique em Editar para alterar os textos de cada p&aacute;gina com preview ao vivo.</div>
+    </div>
+  </div>
+  <div class="panel-body" style="padding:0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>P&aacute;gina</th>
+          <th>Campos</th>
+          <th>A&ccedil;&otilde;es</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for page in content_pages %}
+        <tr>
+          <td>
+            <span class="t-title">{{ page.label }}</span>
+            <span class="t-sub">{{ page.description }}</span>
+          </td>
+          <td class="t-title">{{ page.field_count }}</td>
+          <td>
+            <div class="row-actions">
+              <a class="btn btn-secondary" href="{{ url_for('admin_edit_site_content', page_key=page.key) }}">Editar</a>
+              <a class="btn btn-secondary" href="{{ page.preview_path }}" target="_blank" rel="noopener noreferrer">Ver</a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
